@@ -1,0 +1,1 @@
+impl Future<Output = std::result::Result<monitor::performance::PerformanceMetrics, Box<(dyn std::error::Error + Send + Sync + 'static)>>>

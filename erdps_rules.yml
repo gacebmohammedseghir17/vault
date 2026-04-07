@@ -1,0 +1,87 @@
+# Prometheus alerting and recording rules for ERDPS Agent enterprise validation
+groups:
+  - name: erdps_enterprise_validation
+    rules:
+      # Recording rules for aggregated metrics
+      - record: erdps:mttd_seconds:avg
+        expr: avg(erdps_mttd_seconds)
+        
+      - record: erdps:cpu_overhead:avg
+        expr: avg(erdps_cpu_overhead_percent)
+        
+      - record: erdps:memory_overhead:avg
+        expr: avg(erdps_memory_overhead_bytes) / 1024 / 1024
+        
+      - record: erdps:false_positives:rate
+        expr: rate(erdps_false_positives_total[5m])
+        
+      # Alerting rules for SLA violations
+      - alert: HighMTTD
+        expr: erdps_mttd_seconds > 60
+        for: 1m
+        labels:
+          severity: critical
+          component: detection
+        annotations:
+          summary: "ERDPS Agent MTTD exceeds 60 seconds"
+          description: "Mean Time to Detection is {{ $value }}s, exceeding the 60s SLA threshold"
+          
+      - alert: HighCPUOverhead
+        expr: erdps_cpu_overhead_percent > 5
+        for: 2m
+        labels:
+          severity: warning
+          component: performance
+        annotations:
+          summary: "ERDPS Agent CPU overhead too high"
+          description: "CPU overhead is {{ $value }}%, exceeding the 5% threshold"
+          
+      - alert: HighMemoryOverhead
+        expr: erdps_memory_overhead_bytes / 1024 / 1024 > 100
+        for: 2m
+        labels:
+          severity: warning
+          component: performance
+        annotations:
+          summary: "ERDPS Agent memory overhead too high"
+          description: "Memory overhead is {{ $value }}MB, exceeding the 100MB threshold"
+          
+      - alert: FalsePositiveDetected
+        expr: increase(erdps_false_positives_total[5m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+          component: accuracy
+        annotations:
+          summary: "False positive detected in ERDPS Agent"
+          description: "{{ $value }} false positives detected in the last 5 minutes"
+          
+      - alert: NetworkExfiltrationMissed
+        expr: rate(network_exfiltration_attempts_total[5m]) > 0 and rate(network_exfiltration_alerts_total[5m]) == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: detection
+        annotations:
+          summary: "Network exfiltration attempts not detected"
+          description: "Network exfiltration attempts detected but no alerts generated"
+          
+      - alert: AgentDown
+        expr: up{job="erdps-agent"} == 0
+        for: 30s
+        labels:
+          severity: critical
+          component: availability
+        annotations:
+          summary: "ERDPS Agent is down"
+          description: "ERDPS Agent has been down for more than 30 seconds"
+          
+      - alert: ValidationTestsFailing
+        expr: erdps_validation_tests_failed > 0
+        for: 0m
+        labels:
+          severity: critical
+          component: validation
+        annotations:
+          summary: "Enterprise validation tests failing"
+          description: "{{ $value }} enterprise validation tests are currently failing"

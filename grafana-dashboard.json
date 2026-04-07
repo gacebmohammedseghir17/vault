@@ -1,0 +1,245 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "ERDPS Agent Monitoring",
+    "tags": ["erdps", "security", "monitoring"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "CPU Usage",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "cpu_usage_percent",
+            "legendFormat": "CPU %"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Memory Usage",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "memory_usage_bytes",
+            "legendFormat": "Memory"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "bytes"
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "Files Scanned Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(files_scanned_total[5m])",
+            "legendFormat": "Files/sec"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}
+      },
+      {
+        "id": 4,
+        "title": "Detection Response Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, detection_response_seconds_bucket)",
+            "legendFormat": "95th percentile"
+          },
+          {
+            "expr": "histogram_quantile(0.50, detection_response_seconds_bucket)",
+            "legendFormat": "50th percentile"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
+      },
+      {
+        "id": 5,
+        "title": "YARA Rules Loaded",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "rules_loaded_total",
+            "legendFormat": "Rules"
+          }
+        ],
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 16}
+      },
+      {
+        "id": 6,
+        "title": "YARA Scan Duration",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, yara_scan_duration_seconds_bucket)",
+            "legendFormat": "95th percentile"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 18, "x": 6, "y": 16}
+      },
+      {
+        "id": 7,
+        "title": "Mean Time to Detection (MTTD)",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "erdps_mttd_seconds",
+            "legendFormat": "MTTD (seconds)"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s",
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "yellow", "value": 30},
+                {"color": "red", "value": 60}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 8, "w": 6, "x": 0, "y": 24}
+      },
+      {
+        "id": 8,
+        "title": "False Positives Count",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "erdps_false_positives_total",
+            "legendFormat": "False Positives"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": 0},
+                {"color": "yellow", "value": 1},
+                {"color": "red", "value": 5}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 8, "w": 6, "x": 6, "y": 24}
+      },
+      {
+        "id": 9,
+        "title": "Network Exfiltration Alerts",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(network_exfiltration_alerts_total[5m])",
+            "legendFormat": "Alerts/sec"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 24}
+      },
+      {
+        "id": 10,
+        "title": "Detection Latency per Sample",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, erdps_sample_detection_seconds_bucket)",
+            "legendFormat": "95th percentile"
+          },
+          {
+            "expr": "histogram_quantile(0.50, erdps_sample_detection_seconds_bucket)",
+            "legendFormat": "50th percentile"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s"
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 32}
+      },
+      {
+        "id": 11,
+        "title": "CPU & Memory Overhead",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "erdps_cpu_overhead_percent",
+            "legendFormat": "CPU Overhead %"
+          },
+          {
+            "expr": "erdps_memory_overhead_bytes / 1024 / 1024",
+            "legendFormat": "Memory Overhead (MB)"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent"
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 32}
+      },
+      {
+        "id": 12,
+        "title": "Real Application Testing Status",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "erdps_app_test_status",
+            "legendFormat": "{{application}}",
+            "format": "table"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 40}
+      },
+      {
+        "id": 13,
+        "title": "Enterprise Validation Summary",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "erdps_validation_tests_passed",
+            "legendFormat": "Tests Passed"
+          },
+          {
+            "expr": "erdps_validation_tests_failed",
+            "legendFormat": "Tests Failed"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "red", "value": 1}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 40}
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "5s"
+  }
+}

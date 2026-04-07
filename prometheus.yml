@@ -1,0 +1,41 @@
+# Prometheus configuration for ERDPS Agent monitoring
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # ERDPS Agent metrics endpoint
+  - job_name: 'erdps_agent'
+    static_configs:
+      - targets: ['localhost:9090']
+    scrape_interval: 5s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+    honor_labels: true
+    
+  # Self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Optional: Windows exporter for system metrics
+  - job_name: 'windows-exporter'
+    static_configs:
+      - targets: ['localhost:9182']
+    scrape_interval: 30s
+    honor_labels: true
+
+# Alerting configuration (optional)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Recording rules for enterprise validation metrics
+rule_files:
+  - "erdps_rules.yml"

@@ -1,0 +1,79 @@
+# Minimal ERDPS Agent Configuration for testing
+
+# IPC Configuration
+ipc_key = "ZGVmYXVsdF9rZXlfZm9yX3Rlc3Rpbmc="
+
+# Detection Rules
+rules_enabled = [
+    "mass_modification",
+    "extension_mutation", 
+    "ransom_note_detection",
+    "entropy_analysis",
+    "process_behavior"
+]
+
+# YARA Configuration
+[yara]
+enabled = true
+rules_path = "rules/"
+scan_directories = ["C:\\Users"]
+excluded_directories = ["C:\\Windows\\System32"]
+file_extensions = [".exe", ".dll", ".bat", ".ps1", ".vbs", ".js"]
+max_file_size_mb = 100
+scan_timeout_seconds = 30
+max_concurrent_scans = 4
+memory_chunk_size = 1048576
+
+[yara.real_time_monitoring]
+enabled = true
+watch_directories = ["C:\\Users"]
+scan_on_write = true
+scan_on_create = true
+scan_on_modify = false
+debounce_ms = 1000
+
+[yara.periodic_scan]
+enabled = true
+interval_minutes = 60
+full_system_scan_hours = 24
+
+[yara.performance]
+memory_limit_mb = 512
+cpu_limit_percent = 25
+io_priority = "low"
+
+[yara.alerts]
+send_to_dashboard = true
+log_to_file = true
+severity_threshold = "medium"
+
+# Basic settings
+quarantine_path = "C:\\ProgramData\\ERDPS\\quarantine"
+audit_log_path = "C:\\ProgramData\\ERDPS\\logs\\audit.log"
+mass_modification_count = 50
+mass_modification_window_secs = 60
+extension_mutation_window_secs = 300
+extension_mutation_threshold = 0.8
+entropy_threshold = 7.0
+auto_quarantine_score = 80
+mitigation_score_threshold = 70
+process_monitoring_enabled = true
+suspicious_process_threshold = 10
+process_behavior_window_secs = 300
+process_behavior_write_threshold = 100
+network_monitoring_enabled = true
+suspicious_network_threshold = 20
+max_concurrent_scans = 4
+scan_timeout_secs = 300
+memory_limit_mb = 512
+auto_mitigate = true
+allow_terminate = false
+dry_run = false
+
+# Ransom Note Patterns
+ransom_note_patterns = [
+    "README",
+    "DECRYPT", 
+    "RANSOM",
+    "PAYMENT"
+]

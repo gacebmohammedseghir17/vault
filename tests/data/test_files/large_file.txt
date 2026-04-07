@@ -1,0 +1,11 @@
+This is a large test file for performance testing.
+" + "A".repeat(1000) + "
+Large content section 1
+" + "B".repeat(1000) + "
+Large content section 2
+" + "C".repeat(1000) + "
+Mid-file content with MALWARE_SIGNATURE_TEST for detection
+" + "D".repeat(1000) + "
+Large content section 3
+" + "E".repeat(1000) + "
+End of large file content

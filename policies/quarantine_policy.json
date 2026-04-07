@@ -1,0 +1,11 @@
+{
+  "actions": [
+    {
+      "type": "quarantine",
+      "paths": [
+        "..\\ransom_sim_sandbox\\README_RESTORE_FILES.txt",
+        "..\\ransom_sim_sandbox\\document_1.cfg.ransom_test"
+      ]
+    }
+  ]
+}

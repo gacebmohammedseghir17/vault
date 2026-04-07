@@ -1,0 +1,13 @@
+# Grafana Dashboard Provisioning Configuration for ERDPS Agent
+apiVersion: 1
+
+providers:
+  - name: 'ERDPS Dashboards'
+    orgId: 1
+    folder: 'ERDPS'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards/erdps

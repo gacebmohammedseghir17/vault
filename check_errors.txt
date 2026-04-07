@@ -1,0 +1,2864 @@
+﻿cargo :     Checking erdps-agent v0.1.0 (D:\projecttttttttts\project-ransolution\agent)
+Au caractère Ligne:1 : 1
++ cargo check 2>&1 | Out-File -FilePath check_errors.txt -Encoding utf8
++ ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking er...solution\agent):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error: cannot find macro `debug` in this scope
+    --> src\deployment\config_management.rs:1150:21
+     |
+1150 |                     debug!("Configuration cache hit for environment: {}", environment);
+     |                     ^^^^^
+     |
+help: consider importing one of these macros
+     |
+7    + use log::debug;
+     |
+7    + use tracing::debug;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\config_management.rs:1242:9
+     |
+1242 |         info!("Configuration updated for environment: {}", environment);
+     |         ^^^^
+     |
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::info;
+     |
+7    + use crate::info;
+     |
+7    + use log::info;
+     |
+7    + use tracing::info;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\config_management.rs:1495:9
+     |
+1495 |         info!("Configuration rolled back for environment: {} to change: {}", environment, target_change_id);
+     |         ^^^^
+     |
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::info;
+     |
+7    + use crate::info;
+     |
+7    + use log::info;
+     |
+7    + use tracing::info;
+     |
+
+error: cannot find macro `info` in this scope
+   --> src\deployment\health_checks.rs:549:9
+    |
+549 |         info!("Health check added: {}", checks.len());
+    |         ^^^^
+    |
+help: consider importing one of these macros
+    |
+7   + use crate::deployment::info;
+    |
+7   + use crate::info;
+    |
+7   + use log::info;
+    |
+7   + use tracing::info;
+    |
+
+error: cannot find macro `info` in this scope
+   --> src\deployment\health_checks.rs:559:13
+    |
+559 |             info!("Health check removed: {}", check_id);
+    |             ^^^^
+    |
+help: consider importing one of these macros
+    |
+7   + use crate::deployment::info;
+    |
+7   + use crate::info;
+    |
+7   + use log::info;
+    |
+7   + use tracing::info;
+    |
+
+error: cannot find macro `info` in this scope
+   --> src\deployment\health_checks.rs:631:9
+    |
+631 |         info!("Executed {} health checks", results.len());
+    |         ^^^^
+    |
+help: consider importing one of these macros
+    |
+7   + use crate::deployment::info;
+    |
+7   + use crate::info;
+    |
+7   + use log::info;
+    |
+7   + use tracing::info;
+    |
+
+error: cannot find macro `debug` in this scope
+   --> src\deployment\health_checks.rs:641:9
+    |
+641 |         debug!("Executing health check: {} ({})", check.name, check.id);
+    |         ^^^^^
+    |
+help: consider importing one of these macros
+    |
+7   + use log::debug;
+    |
+7   + use tracing::debug;
+    |
+
+error: cannot find macro `debug` in this scope
+   --> src\deployment\health_checks.rs:649:21
+    |
+649 |                     debug!("Health check {} completed successfully", check.id);
+    |                     ^^^^^
+    |
+help: consider importing one of these macros
+    |
+7   + use log::debug;
+    |
+7   + use tracing::debug;
+    |
+
+error: cannot find macro `debug` in this scope
+   --> src\deployment\health_checks.rs:657:25
+    |
+657 |                         debug!("Health check {} failed, retrying ({}/{})", check.id, retry_count, check.config.retries);
+    |                         ^^^^^
+    |
+help: consider importing one of these macros
+    |
+7   + use log::debug;
+    |
+7   + use tracing::debug;
+    |
+
+error: cannot find macro `warn` in this scope
+   --> src\deployment\health_checks.rs:667:9
+    |
+667 |         warn!("Health check {} failed after {} retries", check.id, check.config.retries);
+    |         ^^^^
+    |
+    = note: `warn` is in scope, but it is an attribute: `#[warn]`
+help: consider importing one of these macros
+    |
+7   + use crate::deployment::warn;
+    |
+7   + use crate::warn;
+    |
+7   + use log::warn;
+    |
+7   + use tracing::warn;
+    |
+
+error: cannot find macro `info` in this scope
+   --> src\deployment\multi_region.rs:949:9
+    |
+949 |         info!("Starting multi-region deployment {} to regions: {:?}", deployment_id, target_regions);
+    |         ^^^^
+    |
+help: consider importing one of these macros
+    |
+7   + use crate::deployment::info;
+    |
+7   + use crate::info;
+    |
+7   + use log::info;
+    |
+7   + use tracing::info;
+    |
+
+error: cannot find macro `error` in this scope
+    --> src\deployment\multi_region.rs:1051:21
+     |
+1051 |                     error!("Deployment task failed for region {}: {}", region, e);
+     |                     ^^^^^
+     |
+     = note: `error` is an attribute that can be used by the derive macro `Error`, you might be missing a `derive` attribute
+help: consider importing one of these macros
+     |
+7    + use crate::error;
+     |
+7    + use log::error;
+     |
+7    + use tracing::error;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\multi_region.rs:1078:13
+     |
+1078 |             info!("Deploying to region: {}", region);
+     |             ^^^^
+     |
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::info;
+     |
+7    + use crate::info;
+     |
+7    + use log::info;
+     |
+7    + use tracing::info;
+     |
+
+error: cannot find macro `error` in this scope
+    --> src\deployment\multi_region.rs:1109:25
+     |
+1109 |                         error!("Deployment failed in region {}, stopping sequential deployment", region);
+     |                         ^^^^^
+     |
+     = note: `error` is an attribute that can be used by the derive macro `Error`, you might be missing a `derive` attribute
+help: consider importing one of these macros
+     |
+7    + use crate::error;
+     |
+7    + use log::error;
+     |
+7    + use tracing::error;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\multi_region.rs:1130:13
+     |
+1130 |             info!("Deploying to primary region: {}", primary_region);
+     |             ^^^^
+     |
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::info;
+     |
+7    + use crate::info;
+     |
+7    + use log::info;
+     |
+7    + use tracing::info;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\multi_region.rs:1176:13
+     |
+1176 |             info!("Executing rollout phase: {}", phase.name);
+     |             ^^^^
+     |
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::info;
+     |
+7    + use crate::info;
+     |
+7    + use log::info;
+     |
+7    + use tracing::info;
+     |
+
+error: cannot find macro `warn` in this scope
+    --> src\deployment\multi_region.rs:1193:21
+     |
+1193 |                     warn!("Phase {} failed success criteria, stopping rollout", phase.name);
+     |                     ^^^^
+     |
+     = note: `warn` is in scope, but it is an attribute: `#[warn]`
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::warn;
+     |
+7    + use crate::warn;
+     |
+7    + use log::warn;
+     |
+7    + use tracing::warn;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\multi_region.rs:1212:9
+     |
+1212 |         info!("Deploying to green environment in all regions");
+     |         ^^^^
+     |
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::info;
+     |
+7    + use crate::info;
+     |
+7    + use log::info;
+     |
+7    + use tracing::info;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\multi_region.rs:1220:13
+     |
+1220 |             info!("All regions healthy, switching traffic globally");
+     |             ^^^^
+     |
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::info;
+     |
+7    + use crate::info;
+     |
+7    + use log::info;
+     |
+7    + use tracing::info;
+     |
+
+error: cannot find macro `warn` in this scope
+    --> src\deployment\multi_region.rs:1224:13
+     |
+1224 |             warn!("Some regions unhealthy, rolling back deployment");
+     |             ^^^^
+     |
+     = note: `warn` is in scope, but it is an attribute: `#[warn]`
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::warn;
+     |
+7    + use crate::warn;
+     |
+7    + use log::warn;
+     |
+7    + use tracing::warn;
+     |
+
+error: cannot find macro `warn` in this scope
+    --> src\deployment\multi_region.rs:1256:17
+     |
+1256 |                 warn!("Success criterion not met: {} {} {}", criterion.metric, criterion.target_value, metric_value);
+     |                 ^^^^
+     |
+     = note: `warn` is in scope, but it is an attribute: `#[warn]`
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::warn;
+     |
+7    + use crate::warn;
+     |
+7    + use log::warn;
+     |
+7    + use tracing::warn;
+     |
+
+error: cannot find macro `warn` in this scope
+    --> src\deployment\multi_region.rs:1272:17
+     |
+1272 |                 warn!("Health check failed for region: {}", region);
+     |                 ^^^^
+     |
+     = note: `warn` is in scope, but it is an attribute: `#[warn]`
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::warn;
+     |
+7    + use crate::warn;
+     |
+7    + use log::warn;
+     |
+7    + use tracing::warn;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\multi_region.rs:1283:13
+     |
+1283 |             info!("Switching traffic in region: {}", region);
+     |             ^^^^
+     |
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::info;
+     |
+7    + use crate::info;
+     |
+7    + use log::info;
+     |
+7    + use tracing::info;
+     |
+
+error: cannot find macro `warn` in this scope
+    --> src\deployment\multi_region.rs:1294:13
+     |
+1294 |             warn!("Rolling back deployment in region: {}", region);
+     |             ^^^^
+     |
+     = note: `warn` is in scope, but it is an attribute: `#[warn]`
+help: consider importing one of these macros
+     |
+7    + use crate::deployment::warn;
+     |
+7    + use crate::warn;
+     |
+7    + use log::warn;
+     |
+7    + use tracing::warn;
+     |
+
+error: cannot find macro `debug` in this scope
+   --> src\deployment\metrics.rs:924:9
+    |
+924 |         debug!("Recorded counter metric: {} = {}", name, counter.value);
+    |         ^^^^^
+    |
+help: consider importing one of these macros
+    |
+6   + use log::debug;
+    |
+6   + use tracing::debug;
+    |
+
+error: cannot find macro `debug` in this scope
+   --> src\deployment\metrics.rs:951:9
+    |
+951 |         debug!("Recorded gauge metric: {} = {}", name, value);
+    |         ^^^^^
+    |
+help: consider importing one of these macros
+    |
+6   + use log::debug;
+    |
+6   + use tracing::debug;
+    |
+
+error: cannot find macro `debug` in this scope
+   --> src\deployment\metrics.rs:999:9
+    |
+999 |         debug!("Recorded histogram metric: {} = {}", name, value);
+    |         ^^^^^
+    |
+help: consider importing one of these macros
+    |
+6   + use log::debug;
+    |
+6   + use tracing::debug;
+    |
+
+error: cannot find macro `error` in this scope
+    --> src\deployment\metrics.rs:1129:17
+     |
+1129 |                 error!("Failed to export metrics with {}: {}", exporter.name(), e);
+     |                 ^^^^^
+     |
+     = note: `error` is an attribute that can be used by the derive macro `Error`, you might be missing a `derive` attribute
+help: consider importing one of these macros
+     |
+6    + use crate::error;
+     |
+6    + use log::error;
+     |
+6    + use tracing::error;
+     |
+
+error: cannot find macro `debug` in this scope
+    --> src\deployment\metrics.rs:1131:17
+     |
+1131 |                 debug!("Successfully exported {} samples with {}", samples.len(), exporter.name());
+     |                 ^^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use log::debug;
+     |
+6    + use tracing::debug;
+     |
+
+error: cannot find macro `debug` in this scope
+    --> src\deployment\metrics.rs:1157:21
+     |
+1157 |                     debug!("Collected {} samples from collector: {}", samples.len(), name);
+     |                     ^^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use log::debug;
+     |
+6    + use tracing::debug;
+     |
+
+error: cannot find macro `error` in this scope
+    --> src\deployment\metrics.rs:1164:21
+     |
+1164 |                     error!("Failed to collect metrics from {}: {}", name, e);
+     |                     ^^^^^
+     |
+     = note: `error` is an attribute that can be used by the derive macro `Error`, you might be missing a `derive` attribute
+help: consider importing one of these macros
+     |
+6    + use crate::error;
+     |
+6    + use log::error;
+     |
+6    + use tracing::error;
+     |
+
+error: cannot find macro `debug` in this scope
+    --> src\deployment\metrics.rs:1186:17
+     |
+1186 |                 debug!("Processing summary sample: {}", sample.name);
+     |                 ^^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use log::debug;
+     |
+6    + use tracing::debug;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\service_discovery.rs:1061:9
+     |
+1061 |         info!("Registered service: {} ({})", service.name, service.id);
+     |         ^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use crate::deployment::info;
+     |
+6    + use crate::info;
+     |
+6    + use log::info;
+     |
+6    + use tracing::info;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\service_discovery.rs:1076:9
+     |
+1076 |         info!("Deregistered service: {}", service_id);
+     |         ^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use crate::deployment::info;
+     |
+6    + use crate::info;
+     |
+6    + use log::info;
+     |
+6    + use tracing::info;
+     |
+
+error: cannot find macro `debug` in this scope
+    --> src\deployment\service_discovery.rs:1095:9
+     |
+1095 |         debug!("Discovered {} services for {}", services.len(), service_name);
+     |         ^^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use log::debug;
+     |
+6    + use tracing::debug;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\service_discovery.rs:1121:9
+     |
+1121 |         info!("Updated service: {} ({})", service.name, service.id);
+     |         ^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use crate::deployment::info;
+     |
+6    + use crate::info;
+     |
+6    + use log::info;
+     |
+6    + use tracing::info;
+     |
+
+error: cannot find macro `info` in this scope
+   --> src\deployment\circuit_breaker.rs:886:13
+    |
+886 |             info!("Created circuit breaker for service: {}", service_name);
+    |             ^^^^
+    |
+help: consider importing one of these macros
+    |
+6   + use crate::deployment::info;
+    |
+6   + use crate::info;
+    |
+6   + use log::info;
+    |
+6   + use tracing::info;
+    |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\circuit_breaker.rs:1019:13
+     |
+1019 |             info!("Reset circuit breaker for service: {}", service_name);
+     |             ^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use crate::deployment::info;
+     |
+6    + use crate::info;
+     |
+6    + use log::info;
+     |
+6    + use tracing::info;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\circuit_breaker.rs:1043:13
+     |
+1043 |             info!("Forced circuit breaker state for service: {} to {:?}", service_name, breaker.state);
+     |             ^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use crate::deployment::info;
+     |
+6    + use crate::info;
+     |
+6    + use log::info;
+     |
+6    + use tracing::info;
+     |
+
+error: cannot find macro `debug` in this scope
+    --> src\deployment\circuit_breaker.rs:1190:9
+     |
+1190 |         debug!("Circuit breaker for {} transitioned to CLOSED", self.service_name);
+     |         ^^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use log::debug;
+     |
+6    + use tracing::debug;
+     |
+
+error: cannot find macro `warn` in this scope
+    --> src\deployment\circuit_breaker.rs:1198:9
+     |
+1198 |         warn!("Circuit breaker for {} transitioned to OPEN", self.service_name);
+     |         ^^^^
+     |
+     = note: `warn` is in scope, but it is an attribute: `#[warn]`
+help: consider importing one of these macros
+     |
+6    + use crate::deployment::warn;
+     |
+6    + use crate::warn;
+     |
+6    + use log::warn;
+     |
+6    + use tracing::warn;
+     |
+
+error: cannot find macro `info` in this scope
+    --> src\deployment\circuit_breaker.rs:1207:9
+     |
+1207 |         info!("Circuit breaker for {} transitioned to HALF_OPEN", self.service_name);
+     |         ^^^^
+     |
+help: consider importing one of these macros
+     |
+6    + use crate::deployment::info;
+     |
+6    + use crate::info;
+     |
+6    + use log::info;
+     |
+6    + use tracing::info;
+     |
+
+error[E0425]: cannot find function `sleep` in this scope
+   --> src\deployment\rollback.rs:634:13
+    |
+634 |             sleep(step_duration).await;
+    |             ^^^^^ not found in this scope
+    |
+help: consider importing one of these functions
+    |
+6   + use std::thread::sleep;
+    |
+6   + use sqlx::__rt::sleep;
+    |
+6   + use tokio::time::sleep;
+    |
+
+error[E0425]: cannot find function `sleep` in this scope
+   --> src\deployment\rollback.rs:677:9
+    |
+677 |         sleep(promotion_delay).await;
+    |         ^^^^^ not found in this scope
+    |
+help: consider importing one of these functions
+    |
+6   + use std::thread::sleep;
+    |
+6   + use sqlx::__rt::sleep;
+    |
+6   + use tokio::time::sleep;
+    |
+
+error: unused import: `Mutex`
+  --> src\deployment\health_checks.rs:11:27
+   |
+11 | use tokio::sync::{RwLock, Mutex};
+   |                           ^^^^^
+   |
+   = note: `-D unused-imports` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(unused_imports)]`
+
+error: unused import: `UNIX_EPOCH`
+ --> src\deployment\rollback.rs:8:39
+  |
+8 | use std::time::{Duration, SystemTime, UNIX_EPOCH};
+  |                                       ^^^^^^^^^^
+
+error: unused import: `RegionalDeployment`
+  --> src\deployment\multi_region.rs:15:59
+   |
+15 | use crate::enterprise::multi_region::{MultiRegionManager, RegionalDeployment};
+   |                                                           ^^^^^^^^^^^^^^^^^^
+
+error: unused imports: `DeploymentConfig` and `DeploymentStrategy`
+  --> src\deployment\multi_region.rs:16:32
+   |
+16 | use super::{DeploymentManager, DeploymentConfig, DeploymentStrategy};
+   |                                ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+
+error: unused import: `UNIX_EPOCH`
+ --> src\deployment\metrics.rs:8:39
+  |
+8 | use std::time::{Duration, SystemTime, UNIX_EPOCH};
+  |                                       ^^^^^^^^^^
+
+error: unused import: `uuid::Uuid`
+  --> src\deployment\metrics.rs:11:5
+   |
+11 | use uuid::Uuid;
+   |     ^^^^^^^^^^
+
+error: unused import: `uuid::Uuid`
+  --> src\deployment\service_discovery.rs:11:5
+   |
+11 | use uuid::Uuid;
+   |     ^^^^^^^^^^
+
+error: unused import: `Mutex`
+  --> src\deployment\mod.rs:24:27
+   |
+24 | use tokio::sync::{RwLock, Mutex};
+   |                           ^^^^^
+
+error: unused imports: `error` and `warn`
+  --> src\deployment\mod.rs:26:21
+   |
+26 | use tracing::{info, warn, error};
+   |                     ^^^^  ^^^^^
+
+error[E0119]: conflicting implementations of trait `std::fmt::Debug` for type `deployment::LoggingConfig`
+   --> src\deployment\mod.rs:708:10
+    |
+704 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |          ----- first implementation here
+...
+708 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |          ^^^^^ conflicting implementation for `deployment::LoggingConfig`
+
+error[E0119]: conflicting implementations of trait `Clone` for type `deployment::LoggingConfig`
+   --> src\deployment\mod.rs:708:17
+    |
+704 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                 ----- first implementation here
+...
+708 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                 ^^^^^ conflicting implementation for `deployment::LoggingConfig`
+
+error[E0119]: conflicting implementations of trait `Serialize` for type `deployment::LoggingConfig`
+   --> src\deployment\mod.rs:708:24
+    |
+704 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                        --------- first implementation here
+...
+708 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                        ^^^^^^^^^ conflicting implementation for `deployment::LoggingConfig`
+    |
+    = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0119]: conflicting implementations of trait `Deserialize<'_>` for type `deployment::LoggingConfig`
+   --> src\deployment\mod.rs:708:35
+    |
+704 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ----------- first implementation here
+...
+708 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ conflicting implementation for `deployment::LoggingConfig`
+    |
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: unused variable: `start_time`
+   --> src\deployment\health_checks.rs:708:13
+    |
+708 |         let start_time = SystemTime::now();
+    |             ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_start_time`
+    |
+    = note: requested on the command line with `-D unused-variables`
+
+error[E0596]: cannot borrow `self.failure_detector` as mutable, as it is behind a `&` reference
+   --> src\deployment\rollback.rs:439:9
+    |
+439 |         self.failure_detector.start_monitoring(&deployment_id).await?;
+    |         ^^^^^^^^^^^^^^^^^^^^^ `self` is a `&` reference, so the data it refers to cannot be borrowed as mutable
+    |
+help: consider changing this to be a mutable reference
+    |
+431 |     pub async fn start_monitoring(&mut self, deployment_id: String) -> Result<()> {
+    |                                    +++
+
+error: unused variable: `parameters`
+   --> src\deployment\rollback.rs:694:83
+    |
+694 |     async fn execute_custom_rollback(&self, rollback_id: &str, script_path: &str, parameters: &HashMap<String, String>) -> 
+Result<()> {
+    |                                                                                   ^^^^^^^^^^ help: if this is intentional, prefix 
+it with an underscore: `_parameters`
+
+error[E0061]: this method takes 0 arguments but 1 argument was supplied
+   --> src\deployment\rollback.rs:763:53
+    |
+763 |         if let Some(status) = self.active_rollbacks.get_mut(rollback_id) {
+    |                                                     ^^^^^^^ ----------- unexpected argument of type `&str`
+    |
+note: method defined here
+   --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\sync\poison\mutex.rs:607:12
+    |
+607 |     pub fn get_mut(&mut self) -> LockResult<&mut T> {
+    |            ^^^^^^^
+help: remove the extra argument
+    |
+763 -         if let Some(status) = self.active_rollbacks.get_mut(rollback_id) {
+763 +         if let Some(status) = self.active_rollbacks.get_mut() {
+    |
+
+error[E0308]: mismatched types
+   --> src\deployment\rollback.rs:763:16
+    |
+763 |         if let Some(status) = self.active_rollbacks.get_mut(rollback_id) {
+    |                ^^^^^^^^^^^^   ------------------------------------------ this expression has type `Result<&mut HashMap<String, 
+RollbackStatus>, PoisonError<&mut ...>>`
+    |                |
+    |                expected `Result<&mut HashMap<String, ...>, ...>`, found `Option<_>`
+    |
+    = note: expected enum `std::result::Result<&mut HashMap<std::string::String, RollbackStatus>, PoisonError<&mut 
+HashMap<std::string::String, RollbackStatus>>>`
+               found enum `std::option::Option<_>`
+    = note: the full name for the type has been written to 
+'D:\projecttttttttts\project-ransolution\agent\target\debug\deps\erdps_agent-3bd134373ff44e8b.long-type-8036767819427958038.txt'
+    = note: consider using `--verbose` to print the full type name to the console
+
+error: unused variable: `failure_reason`
+    --> src\deployment\rollback.rs:1132:87
+     |
+1132 |     async fn send_to_channel(&self, channel: &NotificationChannel, rollback_id: &str, failure_reason: &str) -> Result<()> {
+     |                                                                                       ^^^^^^^^^^^^^^ help: if this is intentional, 
+prefix it with an underscore: `_failure_reason`
+
+error: unused variable: `service_name`
+    --> src\deployment\service_discovery.rs:1266:27
+     |
+1266 |     async fn watch(&self, service_name: &str) -> Result<tokio::sync::mpsc::Receiver<ServiceEvent>> {
+     |                           ^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_service_name`
+
+error: unused variable: `sender`
+    --> src\deployment\service_discovery.rs:1267:14
+     |
+1267 |         let (sender, receiver) = tokio::sync::mpsc::channel(100);
+     |              ^^^^^^ help: if this is intentional, prefix it with an underscore: `_sender`
+
+error[E0277]: the `?` operator can only be applied to values that implement `Try`
+    --> src\deployment\mod.rs:1336:33
+     |
+1336 |         let rollback = Arc::new(rollback::AutomatedRollbackManager::new(config.rollback.clone())?);
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the `?` operator cannot be 
+applied to type `AutomatedRollbackManager`
+     |
+     = help: the trait `Try` is not implemented for `AutomatedRollbackManager`
+
+error: unused variable: `start_time`
+    --> src\deployment\mod.rs:1361:13
+     |
+1361 |         let start_time = SystemTime::now();
+     |             ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_start_time`
+
+error[E0599]: no method named `as_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1275:47
+     |
+1275 |         if config.retention.default_retention.as_secs() == 0 {
+     |                                               ^^^^^^^
+     |
+help: there is a method `as_seconds_f32` with a similar name
+     |
+1275 -         if config.retention.default_retention.as_secs() == 0 {
+1275 +         if config.retention.default_retention.as_seconds_f32() == 0 {
+     |
+
+error[E0599]: no function or associated item named `from_millis` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1392:33
+     |
+1392 |             duration: Duration::from_millis(50),
+     |                                 ^^^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no function or associated item named `from_millis` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1428:48
+     |
+1428 |                 avg_logging_latency: Duration::from_millis(0),
+     |                                                ^^^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no function or associated item named `from_millis` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1429:53
+     |
+1429 |                 avg_verification_latency: Duration::from_millis(0),
+     |                                                     ^^^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no function or associated item named `from_millis` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1434:52
+     |
+1434 |                     avg_processing_time: Duration::from_millis(0),
+     |                                                    ^^^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no variant or associated item named `ECDSA_P256` found for enum `SignatureAlgorithm` in the current scope
+    --> src\enterprise\audit.rs:1447:54
+     |
+246  | pub enum SignatureAlgorithm {
+     | --------------------------- variant or associated item `ECDSA_P256` not found for this enum
+...
+1447 |             signature_algorithm: SignatureAlgorithm::ECDSA_P256,
+     |                                                      ^^^^^^^^^^ variant or associated item not found in `SignatureAlgorithm`
+
+error[E0599]: no variant or associated item named `AES256_GCM` found for enum `audit::EncryptionAlgorithm` in the current scope
+    --> src\enterprise\audit.rs:1448:56
+     |
+259  | pub enum EncryptionAlgorithm {
+     | ---------------------------- variant or associated item `AES256_GCM` not found for this enum
+...
+1448 |             encryption_algorithm: EncryptionAlgorithm::AES256_GCM,
+     |                                                        ^^^^^^^^^^ variant or associated item not found in 
+`audit::EncryptionAlgorithm`
+
+error[E0560]: struct `ClockSyncConfig` has no field named `enabled`
+    --> src\enterprise\audit.rs:1466:21
+     |
+1466 |                     enabled: true,
+     |                     ^^^^^^^ `ClockSyncConfig` does not have this field
+     |
+     = note: available fields are: `max_drift_ms`, `auto_sync`
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1468:46
+     |
+1468 |                     sync_interval: Duration::from_secs(3600),
+     |                                              ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1468 -                     sync_interval: Duration::from_secs(3600),
+1468 +                     sync_interval: Duration::from_ref(3600),
+     |
+
+error[E0599]: no variant or associated item named `GZIP` found for enum `audit::CompressionAlgorithm` in the current scope
+    --> src\enterprise\audit.rs:1489:50
+     |
+81   | pub enum CompressionAlgorithm {
+     | ----------------------------- variant or associated item `GZIP` not found for this enum
+...
+1489 |                 algorithm: CompressionAlgorithm::GZIP,
+     |                                                  ^^^^ variant or associated item not found in `audit::CompressionAlgorithm`
+     |
+help: there is a variant with a similar name
+     |
+1489 -                 algorithm: CompressionAlgorithm::GZIP,
+1489 +                 algorithm: CompressionAlgorithm::Gzip,
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1495:47
+     |
+1495 |             verification_frequency: Duration::from_secs(3600),
+     |                                               ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1495 -             verification_frequency: Duration::from_secs(3600),
+1495 +             verification_frequency: Duration::from_ref(3600),
+     |
+
+error[E0599]: no variant or associated item named `HashChain` found for enum `TamperDetectionAlgorithm` in the current scope
+    --> src\enterprise\audit.rs:1502:60
+     |
+96   | pub enum TamperDetectionAlgorithm {
+     | --------------------------------- variant or associated item `HashChain` not found for this enum
+...
+1502 |                 algorithms: vec![TamperDetectionAlgorithm::HashChain],
+     |                                                            ^^^^^^^^^ variant or associated item not found in 
+`TamperDetectionAlgorithm`
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1519:42
+     |
+1519 |                     frequency: Duration::from_secs(86400 * 7), // Weekly
+     |                                          ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1519 -                     frequency: Duration::from_secs(86400 * 7), // Weekly
+1519 +                     frequency: Duration::from_ref(86400 * 7), // Weekly
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1525:42
+     |
+1525 |             default_retention: Duration::from_secs(86400 * 365 * 7), // 7 years
+     |                                          ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1525 -             default_retention: Duration::from_secs(86400 * 365 * 7), // 7 years
+1525 +             default_retention: Duration::from_ref(86400 * 365 * 7), // 7 years
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1527:59
+     |
+1527 |                 (AuditCategory::SecurityEvents, Duration::from_secs(86400 * 365 * 10)), // 10 years
+     |                                                           ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1527 -                 (AuditCategory::SecurityEvents, Duration::from_secs(86400 * 365 * 10)), // 10 years
+1527 +                 (AuditCategory::SecurityEvents, Duration::from_ref(86400 * 365 * 10)), // 10 years
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1528:61
+     |
+1528 |                 (AuditCategory::ComplianceEvents, Duration::from_secs(86400 * 365 * 7)), // 7 years
+     |                                                             ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1528 -                 (AuditCategory::ComplianceEvents, Duration::from_secs(86400 * 365 * 7)), // 7 years
+1528 +                 (AuditCategory::ComplianceEvents, Duration::from_ref(86400 * 365 * 7)), // 7 years
+     |
+
+error[E0599]: no variant or associated item named `BZIP2` found for enum `audit::CompressionAlgorithm` in the current scope
+    --> src\enterprise\audit.rs:1544:54
+     |
+81   | pub enum CompressionAlgorithm {
+     | ----------------------------- variant or associated item `BZIP2` not found for this enum
+...
+1544 |                     algorithm: CompressionAlgorithm::BZIP2,
+     |                                                      ^^^^^ variant or associated item not found in `audit::CompressionAlgorithm`
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1549:51
+     |
+1549 |                     max_retrieval_time: Duration::from_secs(3600),
+     |                                                   ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1549 -                     max_retrieval_time: Duration::from_secs(3600),
+1549 +                     max_retrieval_time: Duration::from_ref(3600),
+     |
+
+error[E0599]: no variant or associated item named `DoD_5220_22_M` found for enum `SecureDeletionMethod` in the current scope
+    --> src\enterprise\audit.rs:1554:47
+     |
+1554 |                 method: SecureDeletionMethod::DoD_5220_22_M,
+     |                                               ^^^^^^^^^^^^^ variant or associated item not found in `SecureDeletionMethod`
+...
+1830 | pub enum SecureDeletionMethod {
+     | ----------------------------- variant or associated item `DoD_5220_22_M` not found for this enum
+     |
+help: there is a variant with a similar name
+     |
+1554 -                 method: SecureDeletionMethod::DoD_5220_22_M,
+1554 +                 method: SecureDeletionMethod::DoD5220_22M,
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1569:42
+     |
+1569 |                 min_retention: Duration::from_secs(86400 * 365 * 7), // 7 years
+     |                                          ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1569 -                 min_retention: Duration::from_secs(86400 * 365 * 7), // 7 years
+1569 +                 min_retention: Duration::from_ref(86400 * 365 * 7), // 7 years
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1584:38
+     |
+1584 |                 frequency: Duration::from_secs(86400 * 30), // Monthly
+     |                                      ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1584 -                 frequency: Duration::from_secs(86400 * 30), // Monthly
+1584 +                 frequency: Duration::from_ref(86400 * 30), // Monthly
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1592:53
+     |
+1592 |                     validation_frequency: Duration::from_secs(86400 * 365), // Yearly
+     |                                                     ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1592 -                     validation_frequency: Duration::from_secs(86400 * 365), // Yearly
+1592 +                     validation_frequency: Duration::from_ref(86400 * 365), // Yearly
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1600:37
+     |
+1600 |                 interval: Duration::from_secs(60),
+     |                                     ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1600 -                 interval: Duration::from_secs(60),
+1600 +                 interval: Duration::from_ref(60),
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1616:32
+     |
+1616 |                 ttl: Duration::from_secs(3600),
+     |                                ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1616 -                 ttl: Duration::from_secs(3600),
+1616 +                 ttl: Duration::from_ref(3600),
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1627:34
+     |
+1627 |             frequency: Duration::from_secs(86400), // Daily
+     |                                  ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1627 -             frequency: Duration::from_secs(86400), // Daily
+1627 +             frequency: Duration::from_ref(86400), // Daily
+     |
+
+error[E0599]: no variant or associated item named `AES256_GCM` found for enum `audit::EncryptionAlgorithm` in the current scope
+    --> src\enterprise\audit.rs:1635:49
+     |
+259  | pub enum EncryptionAlgorithm {
+     | ---------------------------- variant or associated item `AES256_GCM` not found for this enum
+...
+1635 |                 algorithm: EncryptionAlgorithm::AES256_GCM,
+     |                                                 ^^^^^^^^^^ variant or associated item not found in `audit::EncryptionAlgorithm`
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1644:38
+     |
+1644 |                 frequency: Duration::from_secs(86400 * 7), // Weekly
+     |                                      ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1644 -                 frequency: Duration::from_secs(86400 * 7), // Weekly
+1644 +                 frequency: Duration::from_ref(86400 * 7), // Weekly
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1649:32
+     |
+1649 |                 rto: Duration::from_secs(3600), // 1 hour
+     |                                ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1649 -                 rto: Duration::from_secs(3600), // 1 hour
+1649 +                 rto: Duration::from_ref(3600), // 1 hour
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1650:32
+     |
+1650 |                 rpo: Duration::from_secs(900),  // 15 minutes
+     |                                ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1650 -                 rpo: Duration::from_secs(900),  // 15 minutes
+1650 +                 rpo: Duration::from_ref(900),  // 15 minutes
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1652:45
+     |
+1652 |                 testing_schedule: Duration::from_secs(86400 * 90), // Quarterly
+     |                                             ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1652 -                 testing_schedule: Duration::from_secs(86400 * 90), // Quarterly
+1652 +                 testing_schedule: Duration::from_ref(86400 * 90), // Quarterly
+     |
+
+error[E0599]: no method named `as_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1667:43
+     |
+1667 |     if config.retention.default_retention.as_secs() == 0 {
+     |                                           ^^^^^^^
+     |
+help: there is a method `as_seconds_f32` with a similar name
+     |
+1667 -     if config.retention.default_retention.as_secs() == 0 {
+1667 +     if config.retention.default_retention.as_seconds_f32() == 0 {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1219:21
+     |
+1219 |     pub frameworks: HashMap<ComplianceFramework, ComplianceStatus>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Eq)]`
+     |
+554  + #[derive(Eq)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1219:21
+     |
+1219 |     pub frameworks: HashMap<ComplianceFramework, ComplianceStatus>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Hash)]`
+     |
+554  + #[derive(Hash)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1219:21
+     |
+1219 |     pub frameworks: HashMap<ComplianceFramework, ComplianceStatus>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Eq)]`
+     |
+554  + #[derive(Eq)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1219:21
+     |
+1219 |     pub frameworks: HashMap<ComplianceFramework, ComplianceStatus>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Hash)]`
+     |
+554  + #[derive(Hash)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1217:35
+     |
+1217 | #[derive(Debug, Clone, Serialize, Deserialize)]
+     |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+     |
+24   | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+     |        ------------- required by a bound in this function
+25   | where
+26   |     V: Deserialize<'de>,
+     |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+     = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Eq)]`
+     |
+554  + #[derive(Eq)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1217:35
+     |
+1217 | #[derive(Debug, Clone, Serialize, Deserialize)]
+     |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+     |
+24   | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+     |        ------------- required by a bound in this function
+25   | where
+26   |     V: Deserialize<'de>,
+     |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+     = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Hash)]`
+     |
+554  + #[derive(Hash)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: `(dyn ResourceManager + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+    --> src\enterprise\multi_tenant.rs:1288:5
+     |
+1284 | #[derive(Debug)]
+     |          ----- in this derive macro expansion
+...
+1288 |     resource_manager: Arc<dyn ResourceManager + Send + Sync>,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+ResourceManager + std::marker::Send + Sync + 'static)`
+     |
+     = help: the following other types implement trait `std::fmt::Debug`:
+               &dyn cranelift_codegen::isa::TargetIsa
+               &dyn protobuf::reflect::message::generated::MessageFactory
+               dyn rustls::verify::ClientCertVerifier
+               dyn rustls::verify::ServerCertVerifier
+               dyn std::any::Any + std::marker::Send + Sync
+               dyn std::any::Any + std::marker::Send
+               dyn std::any::Any
+               dyn tracing::Value
+
+error[E0277]: `(dyn multi_tenant::SecurityManager + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+    --> src\enterprise\multi_tenant.rs:1289:5
+     |
+1284 | #[derive(Debug)]
+     |          ----- in this derive macro expansion
+...
+1289 |     security_manager: Arc<dyn SecurityManager + Send + Sync>,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+multi_tenant::SecurityManager + std::marker::Send + Sync + 'static)`
+     |
+     = help: the following other types implement trait `std::fmt::Debug`:
+               &dyn cranelift_codegen::isa::TargetIsa
+               &dyn protobuf::reflect::message::generated::MessageFactory
+               dyn rustls::verify::ClientCertVerifier
+               dyn rustls::verify::ServerCertVerifier
+               dyn std::any::Any + std::marker::Send + Sync
+               dyn std::any::Any + std::marker::Send
+               dyn std::any::Any
+               dyn tracing::Value
+
+error[E0277]: `(dyn BillingManager + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+    --> src\enterprise\multi_tenant.rs:1290:5
+     |
+1284 | #[derive(Debug)]
+     |          ----- in this derive macro expansion
+...
+1290 |     billing_manager: Arc<dyn BillingManager + Send + Sync>,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn BillingManager 
++ std::marker::Send + Sync + 'static)`
+     |
+     = help: the following other types implement trait `std::fmt::Debug`:
+               &dyn cranelift_codegen::isa::TargetIsa
+               &dyn protobuf::reflect::message::generated::MessageFactory
+               dyn rustls::verify::ClientCertVerifier
+               dyn rustls::verify::ServerCertVerifier
+               dyn std::any::Any + std::marker::Send + Sync
+               dyn std::any::Any + std::marker::Send
+               dyn std::any::Any
+               dyn tracing::Value
+
+error[E0277]: `(dyn ComplianceManager + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+    --> src\enterprise\multi_tenant.rs:1291:5
+     |
+1284 | #[derive(Debug)]
+     |          ----- in this derive macro expansion
+...
+1291 |     compliance_manager: Arc<dyn ComplianceManager + Send + Sync>,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+ComplianceManager + std::marker::Send + Sync + 'static)`
+     |
+     = help: the following other types implement trait `std::fmt::Debug`:
+               &dyn cranelift_codegen::isa::TargetIsa
+               &dyn protobuf::reflect::message::generated::MessageFactory
+               dyn rustls::verify::ClientCertVerifier
+               dyn rustls::verify::ServerCertVerifier
+               dyn std::any::Any + std::marker::Send + Sync
+               dyn std::any::Any + std::marker::Send
+               dyn std::any::Any
+               dyn tracing::Value
+
+error[E0599]: no variant or associated item named `AES256_GCM` found for enum `multi_tenant::EncryptionAlgorithm` in the current scope
+    --> src\enterprise\multi_tenant.rs:1612:56
+     |
+90   | pub enum EncryptionAlgorithm {
+     | ---------------------------- variant or associated item `AES256_GCM` not found for this enum
+...
+1612 |             encryption_algorithm: EncryptionAlgorithm::AES256_GCM,
+     |                                                        ^^^^^^^^^^ variant or associated item not found in 
+`multi_tenant::EncryptionAlgorithm`
+
+error[E0599]: no variant or associated item named `AES256_GCM` found for enum `multi_tenant::EncryptionAlgorithm` in the current scope
+    --> src\enterprise\multi_tenant.rs:1709:45
+     |
+90   | pub enum EncryptionAlgorithm {
+     | ---------------------------- variant or associated item `AES256_GCM` not found for this enum
+...
+1709 |             algorithm: EncryptionAlgorithm::AES256_GCM,
+     |                                             ^^^^^^^^^^ variant or associated item not found in `multi_tenant::EncryptionAlgorithm`
+
+error[E0599]: no variant or associated item named `Fail_Closed` found for enum `EvaluationMode` in the current scope
+    --> src\enterprise\multi_tenant.rs:1937:46
+     |
+427  | pub enum EvaluationMode {
+     | ----------------------- variant or associated item `Fail_Closed` not found for this enum
+...
+1937 |             evaluation_mode: EvaluationMode::Fail_Closed,
+     |                                              ^^^^^^^^^^^ variant or associated item not found in `EvaluationMode`
+     |
+help: there is a variant with a similar name
+     |
+1937 -             evaluation_mode: EvaluationMode::Fail_Closed,
+1937 +             evaluation_mode: EvaluationMode::FailClosed,
+     |
+
+error[E0599]: no variant or associated item named `AES256_GCM` found for enum `multi_tenant::EncryptionAlgorithm` in the current scope
+    --> src\enterprise\multi_tenant.rs:1969:45
+     |
+90   | pub enum EncryptionAlgorithm {
+     | ---------------------------- variant or associated item `AES256_GCM` not found for this enum
+...
+1969 |             algorithm: EncryptionAlgorithm::AES256_GCM,
+     |                                             ^^^^^^^^^^ variant or associated item not found in `multi_tenant::EncryptionAlgorithm`
+
+error[E0599]: no variant or associated item named `AES_256_GCM_SHA384` found for enum `CipherSuite` in the current scope
+    --> src\enterprise\multi_tenant.rs:2019:46
+     |
+515  | pub enum CipherSuite {
+     | -------------------- variant or associated item `AES_256_GCM_SHA384` not found for this enum
+...
+2019 |             cipher_suites: vec![CipherSuite::AES_256_GCM_SHA384],
+     |                                              ^^^^^^^^^^^^^^^^^^ variant or associated item not found in `CipherSuite`
+
+error[E0599]: no method named `get` found for struct `Arc<std::sync::Mutex<HashMap<std::string::String, RollbackStatus>>>` in the current 
+scope
+   --> src\deployment\rollback.rs:748:31
+    |
+748 |         self.active_rollbacks.get(rollback_id)
+    |                               ^^^
+    |
+help: there is a method `set` with a similar name
+    |
+748 -         self.active_rollbacks.get(rollback_id)
+748 +         self.active_rollbacks.set(rollback_id)
+    |
+
+error[E0308]: mismatched types
+   --> src\deployment\rollback.rs:753:9
+    |
+752 |     pub fn get_active_rollbacks(&self) -> &HashMap<String, RollbackStatus> {
+    |                                           -------------------------------- expected `&HashMap<std::string::String, RollbackStatus>` 
+because of return type
+753 |         &self.active_rollbacks
+    |         ^^^^^^^^^^^^^^^^^^^^^^ expected `&HashMap<String, RollbackStatus>`, found `&Arc<Mutex<HashMap<String, ...>>>`
+    |
+    = note: expected reference `&HashMap<std::string::String, RollbackStatus>`
+               found reference `&Arc<std::sync::Mutex<HashMap<std::string::String, RollbackStatus>>>`
+
+error[E0308]: mismatched types
+   --> src\deployment\rollback.rs:758:9
+    |
+757 |     pub fn get_statistics(&self) -> &RollbackStatistics {
+    |                                     ------------------- expected `&RollbackStatistics` because of return type
+758 |         &self.statistics
+    |         ^^^^^^^^^^^^^^^^ expected `&RollbackStatistics`, found `&Arc<Mutex<RollbackStatistics>>`
+    |
+    = note: expected reference `&RollbackStatistics`
+               found reference `&Arc<std::sync::Mutex<RollbackStatistics>>`
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1183:39
+     |
+1183 |                     window: Duration::from_minutes(5),
+     |                                       ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1183 -                     window: Duration::from_minutes(5),
+1183 +                     window: Duration::from_micros(5),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1187:41
+     |
+1187 |             detection_window: Duration::from_minutes(10),
+     |                                         ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1187 -             detection_window: Duration::from_minutes(10),
+1187 +             detection_window: Duration::from_micros(10),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1188:37
+     |
+1188 |             grace_period: Duration::from_minutes(2),
+     |                                     ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1188 -             grace_period: Duration::from_minutes(2),
+1188 +             grace_period: Duration::from_micros(2),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1206:41
+     |
+1206 |             rollback_timeout: Duration::from_minutes(10),
+     |                                         ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1206 -             rollback_timeout: Duration::from_minutes(10),
+1206 +             rollback_timeout: Duration::from_micros(10),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1207:45
+     |
+1207 |             verification_timeout: Duration::from_minutes(5),
+     |                                             ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1207 -             verification_timeout: Duration::from_minutes(5),
+1207 +             verification_timeout: Duration::from_micros(5),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1235:43
+     |
+1235 |             max_check_duration: Duration::from_minutes(2),
+     |                                           ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1235 -             max_check_duration: Duration::from_minutes(2),
+1235 +             max_check_duration: Duration::from_micros(2),
+     |
+
+error[E0658]: use of unstable library feature `duration_constructors`
+    --> src\deployment\rollback.rs:1250:31
+     |
+1250 |             retention_period: Duration::from_days(30),
+     |                               ^^^^^^^^^^^^^^^^^^^
+     |
+     = note: see issue #120301 <https://github.com/rust-lang/rust/issues/120301> for more information
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1262:45
+     |
+1262 |                 escalation_delay: Duration::from_minutes(15),
+     |                                             ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1262 -                 escalation_delay: Duration::from_minutes(15),
+1262 +                 escalation_delay: Duration::from_micros(15),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1275:39
+     |
+1275 |             recovery_delay: Duration::from_minutes(5),
+     |                                       ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1275 -             recovery_delay: Duration::from_minutes(5),
+1275 +             recovery_delay: Duration::from_micros(5),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1287:42
+     |
+1287 |             operation_timeout: Duration::from_minutes(30),
+     |                                          ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1287 -             operation_timeout: Duration::from_minutes(30),
+1287 +             operation_timeout: Duration::from_micros(30),
+     |
+
+error[E0277]: `(dyn deployment::metrics::MetricsCollector + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+  --> src\deployment\metrics.rs:23:5
+   |
+16 | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+23 |     collectors: Arc<RwLock<HashMap<String, Box<dyn MetricsCollector + Send + Sync>>>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented 
+for `(dyn deployment::metrics::MetricsCollector + std::marker::Send + Sync + 'static)`
+   |
+   = help: the following other types implement trait `std::fmt::Debug`:
+             &dyn cranelift_codegen::isa::TargetIsa
+             &dyn protobuf::reflect::message::generated::MessageFactory
+             dyn rustls::verify::ClientCertVerifier
+             dyn rustls::verify::ServerCertVerifier
+             dyn std::any::Any + std::marker::Send + Sync
+             dyn std::any::Any + std::marker::Send
+             dyn std::any::Any
+             dyn tracing::Value
+
+error[E0277]: `(dyn MetricsExporter + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+  --> src\deployment\metrics.rs:25:5
+   |
+16 | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+25 |     exporters: Arc<RwLock<Vec<Box<dyn MetricsExporter + Send + Sync>>>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+MetricsExporter + std::marker::Send + Sync + 'static)`
+   |
+   = help: the following other types implement trait `std::fmt::Debug`:
+             &dyn cranelift_codegen::isa::TargetIsa
+             &dyn protobuf::reflect::message::generated::MessageFactory
+             dyn rustls::verify::ClientCertVerifier
+             dyn rustls::verify::ServerCertVerifier
+             dyn std::any::Any + std::marker::Send + Sync
+             dyn std::any::Any + std::marker::Send
+             dyn std::any::Any
+             dyn tracing::Value
+
+error[E0277]: `(dyn load_balancer::LoadBalancingAlgorithm + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+  --> src\deployment\load_balancer.rs:27:5
+   |
+20 | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+27 |     algorithm: Arc<RwLock<Box<dyn LoadBalancingAlgorithm + Send + Sync>>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+load_balancer::LoadBalancingAlgorithm + std::marker::Send + Sync + 'static)`
+   |
+   = help: the following other types implement trait `std::fmt::Debug`:
+             &dyn cranelift_codegen::isa::TargetIsa
+             &dyn protobuf::reflect::message::generated::MessageFactory
+             dyn rustls::verify::ClientCertVerifier
+             dyn rustls::verify::ServerCertVerifier
+             dyn std::any::Any + std::marker::Send + Sync
+             dyn std::any::Any + std::marker::Send
+             dyn std::any::Any
+             dyn tracing::Value
+
+error[E0369]: binary operation `==` cannot be applied to type `load_balancer::ConnectionStatus`
+   --> src\deployment\load_balancer.rs:969:34
+    |
+969 |             if connection.status == ConnectionStatus::Idle {
+    |                ----------------- ^^ ---------------------- load_balancer::ConnectionStatus
+    |                |
+    |                load_balancer::ConnectionStatus
+    |
+note: an implementation of `PartialEq` might be missing for `load_balancer::ConnectionStatus`
+   --> src\deployment\load_balancer.rs:445:1
+    |
+445 | pub enum ConnectionStatus {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^ must implement `PartialEq`
+help: consider annotating `load_balancer::ConnectionStatus` with `#[derive(PartialEq)]`
+    |
+445 + #[derive(PartialEq)]
+446 | pub enum ConnectionStatus {
+    |
+
+error[E0369]: binary operation `==` cannot be applied to type `load_balancer::ConnectionStatus`
+    --> src\deployment\load_balancer.rs:1014:32
+     |
+1014 |                 if conn.status == ConnectionStatus::Idle {
+     |                    ----------- ^^ ---------------------- load_balancer::ConnectionStatus
+     |                    |
+     |                    load_balancer::ConnectionStatus
+     |
+note: an implementation of `PartialEq` might be missing for `load_balancer::ConnectionStatus`
+    --> src\deployment\load_balancer.rs:445:1
+     |
+445  | pub enum ConnectionStatus {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^ must implement `PartialEq`
+help: consider annotating `load_balancer::ConnectionStatus` with `#[derive(PartialEq)]`
+     |
+445  + #[derive(PartialEq)]
+446  | pub enum ConnectionStatus {
+     |
+
+error[E0308]: mismatched types
+    --> src\deployment\service_discovery.rs:1420:37
+     |
+1420 |                         return Some(service.clone());
+     |                                ---- ^^^^^^^^^^^^^^^ expected `Service`, found `&Service`
+     |                                |
+     |                                arguments to this enum variant are incorrect
+     |
+help: the type constructed contains `&service_discovery::Service` due to the type of the argument passed
+    --> src\deployment\service_discovery.rs:1420:32
+     |
+1420 |                         return Some(service.clone());
+     |                                ^^^^^---------------^
+     |                                     |
+     |                                     this argument influences the type of `Some`
+note: tuple variant defined here
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\option.rs:599:5
+     |
+599  |     Some(#[stable(feature = "rust1", since = "1.0.0")] T),
+     |     ^^^^
+help: consider using clone here
+     |
+1420 |                         return Some(service.clone().clone());
+     |                                                    ++++++++
+
+error[E0277]: `(dyn CircuitBreakerListener + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+  --> src\deployment\circuit_breaker.rs:24:5
+   |
+15 | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+24 |     listeners: Arc<RwLock<Vec<Box<dyn CircuitBreakerListener + Send + Sync>>>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for 
+`(dyn CircuitBreakerListener + std::marker::Send + Sync + 'static)`
+   |
+   = help: the following other types implement trait `std::fmt::Debug`:
+             &dyn cranelift_codegen::isa::TargetIsa
+             &dyn protobuf::reflect::message::generated::MessageFactory
+             dyn rustls::verify::ClientCertVerifier
+             dyn rustls::verify::ServerCertVerifier
+             dyn std::any::Any + std::marker::Send + Sync
+             dyn std::any::Any + std::marker::Send
+             dyn std::any::Any
+             dyn tracing::Value
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+    --> src\deployment\circuit_breaker.rs:505:25
+     |
+505  |     pub time_in_states: HashMap<CircuitBreakerState, Duration>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+     |
+456  + #[derive(Eq)]
+457  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+    --> src\deployment\circuit_breaker.rs:505:25
+     |
+505  |     pub time_in_states: HashMap<CircuitBreakerState, Duration>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+     |
+456  + #[derive(Hash)]
+457  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+    --> src\deployment\circuit_breaker.rs:505:25
+     |
+505  |     pub time_in_states: HashMap<CircuitBreakerState, Duration>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+     |
+456  + #[derive(Eq)]
+457  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+    --> src\deployment\circuit_breaker.rs:505:25
+     |
+505  |     pub time_in_states: HashMap<CircuitBreakerState, Duration>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+     |
+456  + #[derive(Hash)]
+457  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+   --> src\deployment\circuit_breaker.rs:484:35
+    |
+484 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `circuit_breaker::CircuitBreakerState`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+    |
+456 + #[derive(Eq)]
+457 | pub enum CircuitBreakerState {
+    |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+   --> src\deployment\circuit_breaker.rs:484:35
+    |
+484 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `circuit_breaker::CircuitBreakerState`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+    |
+456 + #[derive(Hash)]
+457 | pub enum CircuitBreakerState {
+    |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+    --> src\deployment\circuit_breaker.rs:552:28
+     |
+552  |     pub breakers_by_state: HashMap<CircuitBreakerState, u64>,
+     |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+     |
+456  + #[derive(Eq)]
+457  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+    --> src\deployment\circuit_breaker.rs:552:28
+     |
+552  |     pub breakers_by_state: HashMap<CircuitBreakerState, u64>,
+     |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+     |
+456  + #[derive(Hash)]
+457  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+    --> src\deployment\circuit_breaker.rs:552:28
+     |
+552  |     pub breakers_by_state: HashMap<CircuitBreakerState, u64>,
+     |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+     |
+456  + #[derive(Eq)]
+457  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+    --> src\deployment\circuit_breaker.rs:552:28
+     |
+552  |     pub breakers_by_state: HashMap<CircuitBreakerState, u64>,
+     |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+     |
+456  + #[derive(Hash)]
+457  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+   --> src\deployment\circuit_breaker.rs:547:35
+    |
+547 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `circuit_breaker::CircuitBreakerState`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+    |
+456 + #[derive(Eq)]
+457 | pub enum CircuitBreakerState {
+    |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+   --> src\deployment\circuit_breaker.rs:547:35
+    |
+547 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `circuit_breaker::CircuitBreakerState`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+    |
+456 + #[derive(Hash)]
+457 | pub enum CircuitBreakerState {
+    |
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1219:9
+     |
+1219 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `version`
+    --> src\deployment\blue_green.rs:1220:9
+     |
+1220 |         version: &str,
+     |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_version`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1229:9
+     |
+1229 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1238:9
+     |
+1238 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1257:9
+     |
+1257 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `service`
+    --> src\deployment\blue_green.rs:1287:9
+     |
+1287 |         service: &ServiceConfig,
+     |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_service`
+
+error: unused variable: `target_environment`
+    --> src\deployment\blue_green.rs:1306:9
+     |
+1306 |         target_environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_target_environment`
+
+error: unused variable: `target_environment`
+    --> src\deployment\blue_green.rs:1315:9
+     |
+1315 |         target_environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_target_environment`
+
+error: unused variable: `target_environment`
+    --> src\deployment\blue_green.rs:1327:9
+     |
+1327 |         target_environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_target_environment`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1337:9
+     |
+1337 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `deployment`
+    --> src\deployment\blue_green.rs:1365:9
+     |
+1365 |         deployment: &BlueGreenDeployment,
+     |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1372:9
+     |
+1372 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `deployment`
+    --> src\deployment\blue_green.rs:1400:9
+     |
+1400 |         deployment: &BlueGreenDeployment,
+     |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment`
+
+error: unused variable: `message`
+    --> src\deployment\blue_green.rs:1401:9
+     |
+1401 |         message: String,
+     |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_message`
+
+error: unused variable: `deployment`
+    --> src\deployment\blue_green.rs:1409:9
+     |
+1409 |         deployment: &BlueGreenDeployment,
+     |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment`
+
+error: unused variable: `reason`
+    --> src\deployment\blue_green.rs:1410:9
+     |
+1410 |         reason: String,
+     |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_reason`
+
+error: unused variable: `deployment`
+    --> src\deployment\blue_green.rs:1418:9
+     |
+1418 |         deployment: &BlueGreenDeployment,
+     |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment`
+
+error: unused variable: `reason`
+    --> src\deployment\blue_green.rs:1419:9
+     |
+1419 |         reason: String,
+     |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_reason`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1032:45
+     |
+1032 |     fn calculate_deployment_duration(&self, store: &MetricsStore, deployment_id: &str) -> Result<Duration> {
+     |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1032:67
+     |
+1032 |     fn calculate_deployment_duration(&self, store: &MetricsStore, deployment_id: &str) -> Result<Duration> {
+     |                                                                   ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1038:38
+     |
+1038 |     fn calculate_success_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                      ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1038:60
+     |
+1038 |     fn calculate_success_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                            ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1044:39
+     |
+1044 |     fn calculate_rollback_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                       ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1044:61
+     |
+1044 |     fn calculate_rollback_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                             ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1050:43
+     |
+1050 |     fn calculate_avg_response_time(&self, store: &MetricsStore, deployment_id: &str) -> Result<Duration> {
+     |                                           ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1050:65
+     |
+1050 |     fn calculate_avg_response_time(&self, store: &MetricsStore, deployment_id: &str) -> Result<Duration> {
+     |                                                                 ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1056:36
+     |
+1056 |     fn calculate_error_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1056:58
+     |
+1056 |     fn calculate_error_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                          ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: 
+`_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1062:36
+     |
+1062 |     fn calculate_throughput(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1062:58
+     |
+1062 |     fn calculate_throughput(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                          ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: 
+`_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1068:46
+     |
+1068 |     fn calculate_resource_utilization(&self, store: &MetricsStore, deployment_id: &str) -> Result<ResourceUtilization> {
+     |                                              ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1068:68
+     |
+1068 |     fn calculate_resource_utilization(&self, store: &MetricsStore, deployment_id: &str) -> Result<ResourceUtilization> {
+     |                                                                    ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1079:38
+     |
+1079 |     fn calculate_health_score(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                      ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1079:60
+     |
+1079 |     fn calculate_health_score(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                            ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+Some errors have detailed explanations: E0061, E0119, E0277, E0308, E0369, E0425, E0560, E0596, E0599...
+For more information about an error, try `rustc --explain E0061`.
+error: could not compile `erdps-agent` (lib) due to 179 previous errors

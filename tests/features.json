@@ -1,0 +1,5 @@
+[
+  {"feature": "size", "value": 12345},
+  {"feature": "entropy", "value": 7.8},
+  {"feature": "imports", "value": ["CreateRemoteThread", "VirtualAllocEx"]}
+]

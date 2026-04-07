@@ -1,0 +1,175 @@
+config_version = "2.0"
+agent_id = "erdps-agent-001"
+ipc_key = "od0p9IX+JvQMUsIVa+MNlSD6A//IA8O8H8kEDreaB48="
+quarantine_path = 'C:\ProgramData\ERDPS\quarantine'
+audit_log_path = 'C:\ProgramData\ERDPS\logs\audit.log'
+mass_modification_count = 50
+mass_modification_window_secs = 60
+extension_mutation_window_secs = 300
+extension_mutation_threshold = 0.8
+process_monitoring_enabled = true
+suspicious_process_threshold = 10
+network_monitoring_enabled = true
+suspicious_network_threshold = 20
+max_concurrent_scans = 4
+scan_timeout_secs = 300
+memory_limit_mb = 512
+yara_enabled = true
+yara_process_scan_enabled = false
+yara_scan_downloads = true
+yara_scan_temp_files = true
+yara_scan_user_files = true
+yara_scan_system_files = false
+yara_scan_network_drives = false
+yara_scan_removable_drives = true
+yara_scan_archives = true
+yara_scan_memory = false
+yara_scan_registry = false
+yara_scan_startup = true
+yara_scan_services = false
+yara_scan_drivers = false
+yara_scan_dlls = true
+yara_scan_executables = true
+yara_scan_scripts = true
+yara_scan_documents = true
+yara_scan_images = false
+yara_scan_videos = false
+yara_scan_audio = false
+yara_scan_compressed = true
+yara_scan_encrypted = false
+yara_scan_hidden = true
+yara_scan_system_protected = false
+allow_terminate = false
+mitigation_score_threshold = 70
+auto_mitigate = true
+process_behavior_window_secs = 300
+process_behavior_write_threshold = 100
+entropy_threshold = 7.0
+dry_run = false
+auto_quarantine_score = 80
+ransom_note_patterns = [
+    "README",
+    "DECRYPT",
+    "RANSOM",
+    "PAYMENT",
+]
+yara_max_file_size_mb = 100
+yara_process_scan_interval_minutes = 5
+yara_downloads_scan_interval_minutes = 30
+
+[service]
+mode = "production"
+scan_paths = [
+    'C:\Users',
+    'C:\Program Files',
+    'C:\Program Files (x86)',
+]
+exclude_paths = [
+    'C:\Windows\System32',
+    'C:\Windows\SysWOW64',
+    'C:\$Recycle.Bin',
+]
+ipc_bind = "127.0.0.1:8080"
+allow_volume_scan = false
+
+[observability]
+metrics_bind = "127.0.0.1:19091"
+metrics_port = 19091
+dashboard_bind = "127.0.0.1:19092"
+dashboard_port = 19092
+log_level = "info"
+log_filters = "cranelift=warn,wasmtime=warn,walrus=warn,aho_corasick=warn"
+
+[performance]
+cpu_limit_percent = 6.0
+memory_limit_mb = 200
+enable_enforcement = true
+
+[detection]
+mttd_target_seconds = 60
+false_positive_threshold = 0.1
+enable_yara_fs_monitor = true
+yara_rules_path = "./yara_rules"
+
+[yara]
+enabled = true
+rules_path = "rules/"
+additional_rules_paths = [
+    "rules/signature-base/",
+    "rules/eset-malware-iocs/",
+    "rules/yara-forge-full/",
+    "rules/elastic-security/",
+    "rules/reversinglabs-yara/",
+    "rules/yara-forge-core/",
+    "rules/kaggle-yara-rules/",
+    "rules/awesome-yara/",
+]
+scan_directories = [
+    'C:\Users',
+    'C:\Downloads',
+    'C:\Documents',
+    'C:\Desktop',
+    'C:\Temp',
+]
+excluded_directories = [
+    'C:\Windows\System32',
+    'C:\Windows\SysWOW64',
+    'C:\Program Files',
+    'C:\Program Files (x86)',
+]
+file_extensions = [
+    ".exe",
+    ".dll",
+    ".bat",
+    ".cmd",
+    ".ps1",
+    ".vbs",
+    ".js",
+    ".jar",
+    ".scr",
+    ".com",
+    ".pif",
+]
+max_file_size_mb = 100
+scan_timeout_seconds = 30
+max_concurrent_scans = 4
+memory_chunk_size = 1048576
+
+[yara.real_time_monitoring]
+enabled = true
+watch_directories = [
+    'C:\Users',
+    'C:\Downloads',
+    'C:\Documents',
+    'C:\Desktop',
+]
+scan_on_write = true
+scan_on_create = true
+scan_on_modify = false
+debounce_ms = 1000
+max_pending_events = 1000
+
+[yara.periodic_scan]
+enabled = true
+interval_minutes = 60
+full_system_scan_hours = 24
+
+[yara.performance]
+memory_limit_mb = 512
+cpu_limit_percent = 25
+io_priority = "low"
+
+[yara.alerts]
+send_to_dashboard = true
+log_to_file = true
+severity_threshold = "medium"
+
+[yara_updater]
+enabled = false
+repo_url = "https://github.com/Neo23x0/signature-base"
+branch = "master"
+rules_directory = 'C:\YARA\rules'
+update_interval_hours = 24
+request_timeout_seconds = 300
+max_retries = 3
+verify_checksums = true

@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "YARA Match Event",
+  "description": "Schema for YARA match events sent from the agent to the Qt dashboard",
+  "type": "object",
+  "required": [
+    "rule_id",
+    "score",
+    "evidence",
+    "action_recommendation",
+    "timestamp",
+    "affected_paths",
+    "event_type",
+    "yara_details"
+  ],
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "description": "Event type identifier, must be 'yara_match' for YARA detection events",
+      "const": "yara_match"
+    },
+    "score": {
+      "type": "integer",
+      "description": "Risk score from 0-100 based on severity",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "evidence": {
+      "type": "array",
+      "description": "Array of evidence strings describing the detection",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "action_recommendation": {
+      "type": "string",
+      "description": "Recommended action for the security administrator"
+    },
+    "timestamp": {
+      "type": "integer",
+      "description": "Unix timestamp when the event was created",
+      "minimum": 0
+    },
+    "affected_paths": {
+      "type": "array",
+      "description": "Array of file paths affected by this detection",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "related_pids": {
+      "type": "array",
+      "description": "Array of process IDs related to this detection (optional)",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Type of event for dashboard routing",
+      "const": "yara_match"
+    },
+    "yara_details": {
+      "type": "object",
+      "description": "Detailed YARA match information",
+      "required": [
+        "file",
+        "rule",
+        "severity",
+        "timestamp",
+        "target_type"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "Full path to the file that matched the YARA rule"
+        },
+        "rule": {
+          "type": "string",
+          "description": "Name of the YARA rule that matched"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Tags associated with the YARA rule",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "object",
+          "description": "Metadata from the YARA rule",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "severity": {
+          "type": "string",
+          "description": "Severity level of the detection",
+          "enum": ["low", "medium", "high", "critical"]
+        },
+        "timestamp": {
+          "type": "integer",
+          "description": "Unix timestamp when the YARA match occurred",
+          "minimum": 0
+        },
+        "target_type": {
+          "type": "string",
+          "description": "Type of target scanned",
+          "enum": ["file", "process", "memory"]
+        },
+        "target_pid": {
+          "type": "integer",
+          "description": "Process ID if target_type is 'process'",
+          "minimum": 0
+        },
+        "match_strings": {
+          "type": "array",
+          "description": "Details of matched strings within the YARA rule",
+          "items": {
+            "type": "object",
+            "required": ["identifier", "offset", "length"],
+            "properties": {
+              "identifier": {
+                "type": "string",
+                "description": "String identifier from the YARA rule"
+              },
+              "offset": {
+                "type": "integer",
+                "description": "Byte offset where the string was found",
+                "minimum": 0
+              },
+              "length": {
+                "type": "integer",
+                "description": "Length of the matched string in bytes",
+                "minimum": 0
+              },
+              "matched_data": {
+                "type": "string",
+                "description": "Hex representation of the matched data"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "rule_id": "yara_match",
+      "score": 75,
+      "evidence": [
+        "Rule: Trojan_Win32_Emotet",
+        "File: /path/to/suspicious/file.exe",
+        "Severity: high",
+        "Tags: trojan, emotet, banking",
+        "Meta author: Security Researcher",
+        "Meta description: Detects Emotet banking trojan",
+        "Matched 2 string(s)",
+        "  Match 1: $string1 at offset 1024",
+        "  Match 2: $string2 at offset 2048"
+      ],
+      "action_recommendation": "Review detected file and consider quarantine if malicious",
+      "timestamp": 1703123456,
+      "affected_paths": ["/path/to/suspicious/file.exe"],
+      "event_type": "yara_match",
+      "yara_details": {
+        "file": "/path/to/suspicious/file.exe",
+        "rule": "Trojan_Win32_Emotet",
+        "tags": ["trojan", "emotet", "banking"],
+        "meta": {
+          "author": "Security Researcher",
+          "description": "Detects Emotet banking trojan",
+          "version": "1.0",
+          "date": "2023-12-01"
+        },
+        "severity": "high",
+        "timestamp": 1703123456,
+        "target_type": "file",
+        "match_strings": [
+          {
+            "identifier": "$string1",
+            "offset": 1024,
+            "length": 16,
+            "matched_data": "48656c6c6f20576f726c64210a"
+          },
+          {
+            "identifier": "$string2",
+            "offset": 2048,
+            "length": 8,
+            "matched_data": "deadbeefcafebabe"
+          }
+        ]
+      }
+    }
+  ]
+}

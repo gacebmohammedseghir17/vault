@@ -1,0 +1,670 @@
+﻿cargo :     Checking erdps-agent v0.1.0 (D:\projecttttttttts\project-ransolution\agent)
+At line:1 char:52
++ ... s\project-ransolution\agent ; cargo check --all-features 2>&1 | Out-F ...
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking er...solution\agent):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0432]: unresolved import `crate::detection::SecurityEvent`
+  --> src\testing\malware_testing_suite.rs:16:5
+   |
+16 | use crate::detection::SecurityEvent;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `SecurityEvent` in `detection`
+   |
+help: consider importing one of these items instead
+   |
+16 - use crate::detection::SecurityEvent;
+16 + use crate::deployment::AuditEvent::SecurityEvent;
+   |
+16 - use crate::detection::SecurityEvent;
+16 + use crate::enterprise::AuditEventType::SecurityEvent;
+   |
+16 - use crate::detection::SecurityEvent;
+16 + use crate::enterprise::integration::SecurityEvent;
+   |
+16 - use crate::detection::SecurityEvent;
+16 + use crate::event_log::SecurityEvent;
+   |
+     and 2 other candidates
+
+error[E0433]: failed to resolve: could not find `SecurityError` in `error`
+   --> src\testing\workload_validation.rs:937:48
+    |
+937 |             .ok_or_else(|| crate::core::error::SecurityError::ValidationError(
+    |                                                ^^^^^^^^^^^^^ could not find `SecurityError` in `error`
+    |
+help: there is an enum variant `crate::error::YaraError::SecurityError`; try using the variant's enum
+    |
+937 -             .ok_or_else(|| crate::core::error::SecurityError::ValidationError(
+937 +             .ok_or_else(|| crate::error::YaraError::ValidationError(
+    |
+
+error[E0308]: mismatched types
+   --> src\testing\integration_tests.rs:178:28
+    |
+178 |                 Arc::clone(&self.response_system),
+    |                 ---------- ^^^^^^^^^^^^^^^^^^^^^ expected `&Arc<EnterpriseThreatEngine>`, found `&Arc<ResponseSystem>`
+    |                 |
+    |                 arguments to this function are incorrect
+    |
+    = note: expected reference `&Arc<EnterpriseThreatEngine>`
+               found reference `&Arc<ResponseSystem>`
+note: method defined here
+   --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\clone.rs:204:8
+    |
+204 |     fn clone(&self) -> Self;
+    |        ^^^^^
+
+error[E0599]: no method named `initialize` found for opaque type `impl futures::Future<Output = std::result::Result<WorkloadValidator, 
+EnhancedAgentError>>` in the current scope
+   --> src\testing\integration_tests.rs:181:32
+    |
+181 |             workload_validator.initialize().await?;
+    |                                ^^^^^^^^^^
+    |
+    = help: items from traits can only be used if the trait is implemented and in scope
+    = note: the following traits define an item `initialize`, perhaps you need to implement one of them:
+            candidate #1: `AgentCoordinator`
+            candidate #2: `BehavioralEngine`
+            candidate #3: `HeuristicEngine`
+            candidate #4: `MalwareScanner`
+            candidate #5: `NetworkEngine`
+            candidate #6: `PreventionEngine`
+            candidate #7: `RollbackEngine`
+            candidate #8: `SignatureEngine`
+            candidate #9: `TelemetryEngine`
+            candidate #10: `ThreatIntelligenceEngine`
+            candidate #11: `agent::QuarantineManager`
+help: there is a method `italic` with a similar name
+    |
+181 -             workload_validator.initialize().await?;
+181 +             workload_validator.italic().await?;
+    |
+
+error[E0308]: mismatched types
+   --> src\testing\integration_tests.rs:182:44
+    |
+182 |             self.workload_validator = Some(workload_validator);
+    |                                       ---- ^^^^^^^^^^^^^^^^^^ expected `WorkloadValidator`, found future
+    |                                       |
+    |                                       arguments to this enum variant are incorrect
+    |
+help: the type constructed contains `impl futures::Future<Output = std::result::Result<WorkloadValidator, EnhancedAgentError>>` due to the type 
+of the argument passed
+   --> src\testing\integration_tests.rs:182:39
+    |
+182 |             self.workload_validator = Some(workload_validator);
+    |                                       ^^^^^------------------^
+    |                                            |
+    |                                            this argument influences the type of `Some`
+note: tuple variant defined here
+   --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\option.rs:599:5
+    |
+599 |     Some(#[stable(feature = "rust1", since = "1.0.0")] T),
+    |     ^^^^
+
+error[E0061]: this method takes 3 arguments but 2 arguments were supplied
+   --> src\testing\integration_tests.rs:237:22
+    |
+237 |         self.metrics.record_histogram("integration_test_duration_secs", total_execution_time.as_secs_f64());
+    |                      ^^^^^^^^^^^^^^^^---------------------------------------------------------------------- argument #3 of type `&[(&str, 
+&str)]` is missing
+    |
+note: method defined here
+   --> src\metrics\mod.rs:289:12
+    |
+289 |     pub fn record_histogram(&self, name: &str, value: f64, labels: &[(&str, &str)]) {
+    |            ^^^^^^^^^^^^^^^^                                -----------------------
+help: provide the argument
+    |
+237 |         self.metrics.record_histogram("integration_test_duration_secs", total_execution_time.as_secs_f64(), /* &[(&str, &str)] */);
+    |                                                                                                           +++++++++++++++++++++++
+
+warning: unused variable: `malware_suite`
+   --> src\testing\integration_tests.rs:445:29
+    |
+445 |         if let Some(ref mut malware_suite) = self.malware_suite {
+    |                             ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_malware_suite`
+    |
+note: the lint level is defined here
+   --> src\lib.rs:9:9
+    |
+9   | #![warn(unused_variables)]
+    |         ^^^^^^^^^^^^^^^^
+
+warning: unused variable: `workload_validator`
+   --> src\testing\integration_tests.rs:482:29
+    |
+482 |         if let Some(ref mut workload_validator) = self.workload_validator {
+    |                             ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_workload_validator`
+
+warning: unused variable: `start`
+   --> src\testing\integration_tests.rs:490:25
+    |
+490 |                     let start = Instant::now();
+    |                         ^^^^^ help: if this is intentional, prefix it with an underscore: `_start`
+
+error[E0599]: no method named `cleanup` found for reference `&WorkloadValidator` in the current scope
+   --> src\testing\integration_tests.rs:818:32
+    |
+818 |             workload_validator.cleanup().await?;
+    |                                ^^^^^^^
+    |
+    = help: items from traits can only be used if the trait is implemented and in scope
+note: `MalwareScanner` defines an item `cleanup`, perhaps you need to implement it
+   --> src\scanning\traits.rs:118:1
+    |
+118 | pub trait MalwareScanner: Send + Sync {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is a method `clear` with a similar name
+    |
+818 -             workload_validator.cleanup().await?;
+818 +             workload_validator.clear().await?;
+    |
+
+error[E0070]: invalid left-hand side of assignment
+   --> src\testing\malware_testing.rs:460:48
+    |
+460 |         self.performance_metrics.write().await = PerformanceMetrics::default();
+    |         -------------------------------------- ^
+    |         |
+    |         cannot assign to this expression
+    |
+help: consider dereferencing here to assign to the mutably borrowed value
+    |
+460 |         *self.performance_metrics.write().await = PerformanceMetrics::default();
+    |         +
+
+warning: unused variable: `config`
+   --> src\testing\malware_testing.rs:536:13
+    |
+536 |         let config = self.config.read().await.clone();
+    |             ^^^^^^ help: if this is intentional, prefix it with an underscore: `_config`
+
+error[E0061]: this method takes 3 arguments but 2 arguments were supplied
+   --> src\testing\malware_testing_suite.rs:398:22
+    |
+398 |         self.metrics.record_histogram("malware_test_suite_duration_secs", suite_execution_time.as_secs_f64());
+    |                      ^^^^^^^^^^^^^^^^------------------------------------------------------------------------ argument #3 of type 
+`&[(&str, &str)]` is missing
+    |
+note: method defined here
+   --> src\metrics\mod.rs:289:12
+    |
+289 |     pub fn record_histogram(&self, name: &str, value: f64, labels: &[(&str, &str)]) {
+    |            ^^^^^^^^^^^^^^^^                                -----------------------
+help: provide the argument
+    |
+398 |         self.metrics.record_histogram("malware_test_suite_duration_secs", suite_execution_time.as_secs_f64(), /* &[(&str, &str)] */);
+    |                                                                                                             +++++++++++++++++++++++
+
+error[E0070]: invalid left-hand side of assignment
+   --> src\testing\workload_validation.rs:631:48
+    |
+631 |         self.performance_metrics.write().await = WorkloadPerformanceMetrics::default();
+    |         -------------------------------------- ^
+    |         |
+    |         cannot assign to this expression
+    |
+help: consider dereferencing here to assign to the mutably borrowed value
+    |
+631 |         *self.performance_metrics.write().await = WorkloadPerformanceMetrics::default();
+    |         +
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `details`
+   --> src\testing\workload_validation.rs:789:13
+    |
+789 |             details: format!("Application launch: {}", workload.name),
+    |             ^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `timestamp`
+   --> src\testing\workload_validation.rs:790:13
+    |
+790 |             timestamp: Utc::now(),
+    |             ^^^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `source`
+   --> src\testing\workload_validation.rs:791:13
+    |
+791 |             source: "workload_validator".to_string(),
+    |             ^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `policy_decision`
+   --> src\testing\workload_validation.rs:796:13
+    |
+796 |             policy_decision: PolicyDecision::Allow,
+    |             ^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:797:33
+    |
+797 |             threat_correlation: None,
+    |                                 ^^^^ expected `ThreatCorrelation`, found `Option<_>`
+    |
+    = note: expected struct `ThreatCorrelation`
+                 found enum `std::option::Option<_>`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:798:36
+    |
+798 |             ransomware_indicators: Vec::new(),
+    |                                    ^^^^^^^^^^ expected `RansomwareIndicators`, found `Vec<_>`
+    |
+    = note: expected struct `RansomwareIndicators`
+               found struct `Vec<_>`
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `enterprise_context`
+   --> src\testing\workload_validation.rs:799:13
+    |
+799 |             enterprise_context: Some(format!("Workload: {}", workload.name)),
+    |             ^^^^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `details`
+   --> src\testing\workload_validation.rs:813:13
+    |
+813 |             details: format!("Document {} operation for {}", operation, workload.name),
+    |             ^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `timestamp`
+   --> src\testing\workload_validation.rs:814:13
+    |
+814 |             timestamp: Utc::now(),
+    |             ^^^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `source`
+   --> src\testing\workload_validation.rs:815:13
+    |
+815 |             source: "workload_validator".to_string(),
+    |             ^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `policy_decision`
+   --> src\testing\workload_validation.rs:820:13
+    |
+820 |             policy_decision: PolicyDecision::Allow,
+    |             ^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:821:33
+    |
+821 |             threat_correlation: None,
+    |                                 ^^^^ expected `ThreatCorrelation`, found `Option<_>`
+    |
+    = note: expected struct `ThreatCorrelation`
+                 found enum `std::option::Option<_>`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:822:36
+    |
+822 |             ransomware_indicators: Vec::new(),
+    |                                    ^^^^^^^^^^ expected `RansomwareIndicators`, found `Vec<_>`
+    |
+    = note: expected struct `RansomwareIndicators`
+               found struct `Vec<_>`
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `enterprise_context`
+   --> src\testing\workload_validation.rs:823:13
+    |
+823 |             enterprise_context: Some(format!("Document {} - {}", operation, workload.name)),
+    |             ^^^^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `details`
+   --> src\testing\workload_validation.rs:836:13
+    |
+836 |             details: format!("Network operation for {}", workload.name),
+    |             ^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `timestamp`
+   --> src\testing\workload_validation.rs:837:13
+    |
+837 |             timestamp: Utc::now(),
+    |             ^^^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `source`
+   --> src\testing\workload_validation.rs:838:13
+    |
+838 |             source: "workload_validator".to_string(),
+    |             ^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `policy_decision`
+   --> src\testing\workload_validation.rs:843:13
+    |
+843 |             policy_decision: PolicyDecision::Allow,
+    |             ^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:844:33
+    |
+844 |             threat_correlation: None,
+    |                                 ^^^^ expected `ThreatCorrelation`, found `Option<_>`
+    |
+    = note: expected struct `ThreatCorrelation`
+                 found enum `std::option::Option<_>`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:845:36
+    |
+845 |             ransomware_indicators: Vec::new(),
+    |                                    ^^^^^^^^^^ expected `RansomwareIndicators`, found `Vec<_>`
+    |
+    = note: expected struct `RansomwareIndicators`
+               found struct `Vec<_>`
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `enterprise_context`
+   --> src\testing\workload_validation.rs:846:13
+    |
+846 |             enterprise_context: Some(format!("Network - {}", workload.name)),
+    |             ^^^^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `details`
+   --> src\testing\workload_validation.rs:859:13
+    |
+859 |             details: format!("File operation for {}", workload.name),
+    |             ^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `timestamp`
+   --> src\testing\workload_validation.rs:860:13
+    |
+860 |             timestamp: Utc::now(),
+    |             ^^^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `source`
+   --> src\testing\workload_validation.rs:861:13
+    |
+861 |             source: "workload_validator".to_string(),
+    |             ^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `policy_decision`
+   --> src\testing\workload_validation.rs:866:13
+    |
+866 |             policy_decision: PolicyDecision::Allow,
+    |             ^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:867:33
+    |
+867 |             threat_correlation: None,
+    |                                 ^^^^ expected `ThreatCorrelation`, found `Option<_>`
+    |
+    = note: expected struct `ThreatCorrelation`
+                 found enum `std::option::Option<_>`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:868:36
+    |
+868 |             ransomware_indicators: Vec::new(),
+    |                                    ^^^^^^^^^^ expected `RansomwareIndicators`, found `Vec<_>`
+    |
+    = note: expected struct `RansomwareIndicators`
+               found struct `Vec<_>`
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `enterprise_context`
+   --> src\testing\workload_validation.rs:869:13
+    |
+869 |             enterprise_context: Some(format!("File operation - {}", workload.name)),
+    |             ^^^^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `details`
+   --> src\testing\workload_validation.rs:882:13
+    |
+882 |             details: format!("Generic operation for {}", workload.name),
+    |             ^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `timestamp`
+   --> src\testing\workload_validation.rs:883:13
+    |
+883 |             timestamp: Utc::now(),
+    |             ^^^^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `core::types::DetectionResult` has no field named `source`
+   --> src\testing\workload_validation.rs:884:13
+    |
+884 |             source: "workload_validator".to_string(),
+    |             ^^^^^^ `core::types::DetectionResult` does not have this field
+    |
+    = note: available fields are: `threat_id`, `detection_method`, `file_path`, `process_info`, `network_info` ... and 3 others
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `policy_decision`
+   --> src\testing\workload_validation.rs:889:13
+    |
+889 |             policy_decision: PolicyDecision::Allow,
+    |             ^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:890:33
+    |
+890 |             threat_correlation: None,
+    |                                 ^^^^ expected `ThreatCorrelation`, found `Option<_>`
+    |
+    = note: expected struct `ThreatCorrelation`
+                 found enum `std::option::Option<_>`
+
+error[E0308]: mismatched types
+   --> src\testing\workload_validation.rs:891:36
+    |
+891 |             ransomware_indicators: Vec::new(),
+    |                                    ^^^^^^^^^^ expected `RansomwareIndicators`, found `Vec<_>`
+    |
+    = note: expected struct `RansomwareIndicators`
+               found struct `Vec<_>`
+
+error[E0560]: struct `EnterpriseDetectionResult` has no field named `enterprise_context`
+   --> src\testing\workload_validation.rs:892:13
+    |
+892 |             enterprise_context: Some(format!("Generic - {}", workload.name)),
+    |             ^^^^^^^^^^^^^^^^^^ `EnterpriseDetectionResult` does not have this field
+    |
+    = note: available fields are: `entropy_analysis`, `anomaly_analysis`, `detection_timing`, `policy_evaluation`
+
+warning: unused variable: `execution_time`
+    --> src\testing\workload_validation.rs:1002:49
+     |
+1002 |     async fn generate_validation_summary(&self, execution_time: Duration) -> WorkloadValidationSummary {
+     |                                                 ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: 
+`_execution_time`
+
+error[E0382]: use of moved value: `metrics`
+    --> src\testing\workload_validation.rs:1047:37
+     |
+1004 |         let metrics = self.performance_metrics.read().await.clone();
+     |             ------- move occurs because `metrics` has type `WorkloadPerformanceMetrics`, which does not implement the `Copy` trait
+...
+1044 |             metrics,
+     |             ------- value moved here
+...
+1047 |             performance_compliance: metrics.performance_compliance,
+     |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ value used here after move
+     |
+help: consider cloning the value if the performance cost is acceptable
+     |
+1044 |             metrics: metrics.clone(),
+     |                    +++++++++++++++++
+
+error[E0277]: the trait bound `TestCategory: Hash` is not satisfied
+    --> src\testing\integration_tests.rs:120:35
+     |
+120  |     pub test_results_by_category: HashMap<TestCategory, Vec<IntegrationTestResult>>,
+     |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`TestCategory`
+     |
+     = help: the trait `error::_::_serde::Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<TestCategory, Vec<integration_tests::IntegrationTestResult>>` to implement 
+`error::_::_serde::Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.228\src\de\mod.rs:1771:12
+     |
+1769 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1770 |     where
+1771 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `TestCategory` with `#[derive(Hash)]`
+     |
+76   + #[derive(Hash)]
+77   | pub enum TestCategory {
+     |
+
+error[E0277]: the trait bound `TestCategory: Hash` is not satisfied
+    --> src\testing\integration_tests.rs:120:35
+     |
+120  |     pub test_results_by_category: HashMap<TestCategory, Vec<IntegrationTestResult>>,
+     |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`TestCategory`
+     |
+     = help: the trait `error::_::_serde::Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<TestCategory, Vec<integration_tests::IntegrationTestResult>>` to implement 
+`error::_::_serde::Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.228\src\de\mod.rs:1916:12
+     |
+1914 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1915 |     where
+1916 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `TestCategory` with `#[derive(Hash)]`
+     |
+76   + #[derive(Hash)]
+77   | pub enum TestCategory {
+     |
+
+error[E0277]: the trait bound `TestCategory: Hash` is not satisfied
+   --> src\testing\integration_tests.rs:111:35
+    |
+111 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `TestCategory`
+    |
+    = help: the trait `error::_::_serde::Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<TestCategory, Vec<integration_tests::IntegrationTestResult>>` to implement `error::_::_serde::Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private228::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `TestCategory` with `#[derive(Hash)]`
+    |
+76  + #[derive(Hash)]
+77  | pub enum TestCategory {
+    |
+
+error[E0599]: the method `entry` exists for struct `HashMap<TestCategory, Vec<integration_tests::IntegrationTestResult>>`, but its trait bounds 
+were not satisfied
+   --> src\testing\integration_tests.rs:763:18
+    |
+76  |   pub enum TestCategory {
+    |   --------------------- doesn't satisfy `TestCategory: Hash`
+...
+762 | /             test_results_by_category
+763 | |                 .entry(result.test_category.clone())
+    | |                 -^^^^^ method cannot be called due to unsatisfied trait bounds
+    | |_________________|
+    |
+    |
+    = note: the following trait bounds were not satisfied:
+            `TestCategory: Hash`
+help: consider annotating `TestCategory` with `#[derive(Hash)]`
+    |
+76  + #[derive(Hash)]
+77  | pub enum TestCategory {
+    |
+
+error[E0308]: mismatched types
+   --> src\testing\malware_testing_suite.rs:654:17
+    |
+653 |             Duration::from_nanos(
+    |             -------------------- arguments to this function are incorrect
+654 |                 detection_times.iter().map(|d| d.as_nanos()).sum::<u128>() / detection_times.len() as u128
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u64`, found `u128`
+    |
+note: associated function defined here
+   --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:301:18
+    |
+301 |     pub const fn from_nanos(nanos: u64) -> Duration {
+    |                  ^^^^^^^^^^
+help: you can convert a `u128` to a `u64` and panic if the converted value doesn't fit
+    |
+654 |                 (detection_times.iter().map(|d| d.as_nanos()).sum::<u128>() / detection_times.len() as u128).try_into().unwrap()
+    |                 +                                                                                          +++++++++++++++++++++
+
+error[E0609]: no field `policy_decision` on type `&EnterpriseDetectionResult`
+   --> src\testing\workload_validation.rs:908:36
+    |
+908 |             match detection_result.policy_decision {
+    |                                    ^^^^^^^^^^^^^^^ unknown field
+    |
+    = note: available fields are: `base_result`, `ransomware_indicators`, `entropy_analysis`, `anomaly_analysis`, `threat_correlation` ... and 
+2 others
+
+error[E0369]: binary operation `>` cannot be applied to type `core::types::ThreatSeverity`
+   --> src\testing\workload_validation.rs:921:50
+    |
+921 |         if detection_result.base_result.severity > expected_behavior.expected_severity {
+    |            ------------------------------------- ^ ----------------------------------- core::types::ThreatSeverity
+    |            |
+    |            core::types::ThreatSeverity
+    |
+note: an implementation of `PartialOrd` might be missing for `core::types::ThreatSeverity`
+   --> src\core\types.rs:26:1
+    |
+26  | pub enum ThreatSeverity {
+    | ^^^^^^^^^^^^^^^^^^^^^^^ must implement `PartialOrd`
+help: consider annotating `core::types::ThreatSeverity` with `#[derive(PartialEq, PartialOrd)]`
+   --> src\core\types.rs:26:1
+    |
+26  + #[derive(PartialEq, PartialOrd)]
+27  | pub enum ThreatSeverity {
+    |
+
+Some errors have detailed explanations: E0061, E0070, E0277, E0308, E0369, E0382, E0432, E0433, E0560...
+For more information about an error, try `rustc --explain E0061`.
+warning: `erdps-agent` (lib) generated 5 warnings
+error: could not compile `erdps-agent` (lib) due to 53 previous errors; 5 warnings emitted

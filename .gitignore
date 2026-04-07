@@ -1,0 +1,26 @@
+# Rust
+agent/target/
+**/*.rs.bk
+
+# Node/Frontend
+node_modules/
+dist/
+build/
+
+# ML Models & Datasets (GitHub blocks files > 100MB)
+*.onnx
+*.pt
+*.bin
+dataset/
+
+# Logs & Generated Traps
+*.log
+*.csv
+*.jsonl
+0000_Accounting_2026.xlsx
+~$passwords.docx
+00_Backup_Codes.txt
+!_CRITICAL_FINANCE.pdf
+__Secret_Keys.kdbx
+erdps_portable.zip
+rules/master_threats.yara

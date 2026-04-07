@@ -1,0 +1,396 @@
+//! Unit tests for Machine Learning Threat Scoring module
+//!
+//! This module contains comprehensive tests for the ML threat scoring functionality,
+//! including mock implementations for testing without actual ML models.
+
+use anyhow::Result;
+use serde_json;
+use std::path::PathBuf;
+use tempfile::TempDir;
+
+// Import the modules we're testing
+use erdps_agent::yara::ml_threat_scoring::ThreatScore;
+use erdps_agent::yara::multi_layer_scanner::RuleMatch;
+
+/// Mock threat scorer for testing without actual ML models
+struct MockThreatScorer {
+    fixed_scores: Vec<f32>,
+}
+
+impl MockThreatScorer {
+    /// Create a new mock scorer with fixed scores
+    fn new(fixed_scores: Vec<f32>) -> Self {
+        Self { fixed_scores }
+    }
+
+    /// Mock implementation of score_matches that returns fixed scores
+    fn score_matches(&self, matches: &[RuleMatch]) -> Result<Vec<ThreatScore>> {
+        let mut scores = Vec::new();
+
+        for (i, rule_match) in matches.iter().enumerate() {
+            let score = self.fixed_scores.get(i).copied().unwrap_or(0.5);
+
+            // Map score to label
+            let label = if score < 0.3 {
+                "low".to_string()
+            } else if score < 0.7 {
+                "medium".to_string()
+            } else {
+                "high".to_string()
+            };
+
+            scores.push(ThreatScore {
+                rule_id: rule_match.rule_name.clone(),
+                score,
+                label,
+            });
+        }
+
+        Ok(scores)
+    }
+}
+
+/// Create mock RuleMatch objects for testing
+fn create_mock_rule_matches() -> Vec<RuleMatch> {
+    vec![
+        RuleMatch {
+            rule_name: "test_rule_1".to_string(),
+            namespace: Some("test".to_string()),
+            tags: vec!["malware".to_string(), "trojan".to_string()],
+            metadata: std::collections::HashMap::new(),
+            confidence: 0.8,
+            severity: "high".to_string(),
+        },
+        RuleMatch {
+            rule_name: "test_rule_2".to_string(),
+            namespace: Some("test".to_string()),
+            tags: vec!["suspicious".to_string()],
+            metadata: std::collections::HashMap::new(),
+            confidence: 0.5,
+            severity: "medium".to_string(),
+        },
+        RuleMatch {
+            rule_name: "test_rule_3".to_string(),
+            namespace: Some("test".to_string()),
+            tags: vec!["info".to_string()],
+            metadata: std::collections::HashMap::new(),
+            confidence: 0.2,
+            severity: "low".to_string(),
+        },
+    ]
+}
+
+/// Create a temporary SQLite database for testing
+async fn create_temp_database() -> Result<(TempDir, PathBuf)> {
+    let temp_dir = TempDir::new()?;
+    let db_path = temp_dir.path().join("test_threat_scores.db");
+
+    // Create the database and table
+    let conn = rusqlite::Connection::open(&db_path)?;
+    conn.execute(
+        r#"
+        CREATE TABLE IF NOT EXISTS threat_scores (
+            rule_id TEXT PRIMARY KEY,
+            score REAL NOT NULL,
+            label TEXT NOT NULL,
+            scored_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+        "#,
+        [],
+    )?;
+
+    Ok((temp_dir, db_path))
+}
+
+#[tokio::test]
+async fn test_mock_threat_scorer_score_matches() {
+    // Test the mock scorer with fixed scores
+    let fixed_scores = vec![0.9, 0.5, 0.1]; // high, medium, low
+    let mock_scorer = MockThreatScorer::new(fixed_scores);
+
+    let rule_matches = create_mock_rule_matches();
+    let threat_scores = mock_scorer.score_matches(&rule_matches).unwrap();
+
+    assert_eq!(threat_scores.len(), 3);
+
+    // Check first score (high)
+    assert_eq!(threat_scores[0].rule_id, "test_rule_1");
+    assert_eq!(threat_scores[0].score, 0.9);
+    assert_eq!(threat_scores[0].label, "high");
+
+    // Check second score (medium)
+    assert_eq!(threat_scores[1].rule_id, "test_rule_2");
+    assert_eq!(threat_scores[1].score, 0.5);
+    assert_eq!(threat_scores[1].label, "medium");
+
+    // Check third score (low)
+    assert_eq!(threat_scores[2].rule_id, "test_rule_3");
+    assert_eq!(threat_scores[2].score, 0.1);
+    assert_eq!(threat_scores[2].label, "low");
+}
+
+#[tokio::test]
+async fn test_threat_score_label_mapping() {
+    // Test label mapping for different score ranges
+    let test_cases = vec![
+        (0.0, "low"),
+        (0.2, "low"),
+        (0.29, "low"),
+        (0.3, "medium"),
+        (0.5, "medium"),
+        (0.69, "medium"),
+        (0.7, "high"),
+        (0.9, "high"),
+        (1.0, "high"),
+    ];
+
+    for (score, expected_label) in test_cases {
+        let mock_scorer = MockThreatScorer::new(vec![score]);
+        let rule_matches = vec![create_mock_rule_matches()[0].clone()];
+
+        let threat_scores = mock_scorer.score_matches(&rule_matches).unwrap();
+        assert_eq!(
+            threat_scores[0].label, expected_label,
+            "Score {} should map to label {}",
+            score, expected_label
+        );
+    }
+}
+
+#[tokio::test]
+async fn test_feature_extraction() {
+    // Test feature extraction from RuleMatch
+    let rule_match = RuleMatch {
+        rule_name: "complex_rule_with_long_name".to_string(),
+        namespace: Some("namespace".to_string()),
+        tags: vec!["tag1".to_string(), "tag2".to_string(), "tag3".to_string()],
+        metadata: {
+            let mut meta = std::collections::HashMap::new();
+            meta.insert("author".to_string(), "test_author".to_string());
+            meta.insert("version".to_string(), "1.0".to_string());
+            meta.insert("description".to_string(), "test description".to_string());
+            meta
+        },
+        confidence: 0.8,
+        severity: "high".to_string(),
+    };
+
+    // Mock feature extraction (this would be done by ThreatScorer internally)
+    let rule_length = rule_match.rule_name.len() as f32; // 25
+    let num_strings = rule_match.tags.len() as f32; // 3
+    let avg_string_length = rule_match.tags.iter().map(|s| s.len()).sum::<usize>() as f32
+        / rule_match.tags.len() as f32; // (4+4+4)/3 = 4.0
+    let num_meta_fields = rule_match.metadata.len() as f32; // 3
+
+    assert_eq!(rule_length, 25.0);
+    assert_eq!(num_strings, 3.0);
+    assert_eq!(avg_string_length, 4.0);
+    assert_eq!(num_meta_fields, 3.0);
+}
+
+#[tokio::test]
+async fn test_database_storage() -> Result<()> {
+    // Create temporary database
+    let (_temp_dir, db_path) = create_temp_database().await?;
+
+    // Create test threat scores
+    let threat_scores = vec![
+        ThreatScore {
+            rule_id: "rule_1".to_string(),
+            score: 0.9,
+            label: "high".to_string(),
+        },
+        ThreatScore {
+            rule_id: "rule_2".to_string(),
+            score: 0.5,
+            label: "medium".to_string(),
+        },
+    ];
+
+    // Store scores in database
+    let conn = rusqlite::Connection::open(&db_path)?;
+
+    for score in &threat_scores {
+        conn.execute(
+            "INSERT OR REPLACE INTO threat_scores (rule_id, score, label) VALUES (?1, ?2, ?3)",
+            rusqlite::params![score.rule_id, score.score, score.label],
+        )?;
+    }
+
+    // Verify scores were stored
+    let mut stmt =
+        conn.prepare("SELECT rule_id, score, label FROM threat_scores ORDER BY rule_id")?;
+    let rows: Result<Vec<_>, _> = stmt
+        .query_map([], |row| {
+            Ok(ThreatScore {
+                rule_id: row.get(0)?,
+                score: row.get(1)?,
+                label: row.get(2)?,
+            })
+        })?
+        .collect();
+
+    let stored_scores = rows?;
+    assert_eq!(stored_scores.len(), 2);
+
+    assert_eq!(stored_scores[0].rule_id, "rule_1");
+    assert_eq!(stored_scores[0].score, 0.9);
+    assert_eq!(stored_scores[0].label, "high");
+
+    assert_eq!(stored_scores[1].rule_id, "rule_2");
+    assert_eq!(stored_scores[1].score, 0.5);
+    assert_eq!(stored_scores[1].label, "medium");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn test_database_upsert() -> Result<()> {
+    // Test that database upsert works correctly (INSERT OR REPLACE)
+    let (_temp_dir, db_path) = create_temp_database().await?;
+
+    let conn = rusqlite::Connection::open(&db_path)?;
+
+    // Insert initial score
+    conn.execute(
+        "INSERT OR REPLACE INTO threat_scores (rule_id, score, label) VALUES (?1, ?2, ?3)",
+        rusqlite::params!["rule_1", 0.5, "medium"],
+    )?;
+
+    // Update with new score
+    conn.execute(
+        "INSERT OR REPLACE INTO threat_scores (rule_id, score, label) VALUES (?1, ?2, ?3)",
+        rusqlite::params!["rule_1", 0.9, "high"],
+    )?;
+
+    // Verify only one record exists with updated values
+    let mut stmt =
+        conn.prepare("SELECT COUNT(*), score, label FROM threat_scores WHERE rule_id = ?1")?;
+    let (count, score, label): (i32, f32, String) = stmt.query_row(["rule_1"], |row| {
+        Ok((row.get(0)?, row.get(1)?, row.get(2)?))
+    })?;
+
+    assert_eq!(count, 1);
+    assert_eq!(score, 0.9);
+    assert_eq!(label, "high");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn test_json_serialization() -> Result<()> {
+    // Test JSON serialization/deserialization of ThreatScore
+    let threat_scores = vec![
+        ThreatScore {
+            rule_id: "rule_1".to_string(),
+            score: 0.85,
+            label: "high".to_string(),
+        },
+        ThreatScore {
+            rule_id: "rule_2".to_string(),
+            score: 0.42,
+            label: "medium".to_string(),
+        },
+    ];
+
+    // Serialize to JSON
+    let json = serde_json::to_string_pretty(&threat_scores)?;
+
+    // Deserialize back
+    let deserialized: Vec<ThreatScore> = serde_json::from_str(&json)?;
+
+    assert_eq!(deserialized.len(), 2);
+    assert_eq!(deserialized[0].rule_id, "rule_1");
+    assert_eq!(deserialized[0].score, 0.85);
+    assert_eq!(deserialized[0].label, "high");
+
+    assert_eq!(deserialized[1].rule_id, "rule_2");
+    assert_eq!(deserialized[1].score, 0.42);
+    assert_eq!(deserialized[1].label, "medium");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn test_empty_rule_matches() {
+    // Test handling of empty rule matches
+    let mock_scorer = MockThreatScorer::new(vec![]);
+    let empty_matches: Vec<RuleMatch> = vec![];
+
+    let threat_scores = mock_scorer.score_matches(&empty_matches).unwrap();
+    assert_eq!(threat_scores.len(), 0);
+}
+
+#[tokio::test]
+async fn test_large_number_of_matches() {
+    // Test performance with a large number of matches
+    let num_matches = 1000;
+    let fixed_scores: Vec<f32> = (0..num_matches)
+        .map(|i| (i as f32) / (num_matches as f32))
+        .collect();
+    let mock_scorer = MockThreatScorer::new(fixed_scores);
+
+    // Create many rule matches
+    let rule_matches: Vec<RuleMatch> = (0..num_matches)
+        .map(|i| RuleMatch {
+            rule_name: format!("rule_{}", i),
+            namespace: Some("test".to_string()),
+            tags: vec!["test".to_string()],
+            metadata: std::collections::HashMap::new(),
+            confidence: 0.5,
+            severity: "medium".to_string(),
+        })
+        .collect();
+
+    let start = std::time::Instant::now();
+    let threat_scores = mock_scorer.score_matches(&rule_matches).unwrap();
+    let duration = start.elapsed();
+
+    assert_eq!(threat_scores.len(), num_matches);
+    println!("Processed {} matches in {:?}", num_matches, duration);
+
+    // Verify score distribution
+    let low_count = threat_scores.iter().filter(|s| s.label == "low").count();
+    let medium_count = threat_scores.iter().filter(|s| s.label == "medium").count();
+    let high_count = threat_scores.iter().filter(|s| s.label == "high").count();
+
+    // With scores from 0.0 to 1.0, we should have roughly:
+    // - 30% low (0.0-0.3)
+    // - 40% medium (0.3-0.7)
+    // - 30% high (0.7-1.0)
+    assert!(
+        low_count > 250 && low_count < 350,
+        "Low count: {}",
+        low_count
+    );
+    assert!(
+        medium_count > 350 && medium_count < 450,
+        "Medium count: {}",
+        medium_count
+    );
+    assert!(
+        high_count > 250 && high_count < 350,
+        "High count: {}",
+        high_count
+    );
+}
+
+#[tokio::test]
+async fn test_out_of_range_scores() {
+    // Test handling of out-of-range scores (should be logged as warnings)
+    let out_of_range_scores = vec![-0.5, 1.5, 2.0];
+    let mock_scorer = MockThreatScorer::new(out_of_range_scores);
+
+    let rule_matches = create_mock_rule_matches();
+    let threat_scores = mock_scorer.score_matches(&rule_matches).unwrap();
+
+    // Verify that out-of-range scores still get proper labels
+    assert_eq!(threat_scores[0].score, -0.5);
+    assert_eq!(threat_scores[0].label, "low"); // < 0.3
+
+    assert_eq!(threat_scores[1].score, 1.5);
+    assert_eq!(threat_scores[1].label, "high"); // >= 0.7
+
+    assert_eq!(threat_scores[2].score, 2.0);
+    assert_eq!(threat_scores[2].label, "high"); // >= 0.7
+}

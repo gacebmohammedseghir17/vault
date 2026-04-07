@@ -1,0 +1,306 @@
+use crate::memory::{
+    IntegratedMemoryAnalyzer, IntegratedAnalysisConfig, MemoryForensicsConfig,
+    ThreatSeverity, MemoryForensicsFeatureExtractor, MemoryAnomalyDetector,
+};
+use crate::ml::ZeroDayDetector;
+use std::collections::HashMap;
+use std::time::Duration;
+use tokio::time::sleep;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn create_test_config() -> IntegratedAnalysisConfig {
+        IntegratedAnalysisConfig {
+            forensics_config: MemoryForensicsConfig {
+                scan_interval: 1,
+                max_memory_usage: 1024 * 1024 * 100, // 100MB
+                enable_realtime_monitoring: true,
+                threat_threshold: 0.7,
+                detect_heap_spray: true,
+                detect_rop_chains: true,
+                min_shellcode_size: 32,
+                max_scan_time_ms: 1000,
+            },
+            ml_threshold: 0.8,
+            enable_ml_analysis: true,
+            max_history_size: 1000,
+            performance_monitoring: true,
+        }
+    }
+
+    #[tokio::test]
+    async fn test_integrated_analyzer_initialization() {
+        let config = create_test_config();
+        let analyzer = IntegratedMemoryAnalyzer::new(config).await;
+        
+        assert!(analyzer.is_ok());
+        let analyzer = analyzer.unwrap();
+        
+        // Verify analyzer is properly initialized
+        assert!(analyzer.is_monitoring());
+    }
+
+    #[tokio::test]
+    async fn test_process_analysis_integration() {
+        let config = create_test_config();
+        let mut analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        // Test process analysis with a mock process ID
+        let process_id = 1234;
+        let result = analyzer.analyze_process(process_id).await;
+        
+        assert!(result.is_ok());
+        let analysis_result = result.unwrap();
+        
+        // Verify the analysis result structure
+        assert_eq!(analysis_result.process_id, process_id);
+        assert!(analysis_result.timestamp > 0);
+        assert!(analysis_result.threat_assessment.overall_score >= 0.0);
+        assert!(analysis_result.threat_assessment.overall_score <= 1.0);
+        
+        // Verify ML features are extracted
+        assert!(analysis_result.ml_features.injection_count >= 0);
+        assert!(analysis_result.ml_features.shellcode_entropy >= 0.0);
+    }
+
+    #[tokio::test]
+    async fn test_real_time_monitoring_integration() {
+        let config = create_test_config();
+        let mut analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        // Start monitoring
+        let monitoring_result = analyzer.start_monitoring().await;
+        assert!(monitoring_result.is_ok());
+        
+        // Let it run for a short time
+        sleep(Duration::from_millis(200)).await;
+        
+        // Stop monitoring
+        let stop_result = analyzer.stop_monitoring().await;
+        assert!(stop_result.is_ok());
+        
+        // Verify monitoring state
+        assert!(!analyzer.is_monitoring());
+    }
+
+    #[tokio::test]
+    async fn test_threat_assessment_accuracy() {
+        let config = create_test_config();
+        let mut analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        // Analyze multiple processes to test threat assessment
+        let process_ids = vec![1000, 2000, 3000];
+        let mut results = Vec::new();
+        
+        for pid in process_ids {
+            let result = analyzer.analyze_process(pid).await.unwrap();
+            results.push(result);
+        }
+        
+        // Verify threat assessments are consistent
+        for result in &results {
+            assert!(result.threat_assessment.overall_score >= 0.0);
+            assert!(result.threat_assessment.overall_score <= 1.0);
+            assert!(result.threat_assessment.confidence >= 0.0);
+            assert!(result.threat_assessment.confidence <= 1.0);
+            
+            // Verify threat level mapping
+            match result.threat_assessment.threat_level {
+                ThreatSeverity::Low => assert!(result.threat_assessment.overall_score < 0.3),
+                ThreatSeverity::Medium => {
+                    assert!(result.threat_assessment.overall_score >= 0.3);
+                    assert!(result.threat_assessment.overall_score < 0.7);
+                },
+                ThreatSeverity::High => {
+                    assert!(result.threat_assessment.overall_score >= 0.7);
+                    assert!(result.threat_assessment.overall_score < 0.9);
+                },
+                ThreatSeverity::Critical => assert!(result.threat_assessment.overall_score >= 0.9),
+            }
+        }
+    }
+
+    #[tokio::test]
+    async fn test_ml_anomaly_detection_integration() {
+        let config = create_test_config();
+        let mut analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        // Generate some analysis data
+        let mut analysis_results = Vec::new();
+        for i in 1..=10 {
+            let result = analyzer.analyze_process(i * 100).await.unwrap();
+            analysis_results.push(result);
+        }
+        
+        // Verify ML analysis is working
+        for result in &analysis_results {
+            assert!(result.ml_analysis.is_some());
+            let ml_result = result.ml_analysis.as_ref().unwrap();
+            
+            // Verify ML prediction structure
+            assert!(ml_result.anomaly_score >= 0.0);
+            assert!(ml_result.anomaly_score <= 1.0);
+            assert!(!ml_result.feature_importance.is_empty());
+        }
+    }
+
+    #[tokio::test]
+    async fn test_performance_requirements() {
+        let config = create_test_config();
+        let mut analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        // Test memory scan performance (<500ms)
+        let start_time = std::time::Instant::now();
+        let result = analyzer.analyze_process(1234).await;
+        let scan_duration = start_time.elapsed();
+        
+        assert!(result.is_ok());
+        assert!(scan_duration < Duration::from_millis(500), 
+                "Memory scan took {:?}, should be <500ms", scan_duration);
+        
+        // Test ML inference performance (<100ms)
+        let analysis_result = result.unwrap();
+        if let Some(ml_result) = &analysis_result.ml_analysis {
+            // ML inference time should be tracked in metrics
+            if let Some(metrics) = &analysis_result.metrics {
+                assert!(metrics.ml_inference_time < Duration::from_millis(100),
+                        "ML inference took {:?}, should be <100ms", metrics.ml_inference_time);
+            }
+        }
+    }
+
+    #[tokio::test]
+    async fn test_feature_extraction_completeness() {
+        let config = create_test_config();
+        let mut analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        let result = analyzer.analyze_process(5678).await.unwrap();
+        let features = &result.ml_features;
+        
+        // Verify all expected features are extracted
+        assert!(features.injection_count >= 0);
+        assert!(features.shellcode_entropy >= 0.0);
+        assert!(features.heap_spray_indicators >= 0);
+        assert!(features.rop_chain_indicators >= 0);
+        assert!(features.high_entropy_regions >= 0);
+        assert!(features.suspicious_memory_regions >= 0);
+        assert!(features.process_injection_score >= 0.0);
+        assert!(features.shellcode_detection_score >= 0.0);
+        assert!(features.memory_anomaly_score >= 0.0);
+        
+        // Verify threat severity distribution
+        let total_threats = features.threat_severity_low + 
+                           features.threat_severity_medium + 
+                           features.threat_severity_high + 
+                           features.threat_severity_critical;
+        assert!(total_threats >= 0);
+        
+        // Verify memory statistics
+        assert!(features.total_memory_regions > 0);
+        assert!(features.executable_regions >= 0);
+        assert!(features.writable_regions >= 0);
+        assert!(features.average_region_size > 0);
+    }
+
+    #[tokio::test]
+    async fn test_error_handling_and_recovery() {
+        let config = create_test_config();
+        let mut analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        // Test with invalid process ID
+        let result = analyzer.analyze_process(0).await;
+        // Should handle gracefully, either succeed with empty results or return specific error
+        match result {
+            Ok(analysis) => {
+                // If it succeeds, should have minimal/empty results
+                assert_eq!(analysis.process_id, 0);
+            },
+            Err(_) => {
+                // Error is acceptable for invalid PID
+            }
+        }
+        
+        // Analyzer should still be functional after error
+        let valid_result = analyzer.analyze_process(1234).await;
+        assert!(valid_result.is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_concurrent_analysis() {
+        let config = create_test_config();
+        let analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        // Test concurrent analysis of multiple processes
+        let mut handles = Vec::new();
+        
+        for i in 1..=5 {
+            let mut analyzer_clone = analyzer.clone();
+            let handle = tokio::spawn(async move {
+                analyzer_clone.analyze_process(i * 1000).await
+            });
+            handles.push(handle);
+        }
+        
+        // Wait for all analyses to complete
+        let mut results = Vec::new();
+        for handle in handles {
+            let result = handle.await.unwrap();
+            assert!(result.is_ok());
+            results.push(result.unwrap());
+        }
+        
+        // Verify all analyses completed successfully
+        assert_eq!(results.len(), 5);
+        for (i, result) in results.iter().enumerate() {
+            assert_eq!(result.process_id, (i + 1) * 1000);
+        }
+    }
+}
+
+#[cfg(test)]
+mod benchmark_tests {
+    use super::*;
+    use std::time::Instant;
+
+    #[tokio::test]
+    async fn benchmark_analysis_throughput() {
+        let config = create_test_config();
+        let mut analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        let num_analyses = 100;
+        let start_time = Instant::now();
+        
+        for i in 1..=num_analyses {
+            let _ = analyzer.analyze_process(i).await;
+        }
+        
+        let total_time = start_time.elapsed();
+        let avg_time_per_analysis = total_time / num_analyses;
+        
+        println!("Average analysis time: {:?}", avg_time_per_analysis);
+        println!("Total throughput: {:.2} analyses/sec", 
+                 num_analyses as f64 / total_time.as_secs_f64());
+        
+        // Ensure reasonable performance
+        assert!(avg_time_per_analysis < Duration::from_millis(100));
+    }
+
+    #[tokio::test]
+    async fn benchmark_memory_usage() {
+        let config = create_test_config();
+        let mut analyzer = IntegratedMemoryAnalyzer::new(config).await.unwrap();
+        
+        // Perform multiple analyses and check memory doesn't grow excessively
+        for i in 1..=50 {
+            let _ = analyzer.analyze_process(i * 10).await;
+            
+            // Every 10 analyses, check that history is being managed
+            if i % 10 == 0 {
+                let history_size = analyzer.get_analysis_history().len();
+                assert!(history_size <= 1000, "History size should be limited to 1000 entries");
+            }
+        }
+    }
+}

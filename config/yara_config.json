@@ -1,0 +1,80 @@
+{
+  "yara": {
+    "enabled": true,
+    "rules_path": "rules/",
+    "scan_directories": [
+      "C:\\Users",
+      "C:\\Downloads",
+      "C:\\Documents",
+      "C:\\Desktop",
+      "C:\\Temp"
+    ],
+    "excluded_directories": [
+      "C:\\Windows\\System32",
+      "C:\\Windows\\SysWOW64",
+      "C:\\Program Files",
+      "C:\\Program Files (x86)"
+    ],
+    "file_extensions": [
+      ".exe",
+      ".dll",
+      ".bat",
+      ".cmd",
+      ".ps1",
+      ".vbs",
+      ".js",
+      ".jar",
+      ".scr",
+      ".com",
+      ".pif"
+    ],
+    "max_file_size_mb": 100,
+    "scan_timeout_seconds": 30,
+    "max_concurrent_scans": 4,
+    "real_time_monitoring": {
+      "enabled": true,
+      "watch_directories": [
+        "C:\\Users",
+        "C:\\Downloads",
+        "C:\\Documents",
+        "C:\\Desktop"
+      ],
+      "scan_on_write": true,
+      "scan_on_create": true,
+      "scan_on_modify": false,
+      "debounce_ms": 1000
+    },
+    "periodic_scan": {
+      "enabled": true,
+      "interval_minutes": 60,
+      "full_system_scan_hours": 24
+    },
+    "performance": {
+      "memory_limit_mb": 512,
+      "cpu_limit_percent": 25,
+      "io_priority": "low"
+    },
+    "alerts": {
+      "send_to_dashboard": true,
+      "log_to_file": true,
+      "severity_threshold": "medium"
+    }
+  },
+  "ipc": {
+    "enabled": true,
+    "protocol": "tcp",
+    "address": "127.0.0.1",
+    "port": 7777,
+    "retry_attempts": 3,
+    "retry_delay_ms": 1000,
+    "connection_timeout_ms": 5000,
+    "heartbeat_interval_ms": 30000
+  },
+  "logging": {
+    "level": "info",
+    "file_path": "logs/yara_scanner.log",
+    "max_file_size_mb": 10,
+    "max_files": 5,
+    "console_output": true
+  }
+}

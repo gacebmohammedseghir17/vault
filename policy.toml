@@ -1,0 +1,57 @@
+# EMBER Automated Response Policy Configuration
+name = "Test EMBER Policy"
+description = "Test policy for EMBER automated response system"
+version = "1.0.0"
+
+# Default action for unmatched detections
+[default_action]
+LogOnly = {}
+
+# Policy rules for different risk levels
+[[rules]]
+name = "High Risk Malware"
+priority = 100
+enabled = true
+
+[rules.conditions]
+min_probability = 0.8
+
+[rules.action]
+Quarantine = { quarantine_dir = "./quarantine", encrypt = false }
+
+[[rules]]
+name = "Medium Risk Malware"
+priority = 50
+enabled = true
+
+[rules.conditions]
+min_probability = 0.6
+max_probability = 0.8
+
+[rules.action]
+Alert = { severity = "High", metadata = {} }
+
+[[rules]]
+name = "Low Risk Malware"
+priority = 10
+enabled = true
+
+[rules.conditions]
+min_probability = 0.3
+max_probability = 0.6
+
+[rules.action]
+Alert = { severity = "Medium", metadata = {} }
+
+# Global policy settings
+[settings]
+quarantine_dir = "./quarantine"
+quarantine_retention_days = 30
+auto_cleanup = true
+log_actions = true
+
+[settings.notifications]
+email_enabled = false
+email_recipients = []
+webhook_enabled = false
+webhook_url = ""

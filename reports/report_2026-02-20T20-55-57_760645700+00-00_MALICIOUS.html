@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ERDPS Forensic Report</title>
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Courier New', monospace; margin: 0; padding: 40px; }
+        .container { max_width: 900px; margin: 0 auto; border: 1px solid #334155; padding: 20px; background: #1e293b; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .header { display: flex; justify-content: space-between; border-bottom: 2px solid #334155; padding-bottom: 20px; margin-bottom: 20px; }
+        h1 { margin: 0; font-size: 24px; color: #38bdf8; }
+        .verdict { font-size: 32px; font-weight: bold; padding: 10px 20px; border-radius: 4px; text-align: center; margin-bottom: 20px; }
+        .danger { color: #ef4444; border: 2px solid #ef4444; background: rgba(239, 68, 68, 0.1); }
+        .warning { color: #f59e0b; border: 2px solid #f59e0b; background: rgba(245, 158, 11, 0.1); }
+        .safe { color: #22c55e; border: 2px solid #22c55e; background: rgba(34, 197, 94, 0.1); }
+        .section { margin-bottom: 30px; }
+        .section h2 { color: #94a3b8; border-bottom: 1px solid #475569; padding-bottom: 5px; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        td { padding: 8px; border-bottom: 1px solid #334155; }
+        .label { width: 150px; color: #64748b; font-weight: bold; }
+        .val { color: #f8fafc; word-break: break-all; }
+        ul { list-style: none; padding: 0; }
+        li { padding: 5px 0; border-bottom: 1px solid #334155; }
+        .badge { font-size: 10px; padding: 2px 6px; border-radius: 2px; margin-right: 10px; font-weight: bold; }
+        .footer { font-size: 10px; color: #475569; text-align: center; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>ERDPS SENTINEL</h1>
+                <div style="font-size: 12px; color: #64748b;">Automated Forensic Report</div>
+            </div>
+            <div style="text-align: right;">
+                <div>ID: fe1412fe-8d3e-404b-941b-24203648984f</div>
+                <div>2026-02-20T20:55:57.760645700+00:00</div>
+            </div>
+        </div>
+
+        <div class="verdict danger">
+            VERDICT: MALICIOUS (RISK: 0/100)
+        </div>
+
+        <div class="section">
+            <h2>Target Intelligence</h2>
+            <table>
+                <tr><td class="label">File Path</td><td class="val">target/release/erdps-agent.exe</td></tr>
+                <tr><td class="label">Size</td><td class="val">18084864 bytes</td></tr>
+                <tr><td class="label">SHA256</td><td class="val">fda05fcee2dc1ae6682b5a5c2e19783cda5293c3d96f06ece8fa2d76bd35ed51</td></tr>
+                <tr><td class="label">ImpHash</td><td class="val">6998c854</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Detection Engines</h2>
+            <table>
+                <tr><td class="label">Entropy</td><td class="val">6.4423 (High > 7.2)</td></tr>
+                <tr><td class="label">Neural AI</td><td class="val">0.0000 (Probability)</td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>YARA Signatures</h2>
+            <ul>
+                <li><span class='badge danger'>MATCH</span> android_meterpreter</li><li><span class='badge danger'>MATCH</span> isExecutable</li><li><span class='badge danger'>MATCH</span> dbgdetect_funcs</li><li><span class='badge danger'>MATCH</span> Rooter</li><li><span class='badge danger'>MATCH</span> Adler_CRC32__0x01c26a37___32_lil_1024_</li><li><span class='badge danger'>MATCH</span> unlzx_table_one__8_byt_32_</li><li><span class='badge danger'>MATCH</span> PKCS_DigestDecoration_SHA256__8_byt_19_</li><li><span class='badge danger'>MATCH</span> unlzx_table_three__32_lil_64_</li><li><span class='badge danger'>MATCH</span> libavcodec_ff_mjpeg_val_ac_chrominance__8_byt_162_</li><li><span class='badge danger'>MATCH</span> B64EncodeTable__8_byt_ASC_64_</li><li><span class='badge danger'>MATCH</span> Adler_CRC32__0x191b3141___32_lil_1024_</li><li><span class='badge danger'>MATCH</span> PKCS_DigestDecoration_SHA512__8_byt_19_</li><li><span class='badge danger'>MATCH</span> libavcodec_ff_zigzag_direct__8_byt_64_</li><li><span class='badge danger'>MATCH</span> Crypton_kp__32_lil_16_</li><li><span class='badge danger'>MATCH</span> zinflate_lengthExtraBits__8_byt_29_</li><li><span class='badge danger'>MATCH</span> zinflate_lengthStarts__16_lil_58_</li><li><span class='badge danger'>MATCH</span> zinflate_distanceStarts__16_lil_60_</li><li><span class='badge danger'>MATCH</span> libavcodec_ff_mjpeg_val_ac_luminance__8_byt_162_</li><li><span class='badge danger'>MATCH</span> base64_map__8_byt_80_</li><li><span class='badge danger'>MATCH</span> CRC_1_poly_0x1__8_byt_refl_True_</li><li><span class='badge danger'>MATCH</span> PKCS_DigestDecoration_SHA384__8_byt_19_</li><li><span class='badge danger'>MATCH</span> CRC_1_poly_0x1__8_byt_refl_False_</li><li><span class='badge danger'>MATCH</span> padding_used_in_hashing_algorithms__0x80_0_____0___8_byt_64_</li><li><span class='badge danger'>MATCH</span> CRC_32_IEEE_802_3_poly_0x04C11DB7__32_lil_refl_True_</li><li><span class='badge danger'>MATCH</span> rfc3548_Base_64_Encoding_with_URL_and_Filename_Safe_Alphabet__8_byt_ASC_62_</li><li><span class='badge danger'>MATCH</span> Hash_constant_words_K_for_SHA_384_and_SHA_512__64_lil_640_</li><li><span class='badge danger'>MATCH</span> Adler_CRC32__0xb8bc6765___32_lil_1024_</li><li><span class='badge danger'>MATCH</span> SHA256_Hash_constant_words_K__0x428a2f98___32_lil_256_</li><li><span class='badge danger'>MATCH</span> MD2_MD2_INT_S__8_byt_256_</li><li><span class='badge danger'>MATCH</span> zinflate_distanceExtraBits__8_byt_30_</li><li><span class='badge danger'>MATCH</span> anti_debug__IsDebuggerPresent__8_byt_STR_17_</li><li><span class='badge danger'>MATCH</span> Lucifer__outerbridge__DFLTKY__8_byt_16_</li><li><span class='badge danger'>MATCH</span> Contains_PE_File</li><li><span class='badge danger'>MATCH</span> powershell</li><li><span class='badge danger'>MATCH</span> PEiD_00497_dUP_v2_x_Patcher_____www_diablo2oo2_cjb_net_</li><li><span class='badge danger'>MATCH</span> PEiD_01006_MASM_TASM___sig4__h__</li><li><span class='badge danger'>MATCH</span> ft_exe</li><li><span class='badge danger'>MATCH</span> math_entropy_6</li><li><span class='badge danger'>MATCH</span> Embedded_PE</li><li><span class='badge danger'>MATCH</span> DebuggerCheck__API</li><li><span class='badge danger'>MATCH</span> DebuggerCheck__QueryInfo</li><li><span class='badge danger'>MATCH</span> DebuggerTiming__PerformanceCounter</li><li><span class='badge danger'>MATCH</span> DebuggerTiming__Ticks</li><li><span class='badge danger'>MATCH</span> DebuggerOutput__String</li><li><span class='badge danger'>MATCH</span> DebuggerException__UnhandledFilter</li><li><span class='badge danger'>MATCH</span> SEH__vectored</li><li><span class='badge danger'>MATCH</span> DebuggerPattern__RDTSC</li><li><span class='badge danger'>MATCH</span> DebuggerPattern__CPUID</li><li><span class='badge danger'>MATCH</span> embedded_macho</li><li><span class='badge danger'>MATCH</span> N3utrino</li><li><span class='badge danger'>MATCH</span> MD5_Constants</li><li><span class='badge danger'>MATCH</span> mz_executable</li><li><span class='badge danger'>MATCH</span> anti_dbg</li><li><span class='badge danger'>MATCH</span> antisb_threatExpert</li><li><span class='badge danger'>MATCH</span> create_process</li><li><span class='badge danger'>MATCH</span> network_udp_sock</li><li><span class='badge danger'>MATCH</span> network_tcp_listen</li><li><span class='badge danger'>MATCH</span> network_smtp_raw</li><li><span class='badge danger'>MATCH</span> network_tcp_socket</li><li><span class='badge danger'>MATCH</span> network_dns</li><li><span class='badge danger'>MATCH</span> escalate_priv</li><li><span class='badge danger'>MATCH</span> win_mutex</li><li><span class='badge danger'>MATCH</span> win_registry</li><li><span class='badge danger'>MATCH</span> win_token</li><li><span class='badge danger'>MATCH</span> win_files_operation</li><li><span class='badge danger'>MATCH</span> Tool_Win32_MailSmtp__MailSmtp</li><li><span class='badge danger'>MATCH</span> Trojan_Win32_Alureon_FS</li><li><span class='badge danger'>MATCH</span> Trojan_Win32_Corelump_A_dha</li><li><span class='badge danger'>MATCH</span> Trojan_Win32_Hideproc_F</li><li><span class='badge danger'>MATCH</span> Trojan_Win32_QuarkBandit_A_dha_2</li><li><span class='badge danger'>MATCH</span> Trojan_Win32_Refeys_B</li><li><span class='badge danger'>MATCH</span> Trojan_Win32_SoguEm_A_dha</li><li><span class='badge danger'>MATCH</span> Trojan_Win32_SuspTasklist_MK</li><li><span class='badge danger'>MATCH</span> Trojan_Win32_SusTasklist_MK</li><li><span class='badge danger'>MATCH</span> Trojan_Win32_Tarifarch_G</li><li><span class='badge danger'>MATCH</span> Trojan_Win64_ZooFang_D_dha</li><li><span class='badge danger'>MATCH</span> TrojanDownloader_Win32_PterodoGen_B_dha</li><li><span class='badge danger'>MATCH</span> TrojanDownloader_Win32_Radrawtion_A</li><li><span class='badge danger'>MATCH</span> MD5</li><li><span class='badge danger'>MATCH</span> SHA1</li><li><span class='badge danger'>MATCH</span> SHA256</li><li><span class='badge danger'>MATCH</span> SHA512</li><li><span class='badge danger'>MATCH</span> RC56</li><li><span class='badge danger'>MATCH</span> head_mz</li><li><span class='badge danger'>MATCH</span> head_pe_signed</li><li><span class='badge danger'>MATCH</span> ct_size_gt0</li><li><span class='badge danger'>MATCH</span> ct_size_10mb_100mb</li><li><span class='badge danger'>MATCH</span> head_mz_f_large_gt_10mb</li><li><span class='badge danger'>MATCH</span> TTP_lang_rust</li><li><span class='badge danger'>MATCH</span> DontDoThatNoReally</li><li><span class='badge danger'>MATCH</span> ProgramLanguage_Rust</li><li><span class='badge danger'>MATCH</span> ProgramLanguage_Golang</li><li><span class='badge danger'>MATCH</span> salsa20</li><li><span class='badge danger'>MATCH</span> dependsonpythonailib</li><li><span class='badge danger'>MATCH</span> DetectEncryptedVariants</li><li><span class='badge danger'>MATCH</span> Failed_Checksum</li><li><span class='badge danger'>MATCH</span> golang_bin_JCorn_CSC846</li><li><span class='badge danger'>MATCH</span> SUSP_HTML_B64_WASM_Blob</li><li><span class='badge danger'>MATCH</span> INFO_PE_Contains_HTML_Page</li><li><span class='badge danger'>MATCH</span> INFO_MPRESS_PACKER</li><li><span class='badge danger'>MATCH</span> Luckyware_Infection_Detection</li><li><span class='badge danger'>MATCH</span> MoneroAddress</li><li><span class='badge danger'>MATCH</span> crypto_addr</li><li><span class='badge danger'>MATCH</span> pe_detect_tls_callbacks</li><li><span class='badge danger'>MATCH</span> RANSOMWARE</li><li><span class='badge danger'>MATCH</span> with_sqlite</li><li><span class='badge danger'>MATCH</span> SUSP_DLL_All_LowerCase_Exports</li><li><span class='badge danger'>MATCH</span> SUSP_Obfuscated_Powershell_xor</li><li><span class='badge danger'>MATCH</span> SUSP_SVG_Onload_Onerror_Jul23</li><li><span class='badge danger'>MATCH</span> ttp_lib_openssl_no_version_str_unsigned</li><li><span class='badge danger'>MATCH</span> VirTool_Win32_CeeInject_gen_U</li><li><span class='badge danger'>MATCH</span> VirTool_Win32_DelfInject_gen_BB</li><li><span class='badge danger'>MATCH</span> VirTool_Win32_Obfuscator_ABO</li><li><span class='badge danger'>MATCH</span> VirTool_Win32_Obfuscator_ANM_3</li><li><span class='badge danger'>MATCH</span> Minimal_PE_Header_Check</li><li><span class='badge danger'>MATCH</span> contains_base64</li><li><span class='badge danger'>MATCH</span> domain</li><li><span class='badge danger'>MATCH</span> IP</li><li><span class='badge danger'>MATCH</span> Microsoft_Visual_Cpp_80_DLL</li><li><span class='badge danger'>MATCH</span> Misc_Suspicious_Strings</li><li><span class='badge danger'>MATCH</span> url</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            GENERATED BY ERDPS-AGENT | GOD MODE ACTIVE | UNCLASSIFIED
+        </div>
+    </div>
+</body>
+</html>

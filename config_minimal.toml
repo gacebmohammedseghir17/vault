@@ -1,0 +1,5 @@
+# Minimal ERDPS Agent Configuration
+
+ipc_key = "default_key_for_testing"
+quarantine_path = "C:\\ProgramData\\ERDPS\\quarantine"
+audit_log_path = "C:\\ProgramData\\ERDPS\\logs\\audit.log"

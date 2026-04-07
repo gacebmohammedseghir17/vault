@@ -1,0 +1,2398 @@
+﻿cargo :     Checking erdps-agent v0.1.0 (D:\projecttttttttts\project-ransolution\agent)
+At line:1 char:1
++ cargo check --lib 2>&1 | Out-File -FilePath "compilation_errors_lates ...
++ ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking er...solution\agent):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0596]: cannot borrow data in dereference of `std::sync::RwLockReadGuard<'_, MultiLevelCache>` as mutable
+   --> src\performance\optimization_engine.rs:239:30
+    |
+239 |         if let Some(entry) = cache.get(key) {
+    |                              ^^^^^ cannot borrow as mutable
+    |
+    = help: trait `DerefMut` is required to modify through a dereference, but it is not implemented for `std::sync::RwLockReadGuard<'_, 
+MultiLevelCache>`
+
+error[E0521]: borrowed data escapes outside of method
+   --> src\performance\optimization_engine.rs:411:9
+    |
+408 |       async fn start_auto_tuning(&self) -> AgentResult<()> {
+    |                                  -----
+    |                                  |
+    |                                  `self` is a reference that is only valid in the method body
+    |                                  let's call the lifetime of this reference `'1`
+...
+411 | /         tokio::spawn(async move {
+412 | |             let mut interval = tokio::time::interval(Duration::from_secs(300)); // 5 minutes
+413 | |             loop {
+414 | |                 interval.tick().await;
+...   |
+420 | |         });
+    | |          ^
+    | |          |
+    | |__________`self` escapes the method body here
+    |            argument requires that `'1` must outlive `'static`
+
+error[E0063]: missing field `user_id` in initializer of `AgentError`
+   --> src\security\authentication.rs:289:26
+    |
+289 |             .map_err(|e| AgentError::Authentication {
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `user_id`
+
+error[E0063]: missing field `user_id` in initializer of `AgentError`
+   --> src\security\authentication.rs:298:28
+    |
+298 |                 return Err(AgentError::Authentication {
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `user_id`
+
+error[E0063]: missing field `user_id` in initializer of `AgentError`
+   --> src\security\authentication.rs:304:24
+    |
+304 |             return Err(AgentError::Authentication {
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `user_id`
+
+error[E0063]: missing field `user_id` in initializer of `AgentError`
+   --> src\security\authentication.rs:321:28
+    |
+321 |             .ok_or_else(|| AgentError::Authentication {
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `user_id`
+
+error[E0599]: no variant named `NotFound` found for enum `AgentError`
+   --> src\security\authentication.rs:566:40
+    |
+566 |             .ok_or_else(|| AgentError::NotFound {
+    |                                        ^^^^^^^^ variant not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant `NotFound` not found here
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+  --> src\monitoring\performance_monitor.rs:88:17
+   |
+88 |                 AgentError::Service {
+   |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+  --> src\monitoring\performance_monitor.rs:95:28
+   |
+95 |                 return Err(AgentError::Service {
+   |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:114:17
+    |
+114 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:300:17
+    |
+300 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:557:13
+    |
+557 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:580:17
+    |
+580 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:130:17
+    |
+130 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:137:28
+    |
+137 |                 return Err(AgentError::Service {
+    |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:164:17
+    |
+164 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:238:17
+    |
+238 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:265:25
+    |
+265 |                         AgentError::Service {
+    |                         ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:273:28
+    |
+273 |                 return Err(AgentError::Service {
+    |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:349:21
+    |
+349 |                     AgentError::Service {
+    |                     ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:377:13
+    |
+377 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:433:17
+    |
+433 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:163:13
+    |
+163 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:170:28
+    |
+170 |                 return Err(AgentError::Service {
+    |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:192:17
+    |
+192 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:234:17
+    |
+234 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:262:17
+    |
+262 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:484:17
+    |
+484 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:629:13
+    |
+629 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:661:17
+    |
+661 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:778:17
+    |
+778 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:789:17
+    |
+789 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:828:17
+    |
+828 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:842:13
+    |
+842 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:854:13
+    |
+854 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:244:17
+    |
+244 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:251:28
+    |
+251 |                 return Err(AgentError::Service {
+    |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:273:17
+    |
+273 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:300:17
+    |
+300 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:372:17
+    |
+372 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:461:17
+    |
+461 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:553:28
+    |
+553 |                 return Err(AgentError::Service {
+    |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:732:17
+    |
+732 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:834:13
+    |
+834 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:408:17
+    |
+408 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:415:28
+    |
+415 |                 return Err(AgentError::Service {
+    |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:437:17
+    |
+437 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:465:17
+    |
+465 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:474:24
+    |
+474 |             return Err(AgentError::Service {
+    |                        ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:483:24
+    |
+483 |             return Err(AgentError::Service {
+    |                        ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:495:17
+    |
+495 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:522:13
+    |
+522 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:544:17
+    |
+544 |             Err(AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:554:13
+    |
+554 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:567:21
+    |
+567 |                     AgentError::Service {
+    |                     ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:588:17
+    |
+588 |             Err(AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:708:17
+    |
+708 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1221:17
+     |
+1221 |                 AgentError::Service { 
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1230:13
+     |
+1230 |             AgentError::Service { 
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1272:17
+     |
+1272 |                 AgentError::Service { 
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1281:13
+     |
+1281 |             AgentError::Service { 
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1310:17
+     |
+1310 |                 AgentError::Service {
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1319:13
+     |
+1319 |             AgentError::Service {
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:830:13
+    |
+830 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:859:17
+    |
+859 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1004:17
+     |
+1004 |                 AgentError::Service { 
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1013:13
+     |
+1013 |             AgentError::Service { 
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1052:17
+     |
+1052 |                 AgentError::Service { 
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1061:13
+     |
+1061 |             AgentError::Service { 
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1085:17
+     |
+1085 |                 AgentError::Service {
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1094:13
+     |
+1094 |             AgentError::Service {
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1131:13
+     |
+1131 |             AgentError::Service { 
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1183:13
+     |
+1183 |             AgentError::Service { 
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1201:13
+     |
+1201 |             AgentError::Service { 
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:408:17
+    |
+408 |                 AgentError::Service { message: format!("Failed to acquire running lock: {}", e), service: 
+"metrics_collector".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:412:28
+    |
+412 |                 return Err(AgentError::Service {
+    |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:430:17
+    |
+430 | ...   AgentError::Service { message: format!("Failed to read metrics collector config: {}", e), service: 
+"metrics_collector".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:449:17
+    |
+449 |                 AgentError::Service { message: format!("Failed to acquire running lock: {}", e), service: 
+"metrics_collector".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:664:17
+    |
+664 | ...   AgentError::Service { message: format!("Failed to read metrics collector config: {}", e), service: 
+"metrics_collector".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:860:17
+    |
+860 | ...   AgentError::Service { message: format!("Failed to read metrics collector config: {}", e), service: 
+"metrics_collector".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:907:17
+    |
+907 |                 AgentError::Service { message: format!("Failed to write system metrics: {}", e), service: 
+"metrics_collector".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:937:17
+    |
+937 | ...   AgentError::Service { message: format!("Failed to read application metrics: {}", e), service: "metrics_collector".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:973:17
+    |
+973 | ...   AgentError::Service { message: format!("Failed to read metrics collector config: {}", e), service: 
+"metrics_collector".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:998:13
+    |
+998 |             AgentError::Service { message: format!("Failed to serialize metrics to JSON: {}", e), service: 
+"metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1009:13
+     |
+1009 |             AgentError::Service { message: format!("Failed to create export directory: {}", e), service: 
+"metrics_collector".to_string() }
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1013:13
+     |
+1013 |             AgentError::Service { message: format!("Failed to write JSON export file: {}", e), service: 
+"metrics_collector".to_string() }
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1030:13
+     |
+1030 |             AgentError::Service { message: format!("Failed to create export directory: {}", e), service: 
+"metrics_collector".to_string() }
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1050:13
+     |
+1050 |             AgentError::Service { message: format!("Failed to write CSV export file: {}", e), service: 
+"metrics_collector".to_string() }
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:270:17
+    |
+270 |                 AgentError::Service { message: format!("Failed to acquire running lock: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:274:28
+    |
+274 |                 return Err(AgentError::Service {
+    |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:299:17
+    |
+299 |                 AgentError::Service { message: format!("Failed to acquire running lock: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:317:17
+    |
+317 |                 AgentError::Service { message: format!("Failed to read log analyzer config: {}", e), service: 
+"log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:334:17
+    |
+334 |                 AgentError::Service { message: format!("Failed to write log entries: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:700:17
+    |
+700 |                 AgentError::Service { message: format!("Failed to read log analyzer config: {}", e), service: 
+"log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:725:17
+    |
+725 |                 AgentError::Service { message: format!("Failed to read log analyzer config: {}", e), service: 
+"log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:741:17
+    |
+741 |                 AgentError::Service { message: format!("Failed to read log entries: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:757:17
+    |
+757 |                 AgentError::Service { message: format!("Failed to read log patterns: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:764:17
+    |
+764 |                 AgentError::Service { message: format!("Failed to read compiled patterns: {}", e), service: "log_analyzer".to_string() 
+}
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:809:17
+    |
+809 |                 AgentError::Service { message: format!("Failed to write log patterns: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:821:17
+    |
+821 |                 AgentError::Service { message: format!("Failed to write log analysis stats: {}", e), service: 
+"log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:862:17
+    |
+862 |                 AgentError::Service { message: format!("Failed to read log analyzer config: {}", e), service: 
+"log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:883:17
+    |
+883 |                 AgentError::Service { message: format!("Failed to read log entries: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:955:17
+    |
+955 |                 AgentError::Service { message: format!("Failed to read log entries: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\log_analyzer.rs:1045:17
+     |
+1045 |                 AgentError::Service { message: format!("Failed to write anomalies: {}", e), service: "log_analyzer".to_string() }
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\log_analyzer.rs:1059:17
+     |
+1059 |                 AgentError::Service { message: format!("Failed to write log analysis stats: {}", e), service: 
+"log_analyzer".to_string() }
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\log_analyzer.rs:1146:17
+     |
+1146 |                 AgentError::Service { message: format!("Failed to read log analyzer config: {}", e), service: 
+"log_analyzer".to_string() }
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\log_analyzer.rs:1159:13
+     |
+1159 |             AgentError::Service { message: format!("Failed to write log entries: {}", e), service: "log_analyzer".to_string() }
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:236:17
+    |
+236 |                 AgentError::Service { message: format!("Failed to acquire running lock: {}", e), service: 
+"monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:240:28
+    |
+240 |                 return Err(AgentError::Service {
+    |                            ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:269:17
+    |
+269 |                 AgentError::Service { message: format!("Failed to acquire running lock: {}", e), service: 
+"monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:364:17
+    |
+364 |                 AgentError::Service { message: format!("Failed to update config: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:431:17
+    |
+431 |                 AgentError::Service { message: format!("Failed to read config: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:516:17
+    |
+516 |                 AgentError::Service { message: format!("Failed to write metrics history: {}", e), service: 
+"monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:523:17
+    |
+523 |                 AgentError::Service { message: format!("Failed to read config: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:535:17
+    |
+535 | ...   AgentError::Service { message: format!("Failed to write last collection time: {}", e), service: "monitoring_system".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:555:17
+    |
+555 |                 AgentError::Service { message: format!("Failed to write health status: {}", e), service: 
+"monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:584:17
+    |
+584 |                 AgentError::Service { message: format!("Failed to read config: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:725:17
+    |
+725 |                 AgentError::Service { message: format!("Failed to read config: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:738:17
+    |
+738 |                 AgentError::Service { message: format!("Failed to read alerts: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:755:17
+    |
+755 |                 AgentError::Service { message: format!("Failed to write alerts: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:789:17
+    |
+789 |                 AgentError::Service { message: format!("Failed to read config: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:803:17
+    |
+803 |                 AgentError::Service { message: format!("Failed to write alerts: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0599]: the method `as_dyn_error` exists for reference `&std::string::String`, but its trait bounds were not satisfied
+   --> src\error\mod.rs:170:9
+    |
+170 |         source: Option<String>,
+    |         ^^^^^^ method cannot be called on `&std::string::String` due to unsatisfied trait bounds
+    |
+   ::: C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\alloc\src\string.rs:360:1
+    |
+360 | pub struct String {
+    | ----------------- doesn't satisfy `std::string::String: AsDynError<'_>` or `std::string::String: StdError`
+    |
+    = note: the following trait bounds were not satisfied:
+            `std::string::String: StdError`
+            which is required by `std::string::String: AsDynError<'_>`
+            `&std::string::String: StdError`
+            which is required by `&std::string::String: AsDynError<'_>`
+            `str: Sized`
+            which is required by `str: AsDynError<'_>`
+            `str: StdError`
+            which is required by `str: AsDynError<'_>`
+
+error[E0599]: no variant or associated item named `High` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:362:28
+    |
+362 |             ErrorSeverity::High => {
+    |                            ^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `High` not found for this enum
+
+error[E0599]: no variant or associated item named `Medium` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:373:28
+    |
+373 |             ErrorSeverity::Medium => {
+    |                            ^^^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `Medium` not found for this enum
+    |
+help: there is a method `dim` with a similar name
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\yansi-1.0.1\src\paint.rs:130:5
+    |
+130 |     properties!(signature(&Self) -> Painted<&Self>);
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = note: this error originates in the macro `signature` which comes from the expansion of the macro `properties` (in Nightly builds, run 
+with -Z macro-backtrace for more info)
+
+error[E0599]: no variant or associated item named `Low` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:384:28
+    |
+384 |             ErrorSeverity::Low => {
+    |                            ^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `Low` not found for this enum
+
+error[E0599]: no variant or associated item named `High` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:496:58
+    |
+496 |             AgentError::SystemError(_) => ErrorSeverity::High,
+    |                                                          ^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `High` not found for this enum
+
+error[E0599]: no variant or associated item named `High` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:497:59
+    |
+497 |             AgentError::Database { .. } => ErrorSeverity::High,
+    |                                                           ^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `High` not found for this enum
+
+error[E0599]: no variant or associated item named `High` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:498:64
+    |
+498 |             AgentError::Configuration { .. } => ErrorSeverity::High,
+    |                                                                ^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `High` not found for this enum
+
+error[E0599]: no variant or associated item named `Medium` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:499:58
+    |
+499 |             AgentError::Network { .. } => ErrorSeverity::Medium,
+    |                                                          ^^^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `Medium` not found for this enum
+    |
+help: there is a method `dim` with a similar name
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\yansi-1.0.1\src\paint.rs:130:5
+    |
+130 |     properties!(signature(&Self) -> Painted<&Self>);
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = note: this error originates in the macro `signature` which comes from the expansion of the macro `properties` (in Nightly builds, run 
+with -Z macro-backtrace for more info)
+
+error[E0599]: no variant or associated item named `Medium` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:500:62
+    |
+500 |             AgentError::Performance { .. } => ErrorSeverity::Medium,
+    |                                                              ^^^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `Medium` not found for this enum
+    |
+help: there is a method `dim` with a similar name
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\yansi-1.0.1\src\paint.rs:130:5
+    |
+130 |     properties!(signature(&Self) -> Painted<&Self>);
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = note: this error originates in the macro `signature` which comes from the expansion of the macro `properties` (in Nightly builds, run 
+with -Z macro-backtrace for more info)
+
+error[E0599]: no variant or associated item named `Medium` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:501:58
+    |
+501 |             AgentError::Timeout { .. } => ErrorSeverity::Medium,
+    |                                                          ^^^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `Medium` not found for this enum
+    |
+help: there is a method `dim` with a similar name
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\yansi-1.0.1\src\paint.rs:130:5
+    |
+130 |     properties!(signature(&Self) -> Painted<&Self>);
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = note: this error originates in the macro `signature` which comes from the expansion of the macro `properties` (in Nightly builds, run 
+with -Z macro-backtrace for more info)
+
+error[E0599]: no variant or associated item named `Medium` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:502:59
+    |
+502 |             AgentError::Resource { .. } => ErrorSeverity::Medium,
+    |                                                           ^^^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `Medium` not found for this enum
+    |
+help: there is a method `dim` with a similar name
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\yansi-1.0.1\src\paint.rs:130:5
+    |
+130 |     properties!(signature(&Self) -> Painted<&Self>);
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = note: this error originates in the macro `signature` which comes from the expansion of the macro `properties` (in Nightly builds, run 
+with -Z macro-backtrace for more info)
+
+error[E0599]: no variant or associated item named `Low` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:503:61
+    |
+503 |             AgentError::Validation { .. } => ErrorSeverity::Low,
+    |                                                             ^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `Low` not found for this enum
+
+error[E0599]: no variant or associated item named `Low` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:504:56
+    |
+504 |             AgentError::Parse { .. } => ErrorSeverity::Low,
+    |                                                        ^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `Low` not found for this enum
+
+error[E0599]: no variant or associated item named `Medium` found for enum `ErrorSeverity` in the current scope
+   --> src\error\mod.rs:505:33
+    |
+505 |             _ => ErrorSeverity::Medium,
+    |                                 ^^^^^^ variant or associated item not found in `ErrorSeverity`
+    |
+   ::: src\error\yara_errors.rs:246:1
+    |
+246 | pub enum ErrorSeverity {
+    | ---------------------- variant or associated item `Medium` not found for this enum
+    |
+help: there is a method `dim` with a similar name
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\yansi-1.0.1\src\paint.rs:130:5
+    |
+130 |     properties!(signature(&Self) -> Painted<&Self>);
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = note: this error originates in the macro `signature` which comes from the expansion of the macro `properties` (in Nightly builds, run 
+with -Z macro-backtrace for more info)
+
+error[E0063]: missing fields `context` and `retry_count` in initializer of `AgentError`
+   --> src\network\mod.rs:352:102
+    |
+352 |         let flow_analyzer = Arc::new(Mutex::new(ProductionFlowAnalyzer::new(5000, 30000).map_err(|e| RansolutionError::Network {
+    |                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^ missing 
+`context` and `retry_count`
+
+error[E0063]: missing fields `context` and `retry_count` in initializer of `AgentError`
+   --> src\network\mod.rs:356:90
+    |
+356 |         let transformer_classifier = Arc::new(TransformerClassifier::new(50).map_err(|e| RansolutionError::Network { 
+    |                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^ missing `context` 
+and `retry_count`
+
+error[E0063]: missing fields `context` and `retry_count` in initializer of `AgentError`
+   --> src\network\mod.rs:414:30
+    |
+414 |                 .map_err(|e| RansolutionError::Network { 
+    |                              ^^^^^^^^^^^^^^^^^^^^^^^^^ missing `context` and `retry_count`
+
+error[E0063]: missing fields `context` and `retry_count` in initializer of `AgentError`
+   --> src\network\mod.rs:419:30
+    |
+419 |                 .map_err(|e| RansolutionError::Network { 
+    |                              ^^^^^^^^^^^^^^^^^^^^^^^^^ missing `context` and `retry_count`
+
+error[E0063]: missing fields `context` and `retry_count` in initializer of `AgentError`
+   --> src\network\mod.rs:439:30
+    |
+439 |                 .map_err(|e| RansolutionError::Network { 
+    |                              ^^^^^^^^^^^^^^^^^^^^^^^^^ missing `context` and `retry_count`
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\false_positive_validator.rs:329:35
+    |
+329 |             Err(RansolutionError::ValidationError(format!(
+    |                                   ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+329 -             Err(RansolutionError::ValidationError(format!(
+330 -                 "Hash {} not found in whitelist",
+331 -                 file_hash
+332 -             )))
+329 +             Err(RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* value */, 
+context: /* value */ })
+    |
+
+error[E0599]: no variant or associated item named `ResourceError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:193:42
+    |
+193 |             return Err(RansolutionError::ResourceError(
+    |                                          ^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ResourceError` not found for this enum
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:200:42
+    |
+200 |             return Err(RansolutionError::ValidationError(
+    |                                          ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+200 -             return Err(RansolutionError::ValidationError(
+201 -                 "Memory limit exceeds global maximum".to_string()
+202 -             ));
+200 +             return Err(RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* 
+value */, context: /* value */ });
+    |
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:206:42
+    |
+206 |             return Err(RansolutionError::ValidationError(
+    |                                          ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+206 -             return Err(RansolutionError::ValidationError(
+207 -                 "CPU limit exceeds global maximum".to_string()
+208 -             ));
+206 +             return Err(RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* 
+value */, context: /* value */ });
+    |
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:245:46
+    |
+245 |             .ok_or_else(|| RansolutionError::ValidationError(format!("Session {} not found", session_id)))?;
+    |                                              ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+245 -             .ok_or_else(|| RansolutionError::ValidationError(format!("Session {} not found", session_id)))?;
+245 +             .ok_or_else(|| RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* 
+value */, context: /* value */ })?;
+    |
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:248:42
+    |
+248 |             return Err(RansolutionError::ValidationError(
+    |                                          ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+248 -             return Err(RansolutionError::ValidationError(
+249 -                 "Session not in initializing state".to_string()
+250 -             ));
+248 +             return Err(RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* 
+value */, context: /* value */ });
+    |
+
+error[E0599]: no variant or associated item named `IoError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:259:44
+    |
+259 |             .map_err(|e| RansolutionError::IoError(format!("Failed to create sandbox directory: {}", e)))?;
+    |                                            ^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `IoError` not found for this enum
+
+error[E0599]: no variant or associated item named `IoError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:262:44
+    |
+262 |             .map_err(|e| RansolutionError::IoError(format!("Failed to write sample executable: {}", e)))?;
+    |                                            ^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `IoError` not found for this enum
+
+error[E0599]: no variant or associated item named `ExecutionError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:280:44
+    |
+280 |             .map_err(|e| RansolutionError::ExecutionError(format!("Failed to start sample process: {}", e)))?;
+    |                                            ^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ExecutionError` not found for this enum
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:300:46
+    |
+300 |             .ok_or_else(|| RansolutionError::ValidationError(format!("Session {} not found", session_id)))?;
+    |                                              ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+300 -             .ok_or_else(|| RansolutionError::ValidationError(format!("Session {} not found", session_id)))?;
+300 +             .ok_or_else(|| RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* 
+value */, context: /* value */ })?;
+    |
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\isolation_engine.rs:309:46
+    |
+309 |             .ok_or_else(|| RansolutionError::ValidationError(format!("Session {} not found", session_id)))?;
+    |                                              ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+309 -             .ok_or_else(|| RansolutionError::ValidationError(format!("Session {} not found", session_id)))?;
+309 +             .ok_or_else(|| RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* 
+value */, context: /* value */ })?;
+    |
+
+error[E0599]: no variant or associated item named `IoError` found for enum `AgentError` in the current scope
+   --> src\validation\malware_sample_manager.rs:111:44
+    |
+111 |             .map_err(|e| RansolutionError::IoError(format!("Failed to create sample directory: {}", e)))?;
+    |                                            ^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `IoError` not found for this enum
+
+error[E0599]: no variant or associated item named `IoError` found for enum `AgentError` in the current scope
+   --> src\validation\malware_sample_manager.rs:145:44
+    |
+145 |             .map_err(|e| RansolutionError::IoError(format!("Failed to read sample file: {}", e)))?;
+    |                                            ^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `IoError` not found for this enum
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\malware_sample_manager.rs:153:42
+    |
+153 |             return Err(RansolutionError::ValidationError("Sample already exists".to_string()));
+    |                                          ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+153 -             return Err(RansolutionError::ValidationError("Sample already exists".to_string()));
+153 +             return Err(RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* 
+value */, context: /* value */ });
+    |
+
+error[E0599]: no variant or associated item named `CryptoError` found for enum `AgentError` in the current scope
+   --> src\validation\malware_sample_manager.rs:163:44
+    |
+163 |             .map_err(|e| RansolutionError::CryptoError(format!("Encryption failed: {}", e)))?;
+    |                                            ^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `CryptoError` not found for this enum
+
+error[E0599]: no variant or associated item named `IoError` found for enum `AgentError` in the current scope
+   --> src\validation\malware_sample_manager.rs:173:44
+    |
+173 |             .map_err(|e| RansolutionError::IoError(format!("Failed to write encrypted sample: {}", e)))?;
+    |                                            ^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `IoError` not found for this enum
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\validation\malware_sample_manager.rs:204:26
+    |
+204 |             .map_err(|e| RansolutionError::Database { 
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\malware_sample_manager.rs:222:46
+    |
+222 |             .ok_or_else(|| RansolutionError::ValidationError(format!("Sample {} not found", sample_id)))?;
+    |                                              ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+222 -             .ok_or_else(|| RansolutionError::ValidationError(format!("Sample {} not found", sample_id)))?;
+222 +             .ok_or_else(|| RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* 
+value */, context: /* value */ })?;
+    |
+
+error[E0599]: no variant or associated item named `IoError` found for enum `AgentError` in the current scope
+   --> src\validation\malware_sample_manager.rs:228:44
+    |
+228 |             .map_err(|e| RansolutionError::IoError(format!("Failed to read encrypted sample: {}", e)))?;
+    |                                            ^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `IoError` not found for this enum
+
+error[E0599]: no variant or associated item named `CryptoError` found for enum `AgentError` in the current scope
+   --> src\validation\malware_sample_manager.rs:233:44
+    |
+233 |             .map_err(|e| RansolutionError::CryptoError(format!("Decryption failed: {}", e)))?;
+    |                                            ^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `CryptoError` not found for this enum
+
+error[E0599]: no variant or associated item named `ValidationError` found for enum `AgentError` in the current scope
+   --> src\validation\malware_sample_manager.rs:272:35
+    |
+272 |             Err(RansolutionError::ValidationError(format!("Sample {} not found", sample_id)))
+    |                                   ^^^^^^^^^^^^^^^ variant or associated item not found in `AgentError`
+    |
+   ::: src\error\mod.rs:59:1
+    |
+59  | pub enum AgentError {
+    | ------------------- variant or associated item `ValidationError` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+272 -             Err(RansolutionError::ValidationError(format!("Sample {} not found", sample_id)))
+272 +             Err(RansolutionError::Validation { message: /* value */, field: /* value */, expected: /* value */, actual: /* value */, 
+context: /* value */ })
+    |
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+  --> src\yara\correlation_engine.rs:63:64
+   |
+63 |         let conn = Connection::open(&self.db_path).map_err(|e| AgentError::Database {
+   |                                                                ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+  --> src\yara\correlation_engine.rs:82:22
+   |
+82 |         .map_err(|e| AgentError::Database {
+   |                      ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:281:64
+    |
+281 |         let conn = Connection::open(&self.db_path).map_err(|e| AgentError::Database {
+    |                                                                ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:288:26
+    |
+288 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:295:68
+    |
+295 |                 serde_json::to_string(&alert.rule_ids).map_err(|e| AgentError::Database {
+    |                                                                    ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:301:68
+    |
+301 |                 serde_json::to_string(&alert.metadata).map_err(|e| AgentError::Database {
+    |                                                                    ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:322:26
+    |
+322 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:328:33
+    |
+328 |         tx.commit().map_err(|e| AgentError::Database {
+    |                                 ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:339:64
+    |
+339 |         let conn = Connection::open(&self.db_path).map_err(|e| AgentError::Database {
+    |                                                                ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:356:57
+    |
+356 |         let mut stmt = conn.prepare(&query).map_err(|e| AgentError::Database {
+    |                                                         ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:404:26
+    |
+404 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\correlation_engine.rs:411:50
+    |
+411 |             let alert = alert_result.map_err(|e| AgentError::Database {
+    |                                                  ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `operation` in initializer of `AgentError`
+   --> src\yara\multi_layer_scanner.rs:460:67
+    |
+460 |             let mut entries = fs::read_dir(dir).await.map_err(|e| AgentError::Io {
+    |                                                                   ^^^^^^^^^^^^^^ missing `context` and `operation`
+
+error[E0063]: missing fields `context` and `operation` in initializer of `AgentError`
+   --> src\yara\multi_layer_scanner.rs:465:76
+    |
+465 |             while let Some(entry) = entries.next_entry().await.map_err(|e| AgentError::Io {
+    |                                                                            ^^^^^^^^^^^^^^ missing `context` and `operation`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+  --> src\yara\performance_monitor.rs:32:26
+   |
+32 |             .map_err(|e| AgentError::Database {
+   |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+  --> src\yara\performance_monitor.rs:52:26
+   |
+52 |             .map_err(|e| AgentError::Database {
+   |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+  --> src\yara\performance_monitor.rs:67:23
+   |
+67 |         ).map_err(|e| AgentError::Database {
+   |                       ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:100:26
+    |
+100 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:108:23
+    |
+108 |         ).map_err(|e| AgentError::Database {
+    |                       ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:120:26
+    |
+120 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:127:23
+    |
+127 |         ).map_err(|e| AgentError::Database {
+    |                       ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:137:24
+    |
+137 |         }).map_err(|e| AgentError::Database {
+    |                        ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:145:30
+    |
+145 |                 .map_err(|e| AgentError::Database {
+    |                              ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:159:26
+    |
+159 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:166:23
+    |
+166 |         ).map_err(|e| AgentError::Database {
+    |                       ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:176:24
+    |
+176 |         }).map_err(|e| AgentError::Database {
+    |                        ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:184:30
+    |
+184 |                 .map_err(|e| AgentError::Database {
+    |                              ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:210:27
+    |
+210 |              .map_err(|e| AgentError::Database {
+    |                           ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:217:23
+    |
+217 |         ).map_err(|e| AgentError::Database {
+    |                       ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:229:24
+    |
+229 |         }).map_err(|e| AgentError::Database {
+    |                        ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:240:26
+    |
+240 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:247:23
+    |
+247 |         ).map_err(|e| AgentError::Database {
+    |                       ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:258:24
+    |
+258 |         }).map_err(|e| AgentError::Database {
+    |                        ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\performance_monitor.rs:266:30
+    |
+266 |                 .map_err(|e| AgentError::Database {
+    |                              ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+  --> src\yara\rule_optimizer.rs:72:26
+   |
+72 |             .map_err(|e| AgentError::Database {
+   |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+  --> src\yara\rule_optimizer.rs:89:22
+   |
+89 |         .map_err(|e| AgentError::Database {
+   |                      ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\rule_optimizer.rs:142:26
+    |
+142 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\rule_optimizer.rs:149:26
+    |
+149 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\rule_optimizer.rs:162:26
+    |
+162 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\rule_optimizer.rs:169:41
+    |
+169 |             rules.push(rule.map_err(|e| AgentError::Database {
+    |                                         ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\rule_optimizer.rs:304:26
+    |
+304 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\rule_optimizer.rs:310:26
+    |
+310 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\rule_optimizer.rs:323:26
+    |
+323 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `context` and `transaction_id` in initializer of `AgentError`
+   --> src\yara\rule_optimizer.rs:330:26
+    |
+330 |             .map_err(|e| AgentError::Database {
+    |                          ^^^^^^^^^^^^^^^^^^^^ missing `context` and `transaction_id`
+
+error[E0063]: missing fields `actual`, `expected` and `field` in initializer of `AgentError`
+   --> src\security\authentication.rs:515:24
+    |
+515 |             return Err(AgentError::Validation {
+    |                        ^^^^^^^^^^^^^^^^^^^^^^ missing `actual`, `expected` and `field`
+
+error[E0063]: missing fields `actual`, `expected` and `field` in initializer of `AgentError`
+   --> src\security\authentication.rs:522:24
+    |
+522 |             return Err(AgentError::Validation {
+    |                        ^^^^^^^^^^^^^^^^^^^^^^ missing `actual`, `expected` and `field`
+
+error[E0063]: missing fields `actual`, `expected` and `field` in initializer of `AgentError`
+   --> src\security\authentication.rs:529:24
+    |
+529 |             return Err(AgentError::Validation {
+    |                        ^^^^^^^^^^^^^^^^^^^^^^ missing `actual`, `expected` and `field`
+
+error[E0063]: missing fields `actual`, `expected` and `field` in initializer of `AgentError`
+   --> src\security\authentication.rs:536:24
+    |
+536 |             return Err(AgentError::Validation {
+    |                        ^^^^^^^^^^^^^^^^^^^^^^ missing `actual`, `expected` and `field`
+
+error[E0063]: missing fields `actual`, `expected` and `field` in initializer of `AgentError`
+   --> src\security\authentication.rs:543:24
+    |
+543 |             return Err(AgentError::Validation {
+    |                        ^^^^^^^^^^^^^^^^^^^^^^ missing `actual`, `expected` and `field`
+
+error[E0277]: the trait bound `std::time::Instant: serde::Serialize` is not satisfied
+    --> src\security\rate_limiting.rs:95:24
+     |
+95   | #[derive(Debug, Clone, Serialize, Deserialize)]
+     |                        ^^^^^^^^^ the trait `Serialize` is not implemented for `std::time::Instant`
+...
+99   |     pub last_request: Instant,
+     |     --- required by a bound introduced by this call
+     |
+     = note: for local types consider adding `#[derive(serde::Serialize)]` to your `std::time::Instant` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Serialize`:
+               &'a T
+               &'a mut T
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+               (T0, T1, T2, T3)
+               (T0, T1, T2, T3, T4)
+             and 2266 others
+note: required by a bound in `error::_::_serde::ser::SerializeStruct::serialize_field`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.228\src\ser\mod.rs:1917:21
+     |
+1915 |     fn serialize_field<T>(&mut self, key: &'static str, value: &T) -> Result<(), Self::Error>
+     |        --------------- required by a bound in this associated function
+1916 |     where
+1917 |         T: ?Sized + Serialize;
+     |                     ^^^^^^^^^ required by this bound in `SerializeStruct::serialize_field`
+     = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `std::time::Instant: serde::Deserialize<'de>` is not satisfied
+    --> src\security\rate_limiting.rs:99:23
+     |
+99   |     pub last_request: Instant,
+     |                       ^^^^^^^ the trait `Deserialize<'_>` is not implemented for `std::time::Instant`
+     |
+     = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `std::time::Instant` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Deserialize<'de>`:
+               `&'a [u8]` implements `Deserialize<'de>`
+               `&'a bstr::bstr::BStr` implements `Deserialize<'de>`
+               `&'a serde_json::value::RawValue` implements `Deserialize<'de>`
+               `&'a std::path::Path` implements `Deserialize<'de>`
+               `&'a str` implements `Deserialize<'de>`
+               `()` implements `Deserialize<'de>`
+               `(T,)` implements `Deserialize<'de>`
+               `(T0, T1)` implements `Deserialize<'de>`
+             and 2292 others
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.228\src\de\mod.rs:1771:12
+     |
+1769 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1770 |     where
+1771 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+
+error[E0277]: the trait bound `std::time::Instant: serde::Deserialize<'de>` is not satisfied
+    --> src\security\rate_limiting.rs:99:23
+     |
+99   |     pub last_request: Instant,
+     |                       ^^^^^^^ the trait `Deserialize<'_>` is not implemented for `std::time::Instant`
+     |
+     = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `std::time::Instant` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Deserialize<'de>`:
+               `&'a [u8]` implements `Deserialize<'de>`
+               `&'a bstr::bstr::BStr` implements `Deserialize<'de>`
+               `&'a serde_json::value::RawValue` implements `Deserialize<'de>`
+               `&'a std::path::Path` implements `Deserialize<'de>`
+               `&'a str` implements `Deserialize<'de>`
+               `()` implements `Deserialize<'de>`
+               `(T,)` implements `Deserialize<'de>`
+               `(T0, T1)` implements `Deserialize<'de>`
+             and 2292 others
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.228\src\de\mod.rs:1916:12
+     |
+1914 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1915 |     where
+1916 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+
+error[E0277]: the trait bound `std::time::Instant: serde::Deserialize<'de>` is not satisfied
+  --> src\security\rate_limiting.rs:95:35
+   |
+95 | #[derive(Debug, Clone, Serialize, Deserialize)]
+   |                                   ^^^^^^^^^^^ the trait `Deserialize<'_>` is not implemented for `std::time::Instant`
+   |
+   = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `std::time::Instant` type
+   = note: for types from other crates check whether the crate offers a `serde` feature flag
+   = help: the following other types implement trait `Deserialize<'de>`:
+             `&'a [u8]` implements `Deserialize<'de>`
+             `&'a bstr::bstr::BStr` implements `Deserialize<'de>`
+             `&'a serde_json::value::RawValue` implements `Deserialize<'de>`
+             `&'a std::path::Path` implements `Deserialize<'de>`
+             `&'a str` implements `Deserialize<'de>`
+             `()` implements `Deserialize<'de>`
+             `(T,)` implements `Deserialize<'de>`
+             `(T0, T1)` implements `Deserialize<'de>`
+           and 2292 others
+note: required by a bound in `error::_::_serde::__private228::de::missing_field`
+  --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs:26:8
+   |
+24 | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+   |        ------------- required by a bound in this function
+25 | where
+26 |     V: Deserialize<'de>,
+   |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:151:13
+    |
+151 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:163:13
+    |
+163 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:185:17
+    |
+185 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:200:13
+    |
+200 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:212:26
+    |
+212 |             .map_err(|e| AgentError::Service {
+    |                          ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_monitor.rs:405:21
+    |
+405 |                 Err(AgentError::Service {
+    |                     ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:286:13
+    |
+286 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:299:13
+    |
+299 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:311:13
+    |
+311 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:325:13
+    |
+325 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\performance_gate.rs:365:13
+    |
+365 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:276:13
+    |
+276 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:288:13
+    |
+288 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:302:13
+    |
+302 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:320:13
+    |
+320 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:338:13
+    |
+338 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:350:13
+    |
+350 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:364:13
+    |
+364 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:378:13
+    |
+378 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:390:13
+    |
+390 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:411:17
+    |
+411 |                 AgentError::Service {
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:421:17
+    |
+421 |                 AgentError::Service { 
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\resource_tracker.rs:436:13
+    |
+436 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:386:13
+    |
+386 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:398:13
+    |
+398 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:410:13
+    |
+410 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:434:13
+    |
+434 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\health_checker.rs:446:13
+    |
+446 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:598:13
+    |
+598 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:613:13
+    |
+613 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:628:13
+    |
+628 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:640:13
+    |
+640 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:652:13
+    |
+652 |             AgentError::Service { 
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:681:13
+    |
+681 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\alert_manager.rs:693:13
+    |
+693 |             AgentError::Service {
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\alert_manager.rs:1361:13
+     |
+1361 |             AgentError::Service { 
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:466:13
+    |
+466 |             AgentError::Service { message: format!("Failed to write metrics series: {}", e), service: "metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:515:17
+    |
+515 | ...   AgentError::Service { message: format!("Failed to read metrics collector config: {}", e), service: 
+"metrics_collector".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:521:13
+    |
+521 |             AgentError::Service { message: format!("Failed to write metrics series: {}", e), service: "metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:525:24
+    |
+525 | ...   return Err(AgentError::Service { message: format!("Metric series already exists: {}", name), service: 
+"metrics_collector".to_string...
+    |                  ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:545:13
+    |
+545 |             AgentError::Service { message: format!("Failed to read metrics series: {}", e), service: "metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:554:13
+    |
+554 |             AgentError::Service { message: format!("Failed to read metrics series: {}", e), service: "metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:563:13
+    |
+563 |             AgentError::Service { message: format!("Failed to read system metrics: {}", e), service: "metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:572:13
+    |
+572 |             AgentError::Service { message: format!("Failed to read application metrics: {}", e), service: 
+"metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:584:13
+    |
+584 |             AgentError::Service { message: format!("Failed to write application metrics: {}", e), service: 
+"metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:594:13
+    |
+594 | ...   AgentError::Service { message: format!("Failed to read metrics collector stats: {}", e), service: 
+"metrics_collector".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:606:13
+    |
+606 | ...   AgentError::Service { message: format!("Failed to write metrics collector stats: {}", e), service: 
+"metrics_collector".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:629:13
+    |
+629 |             AgentError::Service { message: format!("Failed to read running status: {}", e), service: "metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:638:13
+    |
+638 | ...   AgentError::Service { message: format!("Failed to write metrics collector config: {}", e), service: 
+"metrics_collector".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\metrics_collector.rs:649:13
+    |
+649 |             AgentError::Service { message: format!("Failed to write metrics series: {}", e), service: "metrics_collector".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1084:13
+     |
+1084 | ...   AgentError::Service { message: format!("Failed to write metrics collector stats: {}", e), service: 
+"metrics_collector".to_string() }
+     |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1092:13
+     |
+1092 |             AgentError::Service { message: format!("Failed to read metrics series: {}", e), service: "metrics_collector".to_string() }
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1102:13
+     |
+1102 | ...   AgentError::Service { message: format!("Failed to write metrics collector stats: {}", e), service: 
+"metrics_collector".to_string() }
+     |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1116:13
+     |
+1116 |             AgentError::Service { message: format!("Failed to read metrics series: {}", e), service: "metrics_collector".to_string() }
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1126:13
+     |
+1126 | ...   AgentError::Service { message: format!("Failed to write metrics collector stats: {}", e), service: 
+"metrics_collector".to_string() }
+     |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1136:13
+     |
+1136 | ...   AgentError::Service { message: format!("Failed to write metrics collector stats: {}", e), service: 
+"metrics_collector".to_string() }
+     |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\metrics_collector.rs:1147:13
+     |
+1147 | ...   AgentError::Service { message: format!("Failed to write metrics collector stats: {}", e), service: 
+"metrics_collector".to_string() }
+     |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:360:13
+    |
+360 | ...   AgentError::Service { message: format!("Invalid regex pattern '{}': {}", pattern.regex, e), service: "log_analyzer".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:368:17
+    |
+368 |                 AgentError::Service { message: format!("Failed to write log patterns: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:377:17
+    |
+377 |                 AgentError::Service { message: format!("Failed to write compiled patterns: {}", e), service: 
+"log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:391:17
+    |
+391 |                 AgentError::Service { message: format!("Failed to write log patterns: {}", e), service: "log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:399:17
+    |
+399 |                 AgentError::Service { message: format!("Failed to write compiled patterns: {}", e), service: 
+"log_analyzer".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:412:13
+    |
+412 |             AgentError::Service { message: format!("Failed to read log patterns: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:421:13
+    |
+421 |             AgentError::Service { message: format!("Failed to read log entries: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:430:13
+    |
+430 |             AgentError::Service { message: format!("Failed to read log entries: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:445:13
+    |
+445 |             AgentError::Service { message: format!("Failed to read anomalies: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:454:13
+    |
+454 |             AgentError::Service { message: format!("Failed to read log analysis stats: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:463:13
+    |
+463 |             AgentError::Service { message: format!("Failed to write log entries: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:475:13
+    |
+475 |             AgentError::Service { message: format!("Failed to write anomalies: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:487:13
+    |
+487 |             AgentError::Service { message: format!("Failed to write log analysis stats: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:510:13
+    |
+510 |             AgentError::Service { message: format!("Failed to read running status: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:519:13
+    |
+519 |             AgentError::Service { message: format!("Failed to write log analyzer config: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:530:13
+    |
+530 |             AgentError::Service { message: format!("Invalid search pattern '{}': {}", pattern, e), service: "log_analyzer".to_string() 
+}
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\log_analyzer.rs:534:13
+    |
+534 |             AgentError::Service { message: format!("Failed to read log entries: {}", e), service: "log_analyzer".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\log_analyzer.rs:1073:17
+     |
+1073 |                 AgentError::Service { message: format!("Failed to read log analyzer config: {}", e), service: 
+"log_analyzer".to_string() }
+     |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\log_analyzer.rs:1098:13
+     |
+1098 |             AgentError::Service { message: format!("Failed to write log analysis stats: {}", e), service: "log_analyzer".to_string() }
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+    --> src\monitoring\log_analyzer.rs:1130:13
+     |
+1130 |             AgentError::Service { message: format!("Failed to write log analysis stats: {}", e), service: "log_analyzer".to_string() }
+     |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:298:13
+    |
+298 |             AgentError::Service { message: format!("Failed to read metrics history: {}", e), service: "monitoring_system".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:313:13
+    |
+313 |             AgentError::Service { message: format!("Failed to read health status: {}", e), service: "monitoring_system".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:322:13
+    |
+322 |             AgentError::Service { message: format!("Failed to read alerts: {}", e), service: "monitoring_system".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:331:13
+    |
+331 |             AgentError::Service { message: format!("Failed to read alerts: {}", e), service: "monitoring_system".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:346:13
+    |
+346 |             AgentError::Service { message: format!("Failed to write alerts: {}", e), service: "monitoring_system".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:382:13
+    |
+382 |             AgentError::Service { message: format!("Failed to read running status: {}", e), service: "monitoring_system".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:392:17
+    |
+392 |                 AgentError::Service { message: format!("Failed to read metrics history: {}", e), service: 
+"monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:399:17
+    |
+399 |                 AgentError::Service { message: format!("Failed to read alerts: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:406:17
+    |
+406 |                 AgentError::Service { message: format!("Failed to read alerts: {}", e), service: "monitoring_system".to_string() }
+    |                 ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:413:17
+    |
+413 | ...   AgentError::Service { message: format!("Failed to read last collection time: {}", e), service: "monitoring_system".to_string() }
+    |       ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error[E0063]: missing field `context` in initializer of `AgentError`
+   --> src\monitoring\mod.rs:823:13
+    |
+823 |             AgentError::Service { message: format!("Failed to read last collection time: {}", e), service: 
+"monitoring_system".to_string() }
+    |             ^^^^^^^^^^^^^^^^^^^ missing `context`
+
+error: future cannot be sent between threads safely
+   --> src\performance\optimization_engine.rs:324:9
+    |
+324 | /         tokio::spawn(async move {
+325 | |             let mut interval_timer = tokio::time::interval(interval);
+326 | |             loop {
+327 | |                 interval_timer.tick().await;
+...   |
+347 | |         });
+    | |__________^ future created by async block is not `Send`
+    |
+    = help: within `{async block@src\performance\optimization_engine.rs:324:22: 324:32}`, the trait `std::marker::Send` is not implemented 
+for `std::sync::MutexGuard<'_, OptimizationMetrics>`
+note: future is not `Send` as this value is used across an await
+   --> src\performance\optimization_engine.rs:336:73
+    |
+329 |                 if let Ok(mut metrics_guard) = metrics.lock() {
+    |                           ----------------- has type `std::sync::MutexGuard<'_, OptimizationMetrics>` which is not `Send`
+...
+336 |                     if let Ok(pool_stats) = connection_pool.get_stats().await {
+    |                                                                         ^^^^^ await occurs here, with `mut metrics_guard` maybe used 
+later
+note: required by a bound in `tokio::spawn`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tokio-1.47.1\src\task\spawn.rs:168:21
+    |
+166 |     pub fn spawn<F>(future: F) -> JoinHandle<F::Output>
+    |            ----- required by a bound in this function
+167 |     where
+168 |         F: Future + Send + 'static,
+    |                     ^^^^ required by this bound in `spawn`
+
+error[E0499]: cannot borrow `self.l1_cache` as mutable more than once at a time
+   --> src\performance\optimization_engine.rs:495:13
+    |
+484 |     pub fn get(&mut self, key: &str) -> Option<&CacheEntry> {
+    |                - let's call the lifetime of this reference `'1`
+485 |         // Check L1 cache first
+486 |         if let Some(entry) = self.l1_cache.get_mut(key) {
+    |                              ------------- first mutable borrow occurs here
+...
+490 |             return Some(entry);
+    |                    ----------- returning this value requires that `self.l1_cache` is borrowed for `'1`
+...
+495 |             self.l1_cache.insert(key.to_string(), entry);
+    |             ^^^^^^^^^^^^^ second mutable borrow occurs here
+
+error[E0502]: cannot borrow `self.l1_cache` as immutable because it is also borrowed as mutable
+   --> src\performance\optimization_engine.rs:497:20
+    |
+484 |     pub fn get(&mut self, key: &str) -> Option<&CacheEntry> {
+    |                - let's call the lifetime of this reference `'1`
+485 |         // Check L1 cache first
+486 |         if let Some(entry) = self.l1_cache.get_mut(key) {
+    |                              ------------- mutable borrow occurs here
+...
+490 |             return Some(entry);
+    |                    ----------- returning this value requires that `self.l1_cache` is borrowed for `'1`
+...
+497 |             return self.l1_cache.get(key);
+    |                    ^^^^^^^^^^^^^ immutable borrow occurs here
+
+error[E0499]: cannot borrow `self.l1_cache` as mutable more than once at a time
+   --> src\performance\optimization_engine.rs:502:13
+    |
+484 |     pub fn get(&mut self, key: &str) -> Option<&CacheEntry> {
+    |                - let's call the lifetime of this reference `'1`
+485 |         // Check L1 cache first
+486 |         if let Some(entry) = self.l1_cache.get_mut(key) {
+    |                              ------------- first mutable borrow occurs here
+...
+490 |             return Some(entry);
+    |                    ----------- returning this value requires that `self.l1_cache` is borrowed for `'1`
+...
+502 |             self.l1_cache.insert(key.to_string(), entry);
+    |             ^^^^^^^^^^^^^ second mutable borrow occurs here
+
+error[E0502]: cannot borrow `self.l1_cache` as immutable because it is also borrowed as mutable
+   --> src\performance\optimization_engine.rs:504:20
+    |
+484 |     pub fn get(&mut self, key: &str) -> Option<&CacheEntry> {
+    |                - let's call the lifetime of this reference `'1`
+485 |         // Check L1 cache first
+486 |         if let Some(entry) = self.l1_cache.get_mut(key) {
+    |                              ------------- mutable borrow occurs here
+...
+490 |             return Some(entry);
+    |                    ----------- returning this value requires that `self.l1_cache` is borrowed for `'1`
+...
+504 |             return self.l1_cache.get(key);
+    |                    ^^^^^^^^^^^^^ immutable borrow occurs here
+
+error[E0382]: use of moved value: `entry`
+   --> src\performance\optimization_engine.rs:523:34
+    |
+512 |         let entry = CacheEntry {
+    |             ----- move occurs because `entry` has type `CacheEntry`, which does not implement the `Copy` trait
+...
+521 |         self.l1_cache.insert(key, entry);
+    |                                   ----- value moved here
+522 |         self.stats.entry_count += 1;
+523 |         self.stats.total_size += entry.size;
+    |                                  ^^^^^^^^^^ value used here after move
+    |
+help: consider cloning the value if the performance cost is acceptable
+    |
+521 |         self.l1_cache.insert(key, entry.clone());
+    |                                        ++++++++
+
+Some errors have detailed explanations: E0063, E0277, E0382, E0499, E0502, E0521, E0596, E0599.
+For more information about an error, try `rustc --explain E0063`.
+error: could not compile `erdps-agent` (lib) due to 309 previous errors

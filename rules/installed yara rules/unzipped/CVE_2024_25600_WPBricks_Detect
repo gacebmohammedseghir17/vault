@@ -1,0 +1,19 @@
+rule CVE_2024_25600_WPBricks
+{
+  meta:
+    author      = "Tenbite @https://x.com/BitOfTen"
+    date        = "2025/01/08"
+    description = "Detect exploit attempts for CVE-2024-25600 (Bricks Builder RCE) in WordPress logs Reference - https://github.com/K3ysTr0K3R/CVE-2024-25600-EXPLOIT/blob/main/CVE-2024-25600.py"
+
+  strings:
+    // POST requests in logs targeting Bricks endpoints
+    $bricksEndpoint1 = /POST\s+\/wp-json\/bricks\/v1\/render_element/ nocase
+    $bricksEndpoint2 = /POST\s+\/\?rest_route=\/bricks\/v1\/render_element/ nocase
+
+    // Unique PoC marker used to confirm vulnerability
+    $uniqueString   = "KHABuhwxnUHDDW"
+
+  condition:
+    // Trigger if any Bricks endpoint plus the unique marker appear in the log line
+    any of ($bricksEndpoint*) or $uniqueString
+}

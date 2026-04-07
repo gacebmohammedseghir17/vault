@@ -1,0 +1,180 @@
+{
+  "dashboard": {
+    "title": "ERDPS Agent Overview",
+    "uid": "erdps-agent-overview",
+    "tags": ["erdps", "security", "monitoring"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "type": "graph",
+        "title": "Detection Rate",
+        "targets": [
+          {
+            "expr": "erdps_detection_events_total",
+            "legendFormat": "Total Detections"
+          },
+          {
+            "expr": "erdps_false_positives_total",
+            "legendFormat": "False Positives"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "yellow", "value": 10},
+                {"color": "red", "value": 50}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "type": "graph",
+        "title": "Average Threat Score",
+        "targets": [
+          {
+            "expr": "erdps_threat_score_avg",
+            "legendFormat": "Avg Score"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "yellow", "value": 50},
+                {"color": "red", "value": 80}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+      },
+      {
+        "id": 3,
+        "type": "graph",
+        "title": "Resource Usage",
+        "targets": [
+          {
+            "expr": "process_cpu_seconds_total{job=\"erdps_agent\"}",
+            "legendFormat": "CPU Seconds"
+          },
+          {
+            "expr": "process_resident_memory_bytes{job=\"erdps_agent\"}",
+            "legendFormat": "Memory Bytes"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "bytes"
+          }
+        },
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}
+      },
+      {
+        "id": 4,
+        "type": "stat",
+        "title": "YARA Rules Loaded",
+        "targets": [
+          {
+            "expr": "erdps_yara_rules_loaded_total",
+            "legendFormat": "Rules"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "yellow", "value": 100},
+                {"color": "green", "value": 500}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 16}
+      },
+      {
+        "id": 5,
+        "type": "stat",
+        "title": "Files Scanned",
+        "targets": [
+          {
+            "expr": "erdps_files_scanned_total",
+            "legendFormat": "Files"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        },
+        "gridPos": {"h": 4, "w": 6, "x": 6, "y": 16}
+      },
+      {
+        "id": 6,
+        "type": "stat",
+        "title": "Mean Time to Detection",
+        "targets": [
+          {
+            "expr": "erdps_mttd_seconds",
+            "legendFormat": "MTTD (seconds)"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s",
+            "thresholds": {
+              "steps": [
+                {"color": "green", "value": null},
+                {"color": "yellow", "value": 30},
+                {"color": "red", "value": 60}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 4, "w": 6, "x": 12, "y": 16}
+      },
+      {
+        "id": 7,
+        "type": "stat",
+        "title": "Agent Status",
+        "targets": [
+          {
+            "expr": "erdps_agent_up",
+            "legendFormat": "Status"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "green", "value": 1}
+              ]
+            }
+          }
+        },
+        "gridPos": {"h": 4, "w": 6, "x": 18, "y": 16}
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "5s",
+    "schemaVersion": 27
+  },
+  "overwrite": true
+}

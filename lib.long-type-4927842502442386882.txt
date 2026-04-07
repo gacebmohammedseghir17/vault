@@ -1,0 +1,1 @@
+impl Future<Output = std::result::Result<Option<detector::DetectionEvent>, Box<(dyn std::error::Error + Send + Sync + 'static)>>>

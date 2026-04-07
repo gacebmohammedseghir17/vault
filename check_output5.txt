@@ -1,0 +1,3261 @@
+﻿cargo :     Checking erdps-agent v0.1.0 (D:\projecttttttttts\project-ransolution\agent)
+Au caractère Ligne:1 : 1
++ cargo check 2>&1 | Out-File -FilePath check_output5.txt -Encoding utf ...
++ ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking er...solution\agent):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error: variant `ECDSA_P256` should have an upper camel case name
+   --> src\enterprise\audit.rs:250:5
+    |
+250 |     ECDSA_P256,
+    |     ^^^^^^^^^^ help: convert the identifier to upper camel case: `EcdsaP256`
+    |
+    = note: `-D non-camel-case-types` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(non_camel_case_types)]`
+
+error: variant `ECDSA_P384` should have an upper camel case name
+   --> src\enterprise\audit.rs:251:5
+    |
+251 |     ECDSA_P384,
+    |     ^^^^^^^^^^ help: convert the identifier to upper camel case: `EcdsaP384`
+
+error: variant `ECDSA_P521` should have an upper camel case name
+   --> src\enterprise\audit.rs:252:5
+    |
+252 |     ECDSA_P521,
+    |     ^^^^^^^^^^ help: convert the identifier to upper camel case: `EcdsaP521`
+
+error: variant `EdDSA_Ed25519` should have an upper camel case name
+   --> src\enterprise\audit.rs:253:5
+    |
+253 |     EdDSA_Ed25519,
+    |     ^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `EdDsaEd25519`
+
+error: variant `EdDSA_Ed448` should have an upper camel case name
+   --> src\enterprise\audit.rs:254:5
+    |
+254 |     EdDSA_Ed448,
+    |     ^^^^^^^^^^^ help: convert the identifier to upper camel case: `EdDsaEd448`
+
+error: variant `AES128_GCM` should have an upper camel case name
+   --> src\enterprise\audit.rs:260:5
+    |
+260 |     AES128_GCM,
+    |     ^^^^^^^^^^ help: convert the identifier to upper camel case: `Aes128Gcm`
+
+error: variant `AES256_GCM` should have an upper camel case name
+   --> src\enterprise\audit.rs:261:5
+    |
+261 |     AES256_GCM,
+    |     ^^^^^^^^^^ help: convert the identifier to upper camel case: `Aes256Gcm`
+
+error: variant `ChaCha20_Poly1305` should have an upper camel case name
+   --> src\enterprise\audit.rs:262:5
+    |
+262 |     ChaCha20_Poly1305,
+    |     ^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `ChaCha20Poly1305`
+
+error: variant `XChaCha20_Poly1305` should have an upper camel case name
+   --> src\enterprise\audit.rs:263:5
+    |
+263 |     XChaCha20_Poly1305,
+    |     ^^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `XchaCha20Poly1305`
+
+error: variant `PCI_DSS` should have an upper camel case name
+   --> src\enterprise\audit.rs:444:5
+    |
+444 |     PCI_DSS,
+    |     ^^^^^^^ help: convert the identifier to upper camel case: `PciDss`
+
+error: variant `DoD_5220_22_M` should have an upper camel case name
+    --> src\enterprise\audit.rs:1832:5
+     |
+1832 |     DoD_5220_22_M,
+     |     ^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `DoD5220_22M`
+
+error: variant `NIST_800_88` should have an upper camel case name
+    --> src\enterprise\audit.rs:1833:5
+     |
+1833 |     NIST_800_88,
+     |     ^^^^^^^^^^^ help: convert the identifier to upper camel case: `Nist800_88`
+
+error: unused import: `SystemTime`
+ --> src\enterprise\multi_tenant.rs:3:27
+  |
+3 | use std::time::{Duration, SystemTime};
+  |                           ^^^^^^^^^^
+  |
+  = note: `-D unused-imports` implied by `-D warnings`
+  = help: to override `-D warnings` add `#[allow(unused_imports)]`
+
+error: variant `AES256_GCM` should have an upper camel case name
+  --> src\enterprise\multi_tenant.rs:91:5
+   |
+91 |     AES256_GCM,
+   |     ^^^^^^^^^^ help: convert the identifier to upper camel case: `Aes256Gcm`
+
+error: variant `AES256_CBC` should have an upper camel case name
+  --> src\enterprise\multi_tenant.rs:92:5
+   |
+92 |     AES256_CBC,
+   |     ^^^^^^^^^^ help: convert the identifier to upper camel case: `Aes256Cbc`
+
+error: variant `Fail_Open` should have an upper camel case name
+   --> src\enterprise\multi_tenant.rs:430:5
+    |
+430 |     Fail_Open,
+    |     ^^^^^^^^^ help: convert the identifier to upper camel case: `FailOpen`
+
+error: variant `Fail_Closed` should have an upper camel case name
+   --> src\enterprise\multi_tenant.rs:431:5
+    |
+431 |     Fail_Closed,
+    |     ^^^^^^^^^^^ help: convert the identifier to upper camel case: `FailClosed`
+
+error: variant `AES_256_GCM_SHA384` should have an upper camel case name
+   --> src\enterprise\multi_tenant.rs:516:5
+    |
+516 |     AES_256_GCM_SHA384,
+    |     ^^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `Aes256GcmSha384`
+
+error: variant `AES_128_GCM_SHA256` should have an upper camel case name
+   --> src\enterprise\multi_tenant.rs:517:5
+    |
+517 |     AES_128_GCM_SHA256,
+    |     ^^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `Aes128GcmSha256`
+
+error: variant `CHACHA20_POLY1305_SHA256` should have an upper camel case name
+   --> src\enterprise\multi_tenant.rs:518:5
+    |
+518 |     CHACHA20_POLY1305_SHA256,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `Chacha20Poly1305Sha256`
+
+error: variant `PCI_DSS` should have an upper camel case name
+   --> src\enterprise\multi_tenant.rs:559:5
+    |
+559 |     PCI_DSS,
+    |     ^^^^^^^ help: convert the identifier to upper camel case: `PciDss`
+
+error: unused import: `Instant`
+ --> src\integration\siem.rs:3:27
+  |
+3 | use std::time::{Duration, Instant};
+  |                           ^^^^^^^
+
+error: unused import: `tokio::sync::mpsc`
+ --> src\integration\siem.rs:5:5
+  |
+5 | use tokio::sync::mpsc;
+  |     ^^^^^^^^^^^^^^^^^
+
+error: unused import: `tokio::sync::mpsc`
+ --> src\deployment\blue_green.rs:5:5
+  |
+5 | use tokio::sync::mpsc;
+  |     ^^^^^^^^^^^^^^^^^
+
+error: unused imports: `error` and `warn`
+  --> src\deployment\config_management.rs:13:21
+   |
+13 | use tracing::{info, warn, error, debug};
+   |                     ^^^^  ^^^^^
+
+error: variant `AWS_KMS` should have an upper camel case name
+   --> src\deployment\config_management.rs:709:5
+    |
+709 |     AWS_KMS,
+    |     ^^^^^^^ help: convert the identifier to upper camel case: `AwsKms`
+
+error: variant `Azure_KeyVault` should have an upper camel case name
+   --> src\deployment\config_management.rs:710:5
+    |
+710 |     Azure_KeyVault,
+    |     ^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `AzureKeyVault`
+
+error: variant `HashiCorp_Vault` should have an upper camel case name
+   --> src\deployment\config_management.rs:711:5
+    |
+711 |     HashiCorp_Vault,
+    |     ^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `HashiCorpVault`
+
+error: unused import: `Mutex`
+  --> src\deployment\health_checks.rs:11:27
+   |
+11 | use tokio::sync::{RwLock, Mutex};
+   |                           ^^^^^
+
+error: unused import: `error`
+  --> src\deployment\health_checks.rs:13:27
+   |
+13 | use tracing::{info, warn, error, debug};
+   |                           ^^^^^
+
+error: unused import: `UNIX_EPOCH`
+ --> src\deployment\rollback.rs:7:39
+  |
+7 | use std::time::{Duration, SystemTime, UNIX_EPOCH};
+  |                                       ^^^^^^^^^^
+
+error: unused import: `timeout`
+ --> src\deployment\rollback.rs:9:26
+  |
+9 | use tokio::time::{sleep, timeout};
+  |                          ^^^^^^^
+
+error: unused import: `RegionalDeployment`
+  --> src\deployment\multi_region.rs:16:59
+   |
+16 | use crate::enterprise::multi_region::{MultiRegionManager, RegionalDeployment};
+   |                                                           ^^^^^^^^^^^^^^^^^^
+
+error: unused imports: `DeploymentConfig` and `DeploymentStrategy`
+  --> src\deployment\multi_region.rs:17:32
+   |
+17 | use super::{DeploymentManager, DeploymentConfig, DeploymentStrategy};
+   |                                ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+
+error: unused import: `UNIX_EPOCH`
+ --> src\deployment\metrics.rs:8:39
+  |
+8 | use std::time::{Duration, SystemTime, UNIX_EPOCH};
+  |                                       ^^^^^^^^^^
+
+error: unused import: `uuid::Uuid`
+  --> src\deployment\metrics.rs:11:5
+   |
+11 | use uuid::Uuid;
+   |     ^^^^^^^^^^
+
+error: unused imports: `info` and `warn`
+  --> src\deployment\metrics.rs:12:15
+   |
+12 | use tracing::{info, warn, error, debug};
+   |               ^^^^  ^^^^
+
+error: unused import: `uuid::Uuid`
+  --> src\deployment\service_discovery.rs:11:5
+   |
+11 | use uuid::Uuid;
+   |     ^^^^^^^^^^
+
+error: unused imports: `error` and `warn`
+  --> src\deployment\service_discovery.rs:12:21
+   |
+12 | use tracing::{info, warn, error, debug};
+   |                     ^^^^  ^^^^^
+
+error: unused import: `error`
+  --> src\deployment\circuit_breaker.rs:11:27
+   |
+11 | use tracing::{info, warn, error, debug};
+   |                           ^^^^^
+
+error: unused import: `Mutex`
+  --> src\deployment\mod.rs:24:27
+   |
+24 | use tokio::sync::{RwLock, Mutex};
+   |                           ^^^^^
+
+error: unused imports: `error` and `warn`
+  --> src\deployment\mod.rs:26:21
+   |
+26 | use tracing::{info, warn, error};
+   |                     ^^^^  ^^^^^
+
+error: variant `A_B_Testing` should have an upper camel case name
+  --> src\deployment\mod.rs:85:5
+   |
+85 |     A_B_Testing,
+   |     ^^^^^^^^^^^ help: convert the identifier to upper camel case: `ABTesting`
+
+error: variant `AWS_CloudFront` should have an upper camel case name
+   --> src\deployment\mod.rs:312:5
+    |
+312 |     AWS_CloudFront,
+    |     ^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `AwsCloudFront`
+
+error: variant `Azure_CDN` should have an upper camel case name
+   --> src\deployment\mod.rs:313:5
+    |
+313 |     Azure_CDN,
+    |     ^^^^^^^^^ help: convert the identifier to upper camel case: `AzureCdn`
+
+error: variant `Google_CDN` should have an upper camel case name
+   --> src\deployment\mod.rs:314:5
+    |
+314 |     Google_CDN,
+    |     ^^^^^^^^^^ help: convert the identifier to upper camel case: `GoogleCdn`
+
+error: variant `ECC_P256` should have an upper camel case name
+   --> src\deployment\mod.rs:551:5
+    |
+551 |     ECC_P256,
+    |     ^^^^^^^^ help: convert the identifier to upper camel case: `EccP256`
+
+error: variant `ECC_P384` should have an upper camel case name
+   --> src\deployment\mod.rs:552:5
+    |
+552 |     ECC_P384,
+    |     ^^^^^^^^ help: convert the identifier to upper camel case: `EccP384`
+
+error: variant `AWS_KMS` should have an upper camel case name
+   --> src\deployment\mod.rs:569:5
+    |
+569 |     AWS_KMS,
+    |     ^^^^^^^ help: convert the identifier to upper camel case: `AwsKms`
+
+error: variant `Azure_KeyVault` should have an upper camel case name
+   --> src\deployment\mod.rs:570:5
+    |
+570 |     Azure_KeyVault,
+    |     ^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `AzureKeyVault`
+
+error: variant `Google_KMS` should have an upper camel case name
+   --> src\deployment\mod.rs:571:5
+    |
+571 |     Google_KMS,
+    |     ^^^^^^^^^^ help: convert the identifier to upper camel case: `GoogleKms`
+
+error: variant `HashiCorp_Vault` should have an upper camel case name
+   --> src\deployment\mod.rs:572:5
+    |
+572 |     HashiCorp_Vault,
+    |     ^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `HashiCorpVault`
+
+error[E0308]: mismatched types
+    --> src\enterprise\audit.rs:1167:23
+     |
+1167 |             duration: std::time::Duration::from_millis(100), // Placeholder
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `TimeDelta`, found `Duration`
+
+error[E0505]: cannot move out of `store` because it is borrowed
+    --> src\deployment\config_management.rs:1162:22
+     |
+1158 |         let store = self.config_store.read().await;
+     |             ----- binding `store` declared here
+1159 |         if let Some(config) = store.environments.get(environment) {
+     |                               ----- borrow of `store` occurs here
+...
+1162 |                 drop(store);
+     |                      ^^^^^ move out of `store` occurs here
+...
+1165 |                     configuration: config.clone(),
+     |                                    ------ borrow later used here
+
+error: unused variable: `target_change`
+    --> src\deployment\config_management.rs:1468:13
+     |
+1468 |         let target_change = store.history.iter()
+     |             ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_target_change`
+     |
+     = note: requested on the command line with `-D unused-variables`
+
+error[E0505]: cannot move out of `store` because it is borrowed
+    --> src\deployment\config_management.rs:1476:14
+     |
+1465 |         let store = self.config_store.read().await;
+     |             ----- binding `store` declared here
+...
+1473 |         let target_config = store.environments.get(environment)
+     |                             ----- borrow of `store` occurs here
+...
+1476 |         drop(store);
+     |              ^^^^^ move out of `store` occurs here
+...
+1479 |         let mut rollback_config = target_config.clone();
+     |                                   ------------- borrow later used here
+
+error: unused variable: `start_time`
+   --> src\deployment\health_checks.rs:703:13
+    |
+703 |         let start_time = SystemTime::now();
+    |             ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_start_time`
+
+error: unused variable: `method`
+   --> src\deployment\health_checks.rs:739:9
+    |
+739 |         method: &HttpMethod,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_method`
+
+error: unused variable: `headers`
+   --> src\deployment\health_checks.rs:740:9
+    |
+740 |         headers: &HashMap<String, String>,
+    |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_headers`
+
+error: unused variable: `body`
+   --> src\deployment\health_checks.rs:741:9
+    |
+741 |         body: Option<&str>,
+    |         ^^^^ help: if this is intentional, prefix it with an underscore: `_body`
+
+error: unused variable: `port`
+   --> src\deployment\health_checks.rs:790:53
+    |
+790 |     async fn perform_tcp_check(check: &HealthCheck, port: u16) -> Result<HealthCheckResult> {
+    |                                                     ^^^^ help: if this is intentional, prefix it with an underscore: `_port`
+
+error: unused variable: `db_type`
+   --> src\deployment\health_checks.rs:832:9
+    |
+832 |         db_type: &DatabaseType,
+    |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_db_type`
+
+error: unused variable: `connection_string`
+   --> src\deployment\health_checks.rs:833:9
+    |
+833 |         connection_string: &str,
+    |         ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_connection_string`
+
+error: unused variable: `query`
+   --> src\deployment\health_checks.rs:834:9
+    |
+834 |         query: Option<&str>,
+    |         ^^^^^ help: if this is intentional, prefix it with an underscore: `_query`
+
+error: unused variable: `pid`
+   --> src\deployment\health_checks.rs:878:9
+    |
+878 |         pid: Option<u32>,
+    |         ^^^ help: if this is intentional, prefix it with an underscore: `_pid`
+
+error: unused variable: `check_type`
+   --> src\deployment\health_checks.rs:922:9
+    |
+922 |         check_type: &FileSystemCheckType,
+    |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_check_type`
+
+error: unused variable: `command`
+    --> src\deployment\health_checks.rs:1110:9
+     |
+1110 |         command: &str,
+     |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_command`
+
+error: unused variable: `args`
+    --> src\deployment\health_checks.rs:1111:9
+     |
+1111 |         args: &[String],
+     |         ^^^^ help: if this is intentional, prefix it with an underscore: `_args`
+
+error: unused variable: `working_dir`
+    --> src\deployment\health_checks.rs:1112:9
+     |
+1112 |         working_dir: Option<&str>,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_working_dir`
+
+error[E0502]: cannot borrow `history` as immutable because it is also borrowed as mutable
+   --> src\deployment\health_checks.rs:619:34
+    |
+619 |                 history.drain(0..history.len() - 1000);
+    |                 ------- -----    ^^^^^^^ immutable borrow occurs here
+    |                 |       |
+    |                 |       mutable borrow later used by call
+    |                 mutable borrow occurs here
+
+error: unused variable: `parameters`
+   --> src\deployment\rollback.rs:694:83
+    |
+694 |     async fn execute_custom_rollback(&self, rollback_id: &str, script_path: &str, parameters: &HashMap<String, String>) -> 
+Result<()> {
+    |                                                                                   ^^^^^^^^^^ help: if this is intentional, prefix 
+it with an underscore: `_parameters`
+
+error[E0502]: cannot borrow `*self` as mutable because it is also borrowed as immutable
+   --> src\deployment\rollback.rs:912:25
+    |
+907 |         for method in &self.config.detection_methods {
+    |                       ------------------------------
+    |                       |
+    |                       immutable borrow occurs here
+    |                       immutable borrow later used here
+...
+912 |                         self.record_failure(deployment_id, method).await?;
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+
+error: unused variable: `failure_reason`
+    --> src\deployment\rollback.rs:1124:87
+     |
+1124 |     async fn send_to_channel(&self, channel: &NotificationChannel, rollback_id: &str, failure_reason: &str) -> Result<()> {
+     |                                                                                       ^^^^^^^^^^^^^^ help: if this is intentional, 
+prefix it with an underscore: `_failure_reason`
+
+error: unused variable: `deployment_id`
+   --> src\deployment\multi_region.rs:992:9
+    |
+992 |         deployment_id: Uuid,
+    |         ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment_id`
+
+error: unused variable: `package_clone`
+    --> src\deployment\multi_region.rs:1003:17
+     |
+1003 |             let package_clone = deployment_package.to_vec();
+     |                 ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_package_clone`
+
+error: unused variable: `manager`
+    --> src\deployment\multi_region.rs:1008:29
+     |
+1008 |                 if let Some(manager) = managers_read.get(&region_clone) {
+     |                             ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_manager`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\multi_region.rs:1072:9
+     |
+1072 |         deployment_id: Uuid,
+     |         ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment_id`
+
+error: unused variable: `deployment_package`
+    --> src\deployment\multi_region.rs:1074:9
+     |
+1074 |         deployment_package: &[u8],
+     |         ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment_package`
+
+error: unused variable: `regions`
+    --> src\deployment\multi_region.rs:1236:9
+     |
+1236 |         regions: &[String],
+     |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_regions`
+
+error: unused variable: `service_name`
+    --> src\deployment\service_discovery.rs:1267:27
+     |
+1267 |     async fn watch(&self, service_name: &str) -> Result<tokio::sync::mpsc::Receiver<ServiceEvent>> {
+     |                           ^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_service_name`
+
+error: unused variable: `sender`
+    --> src\deployment\service_discovery.rs:1268:14
+     |
+1268 |         let (sender, receiver) = tokio::sync::mpsc::channel(100);
+     |              ^^^^^^ help: if this is intentional, prefix it with an underscore: `_sender`
+
+error[E0382]: borrow of moved value: `breaker`
+   --> src\deployment\circuit_breaker.rs:919:28
+    |
+899 |         let mut breaker = self.get_circuit_breaker(service_name).await;
+    |             ----------- move occurs because `breaker` has type `circuit_breaker::CircuitBreaker`, which does not implement the 
+`Copy` trait
+...
+913 |             self.update_circuit_breaker(service_name, breaker).await;
+    |                                                       ------- value moved here
+...
+919 |                 new_state: breaker.state.clone(),
+    |                            ^^^^^^^^^^^^^ value borrowed here after move
+    |
+note: consider changing this parameter type in method `update_circuit_breaker` to borrow instead if owning the value isn't necessary
+   --> src\deployment\circuit_breaker.rs:978:73
+    |
+978 |     async fn update_circuit_breaker(&self, service_name: &str, breaker: CircuitBreaker) {
+    |              ---------------------- in this method                      ^^^^^^^^^^^^^^ this parameter takes ownership of the value
+help: consider cloning the value if the performance cost is acceptable
+    |
+913 |             self.update_circuit_breaker(service_name, breaker.clone()).await;
+    |                                                              ++++++++
+
+error[E0061]: this function takes 6 arguments but 1 argument was supplied
+    --> src\deployment\mod.rs:1378:35
+     |
+1378 |         let blue_green = Arc::new(blue_green::BlueGreenDeploymentManager::new(&config.health_checks).await?);
+     |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------
+     |                                                                              ||
+     |                                                                              |expected `BlueGreenConfig`, found 
+`&HealthCheckConfig`
+     |                                                                              multiple arguments are missing
+     |
+note: associated function defined here
+    --> src\deployment\blue_green.rs:538:12
+     |
+538  |     pub fn new(
+     |            ^^^
+539  |         config: BlueGreenConfig,
+     |         -----------------------
+540  |         deployment_orchestrator: Arc<DefaultDeploymentOrchestrator>,
+     |         -----------------------------------------------------------
+541  |         health_checker: Arc<DefaultHealthChecker>,
+     |         -----------------------------------------
+542  |         traffic_manager: Arc<DefaultTrafficManager>,
+     |         -------------------------------------------
+543  |         monitoring_service: Arc<DefaultMonitoringService>,
+     |         -------------------------------------------------
+544  |         notification_service: Arc<DefaultNotificationService>,
+     |         -----------------------------------------------------
+help: provide the arguments
+     |
+1378 -         let blue_green = Arc::new(blue_green::BlueGreenDeploymentManager::new(&config.health_checks).await?);
+1378 +         let blue_green = Arc::new(blue_green::BlueGreenDeploymentManager::new(/* BlueGreenConfig */, /* 
+Arc<DefaultDeploymentOrchestrator> */, /* Arc<DefaultHealthChecker> */, /* Arc<DefaultTrafficManager> */, /* 
+Arc<DefaultMonitoringService> */, /* Arc<blue_green::DefaultNotificationService> */).await?);
+     |
+
+error[E0277]: `std::result::Result<BlueGreenDeploymentManager, BlueGreenError>` is not a future
+    --> src\deployment\mod.rs:1378:102
+     |
+1378 |         let blue_green = Arc::new(blue_green::BlueGreenDeploymentManager::new(&config.health_checks).await?);
+     |                                   ------------------------------------------------------------------ ^^^^^ 
+`std::result::Result<BlueGreenDeploymentManager, BlueGreenError>` is not a future
+     |                                   |
+     |                                   this call returns `std::result::Result<BlueGreenDeploymentManager, BlueGreenError>`
+     |
+     = help: the trait `futures::Future` is not implemented for `std::result::Result<BlueGreenDeploymentManager, BlueGreenError>`
+     = note: std::result::Result<BlueGreenDeploymentManager, BlueGreenError> must be a future or must implement `IntoFuture` to be awaited
+     = note: required for `std::result::Result<BlueGreenDeploymentManager, BlueGreenError>` to implement `std::future::IntoFuture`
+help: remove the `.await`
+     |
+1378 -         let blue_green = Arc::new(blue_green::BlueGreenDeploymentManager::new(&config.health_checks).await?);
+1378 +         let blue_green = Arc::new(blue_green::BlueGreenDeploymentManager::new(&config.health_checks)?);
+     |
+
+error[E0277]: `AutomatedRollbackManager` is not a future
+    --> src\deployment\mod.rs:1380:98
+     |
+1380 |         let rollback = Arc::new(rollback::AutomatedRollbackManager::new(config.rollback.clone()).await?);
+     |                                 ---------------------------------------------------------------- ^^^^^ `AutomatedRollbackManager` 
+is not a future
+     |                                 |
+     |                                 this call returns `AutomatedRollbackManager`
+     |
+     = help: the trait `futures::Future` is not implemented for `AutomatedRollbackManager`
+     = note: AutomatedRollbackManager must be a future or must implement `IntoFuture` to be awaited
+     = note: required for `AutomatedRollbackManager` to implement `std::future::IntoFuture`
+help: remove the `.await`
+     |
+1380 -         let rollback = Arc::new(rollback::AutomatedRollbackManager::new(config.rollback.clone()).await?);
+1380 +         let rollback = Arc::new(rollback::AutomatedRollbackManager::new(config.rollback.clone())?);
+     |
+
+error[E0061]: this function takes 1 argument but 0 arguments were supplied
+    --> src\deployment\mod.rs:1381:39
+     |
+1381 |         let config_manager = Arc::new(config_management::ConfigurationManager::new().await?);
+     |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-- argument #1 of type 
+`ConfigurationManagerConfig` is missing
+     |
+note: associated function defined here
+    --> src\deployment\config_management.rs:1135:18
+     |
+1135 |     pub async fn new(config: ConfigurationManagerConfig) -> Result<Self> {
+     |                  ^^^ ----------------------------------
+help: provide the argument
+     |
+1381 |         let config_manager = Arc::new(config_management::ConfigurationManager::new(/* ConfigurationManagerConfig */).await?);
+     |                                                                                    ++++++++++++++++++++++++++++++++
+
+error[E0782]: expected a type, found a trait
+    --> src\deployment\mod.rs:1382:32
+     |
+1382 |         let metrics = Arc::new(metrics::MetricsCollector::new(&config.monitoring.metrics).await?);
+     |                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+help: you can add the `dyn` keyword if you want a trait object
+     |
+1382 |         let metrics = Arc::new(<dyn metrics::MetricsCollector>::new(&config.monitoring.metrics).await?);
+     |                                ++++                          +
+
+error[E0061]: this function takes 2 arguments but 1 argument was supplied
+    --> src\deployment\mod.rs:1385:40
+     |
+1385 |         let circuit_breaker = Arc::new(circuit_breaker::CircuitBreaker::new(config.circuit_breaker.clone()).await?);
+     |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------
+     |                                                                            ||
+     |                                                                            |expected `String`, found `CircuitBreakerConfig`
+     |                                                                            argument #2 of type `ServiceCircuitBreakerConfig` is 
+missing
+     |
+note: associated function defined here
+    --> src\deployment\circuit_breaker.rs:1049:12
+     |
+1049 |     pub fn new(service_name: String, config: ServiceCircuitBreakerConfig) -> Self {
+     |            ^^^ --------------------  -----------------------------------
+help: provide the argument
+     |
+1385 -         let circuit_breaker = Arc::new(circuit_breaker::CircuitBreaker::new(config.circuit_breaker.clone()).await?);
+1385 +         let circuit_breaker = Arc::new(circuit_breaker::CircuitBreaker::new(/* std::string::String */, /* 
+ServiceCircuitBreakerConfig */).await?);
+     |
+
+error[E0277]: `circuit_breaker::CircuitBreaker` is not a future
+    --> src\deployment\mod.rs:1385:109
+     |
+1385 |         let circuit_breaker = Arc::new(circuit_breaker::CircuitBreaker::new(config.circuit_breaker.clone()).await?);
+     |                                        -------------------------------------------------------------------- ^^^^^ 
+`circuit_breaker::CircuitBreaker` is not a future
+     |                                        |
+     |                                        this call returns `circuit_breaker::CircuitBreaker`
+     |
+     = help: the trait `futures::Future` is not implemented for `circuit_breaker::CircuitBreaker`
+     = note: circuit_breaker::CircuitBreaker must be a future or must implement `IntoFuture` to be awaited
+     = note: required for `circuit_breaker::CircuitBreaker` to implement `std::future::IntoFuture`
+help: remove the `.await`
+     |
+1385 -         let circuit_breaker = Arc::new(circuit_breaker::CircuitBreaker::new(config.circuit_breaker.clone()).await?);
+1385 +         let circuit_breaker = Arc::new(circuit_breaker::CircuitBreaker::new(config.circuit_breaker.clone())?);
+     |
+
+error[E0277]: the size for values of type `dyn deployment::metrics::MetricsCollector` cannot be known at compilation time
+    --> src\deployment\mod.rs:1382:32
+     |
+1382 |         let metrics = Arc::new(metrics::MetricsCollector::new(&config.monitoring.metrics).await?);
+     |                       -------- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at 
+compile-time
+     |                       |
+     |                       required by a bound introduced by this call
+     |
+     = help: the trait `Sized` is not implemented for `dyn deployment::metrics::MetricsCollector`
+note: required by a bound in `Arc::<T>::new`
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\alloc\src\sync.rs:394:6
+     |
+394  | impl<T> Arc<T> {
+     |      ^ required by this bound in `Arc::<T>::new`
+...
+407  |     pub fn new(data: T) -> Arc<T> {
+     |            --- required by a bound in this associated function
+
+error[E0277]: the size for values of type `dyn deployment::metrics::MetricsCollector` cannot be known at compilation time
+    --> src\deployment\mod.rs:1382:96
+     |
+1382 |         let metrics = Arc::new(metrics::MetricsCollector::new(&config.monitoring.metrics).await?);
+     |                                                                                                ^ doesn't have a size known at 
+compile-time
+     |
+     = help: the trait `Sized` is not implemented for `dyn deployment::metrics::MetricsCollector`
+note: required by a bound in `Break`
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\ops\control_flow.rs:87:25
+     |
+87   | pub enum ControlFlow<B, C = ()> {
+     |                         ^^^^^^ required by this bound in `Break`
+...
+95   |     Break(B),
+     |     ----- required by a bound in this variant
+
+error[E0277]: the size for values of type `dyn deployment::metrics::MetricsCollector` cannot be known at compilation time
+    --> src\deployment\mod.rs:1382:32
+     |
+1382 |         let metrics = Arc::new(metrics::MetricsCollector::new(&config.monitoring.metrics).await?);
+     |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at 
+compile-time
+     |
+     = help: the trait `Sized` is not implemented for `dyn deployment::metrics::MetricsCollector`
+note: required by a bound in `std::ops::ControlFlow::Continue`
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\ops\control_flow.rs:87:25
+     |
+87   | pub enum ControlFlow<B, C = ()> {
+     |                         ^^^^^^ required by this bound in `ControlFlow::Continue`
+...
+91   |     Continue(C),
+     |     -------- required by a bound in this variant
+
+error: unused variable: `start_time`
+    --> src\deployment\mod.rs:1405:13
+     |
+1405 |         let start_time = SystemTime::now();
+     |             ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_start_time`
+
+error[E0599]: no method named `deploy_to_green` found for struct `Arc<BlueGreenDeploymentManager>` in the current scope
+    --> src\deployment\mod.rs:1438:49
+     |
+1438 |         let deployment_result = self.blue_green.deploy_to_green(version, deployment_package).await?;
+     |                                                 ^^^^^^^^^^^^^^^
+     |
+help: there is a method `on_green` with a similar name, but with different arguments
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\yansi-1.0.1\src\paint.rs:130:5
+     |
+130  |     properties!(signature(&Self) -> Painted<&Self>);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     = note: this error originates in the macro `signature` which comes from the expansion of the macro `properties` (in Nightly builds, 
+run with -Z macro-backtrace for more info)
+
+error[E0599]: no method named `run_all_checks` found for struct `Arc<deployment::health_checks::HealthCheckManager>` in the current scope
+    --> src\deployment\mod.rs:1441:55
+     |
+1441 |         let health_check_results = self.health_checks.run_all_checks().await?;
+     |                                                       ^^^^^^^^^^^^^^
+     |
+help: there is a method `execute_all_checks` with a similar name
+     |
+1441 -         let health_check_results = self.health_checks.run_all_checks().await?;
+1441 +         let health_check_results = self.health_checks.execute_all_checks().await?;
+     |
+
+error[E0599]: no method named `switch_to_green` found for struct `Arc<BlueGreenDeploymentManager>` in the current scope
+    --> src\deployment\mod.rs:1448:29
+     |
+1448 |             self.blue_green.switch_to_green().await?;
+     |                             ^^^^^^^^^^^^^^^
+     |
+help: there is a method `bright_green` with a similar name
+     |
+1448 -             self.blue_green.switch_to_green().await?;
+1448 +             self.blue_green.bright_green().await?;
+     |
+
+error[E0599]: no method named `rollback_deployment` found for struct `Arc<AutomatedRollbackManager>` in the current scope
+    --> src\deployment\mod.rs:1465:47
+     |
+1465 |             let rollback_info = self.rollback.rollback_deployment(deployment_id).await?;
+     |                                               ^^^^^^^^^^^^^^^^^^^ method not found in `Arc<AutomatedRollbackManager>`
+
+error[E0599]: no method named `run_all_checks` found for struct `Arc<deployment::health_checks::HealthCheckManager>` in the current scope
+    --> src\deployment\mod.rs:1599:49
+     |
+1599 |         let health_results = self.health_checks.run_all_checks().await?;
+     |                                                 ^^^^^^^^^^^^^^
+     |
+help: there is a method `execute_all_checks` with a similar name
+     |
+1599 -         let health_results = self.health_checks.run_all_checks().await?;
+1599 +         let health_results = self.health_checks.execute_all_checks().await?;
+     |
+
+error[E0599]: no method named `as_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1275:47
+     |
+1275 |         if config.retention.default_retention.as_secs() == 0 {
+     |                                               ^^^^^^^
+     |
+help: there is a method `as_seconds_f32` with a similar name
+     |
+1275 -         if config.retention.default_retention.as_secs() == 0 {
+1275 +         if config.retention.default_retention.as_seconds_f32() == 0 {
+     |
+
+error[E0599]: no function or associated item named `from_millis` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1392:33
+     |
+1392 |             duration: Duration::from_millis(50),
+     |                                 ^^^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no function or associated item named `from_millis` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1428:48
+     |
+1428 |                 avg_logging_latency: Duration::from_millis(0),
+     |                                                ^^^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no function or associated item named `from_millis` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1429:53
+     |
+1429 |                 avg_verification_latency: Duration::from_millis(0),
+     |                                                     ^^^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no function or associated item named `from_millis` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1434:52
+     |
+1434 |                     avg_processing_time: Duration::from_millis(0),
+     |                                                    ^^^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0560]: struct `ClockSyncConfig` has no field named `enabled`
+    --> src\enterprise\audit.rs:1466:21
+     |
+1466 |                     enabled: true,
+     |                     ^^^^^^^ `ClockSyncConfig` does not have this field
+     |
+     = note: available fields are: `max_drift_ms`, `auto_sync`
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1468:46
+     |
+1468 |                     sync_interval: Duration::from_secs(3600),
+     |                                              ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1468 -                     sync_interval: Duration::from_secs(3600),
+1468 +                     sync_interval: Duration::from_ref(3600),
+     |
+
+error[E0599]: no variant or associated item named `GZIP` found for enum `audit::CompressionAlgorithm` in the current scope
+    --> src\enterprise\audit.rs:1489:50
+     |
+81   | pub enum CompressionAlgorithm {
+     | ----------------------------- variant or associated item `GZIP` not found for this enum
+...
+1489 |                 algorithm: CompressionAlgorithm::GZIP,
+     |                                                  ^^^^ variant or associated item not found in `audit::CompressionAlgorithm`
+     |
+help: there is a variant with a similar name
+     |
+1489 -                 algorithm: CompressionAlgorithm::GZIP,
+1489 +                 algorithm: CompressionAlgorithm::Gzip,
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1495:47
+     |
+1495 |             verification_frequency: Duration::from_secs(3600),
+     |                                               ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1495 -             verification_frequency: Duration::from_secs(3600),
+1495 +             verification_frequency: Duration::from_ref(3600),
+     |
+
+error[E0599]: no variant or associated item named `HashChain` found for enum `TamperDetectionAlgorithm` in the current scope
+    --> src\enterprise\audit.rs:1502:60
+     |
+96   | pub enum TamperDetectionAlgorithm {
+     | --------------------------------- variant or associated item `HashChain` not found for this enum
+...
+1502 |                 algorithms: vec![TamperDetectionAlgorithm::HashChain],
+     |                                                            ^^^^^^^^^ variant or associated item not found in 
+`TamperDetectionAlgorithm`
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1519:42
+     |
+1519 |                     frequency: Duration::from_secs(86400 * 7), // Weekly
+     |                                          ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1519 -                     frequency: Duration::from_secs(86400 * 7), // Weekly
+1519 +                     frequency: Duration::from_ref(86400 * 7), // Weekly
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1525:42
+     |
+1525 |             default_retention: Duration::from_secs(86400 * 365 * 7), // 7 years
+     |                                          ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1525 -             default_retention: Duration::from_secs(86400 * 365 * 7), // 7 years
+1525 +             default_retention: Duration::from_ref(86400 * 365 * 7), // 7 years
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1527:59
+     |
+1527 |                 (AuditCategory::SecurityEvents, Duration::from_secs(86400 * 365 * 10)), // 10 years
+     |                                                           ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1527 -                 (AuditCategory::SecurityEvents, Duration::from_secs(86400 * 365 * 10)), // 10 years
+1527 +                 (AuditCategory::SecurityEvents, Duration::from_ref(86400 * 365 * 10)), // 10 years
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1528:61
+     |
+1528 |                 (AuditCategory::ComplianceEvents, Duration::from_secs(86400 * 365 * 7)), // 7 years
+     |                                                             ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1528 -                 (AuditCategory::ComplianceEvents, Duration::from_secs(86400 * 365 * 7)), // 7 years
+1528 +                 (AuditCategory::ComplianceEvents, Duration::from_ref(86400 * 365 * 7)), // 7 years
+     |
+
+error[E0599]: no variant or associated item named `BZIP2` found for enum `audit::CompressionAlgorithm` in the current scope
+    --> src\enterprise\audit.rs:1544:54
+     |
+81   | pub enum CompressionAlgorithm {
+     | ----------------------------- variant or associated item `BZIP2` not found for this enum
+...
+1544 |                     algorithm: CompressionAlgorithm::BZIP2,
+     |                                                      ^^^^^ variant or associated item not found in `audit::CompressionAlgorithm`
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1549:51
+     |
+1549 |                     max_retrieval_time: Duration::from_secs(3600),
+     |                                                   ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1549 -                     max_retrieval_time: Duration::from_secs(3600),
+1549 +                     max_retrieval_time: Duration::from_ref(3600),
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1569:42
+     |
+1569 |                 min_retention: Duration::from_secs(86400 * 365 * 7), // 7 years
+     |                                          ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1569 -                 min_retention: Duration::from_secs(86400 * 365 * 7), // 7 years
+1569 +                 min_retention: Duration::from_ref(86400 * 365 * 7), // 7 years
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1584:38
+     |
+1584 |                 frequency: Duration::from_secs(86400 * 30), // Monthly
+     |                                      ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1584 -                 frequency: Duration::from_secs(86400 * 30), // Monthly
+1584 +                 frequency: Duration::from_ref(86400 * 30), // Monthly
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1592:53
+     |
+1592 |                     validation_frequency: Duration::from_secs(86400 * 365), // Yearly
+     |                                                     ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1592 -                     validation_frequency: Duration::from_secs(86400 * 365), // Yearly
+1592 +                     validation_frequency: Duration::from_ref(86400 * 365), // Yearly
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1600:37
+     |
+1600 |                 interval: Duration::from_secs(60),
+     |                                     ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1600 -                 interval: Duration::from_secs(60),
+1600 +                 interval: Duration::from_ref(60),
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1616:32
+     |
+1616 |                 ttl: Duration::from_secs(3600),
+     |                                ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1616 -                 ttl: Duration::from_secs(3600),
+1616 +                 ttl: Duration::from_ref(3600),
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1627:34
+     |
+1627 |             frequency: Duration::from_secs(86400), // Daily
+     |                                  ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1627 -             frequency: Duration::from_secs(86400), // Daily
+1627 +             frequency: Duration::from_ref(86400), // Daily
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1644:38
+     |
+1644 |                 frequency: Duration::from_secs(86400 * 7), // Weekly
+     |                                      ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1644 -                 frequency: Duration::from_secs(86400 * 7), // Weekly
+1644 +                 frequency: Duration::from_ref(86400 * 7), // Weekly
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1649:32
+     |
+1649 |                 rto: Duration::from_secs(3600), // 1 hour
+     |                                ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1649 -                 rto: Duration::from_secs(3600), // 1 hour
+1649 +                 rto: Duration::from_ref(3600), // 1 hour
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1650:32
+     |
+1650 |                 rpo: Duration::from_secs(900),  // 15 minutes
+     |                                ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1650 -                 rpo: Duration::from_secs(900),  // 15 minutes
+1650 +                 rpo: Duration::from_ref(900),  // 15 minutes
+     |
+
+error[E0599]: no function or associated item named `from_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1652:45
+     |
+1652 |                 testing_schedule: Duration::from_secs(86400 * 90), // Quarterly
+     |                                             ^^^^^^^^^ function or associated item not found in `TimeDelta`
+     |
+note: if you're trying to build a new `TimeDelta` consider using one of the following associated functions:
+      TimeDelta::new
+      TimeDelta::weeks
+      TimeDelta::try_weeks
+      TimeDelta::days
+      and 15 others
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\chrono-0.4.41\src\time_delta.rs:83:5
+     |
+83   |     pub const fn new(secs: i64, nanos: u32) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+105  |     pub const fn weeks(weeks: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+118  |     pub const fn try_weeks(weeks: i64) -> Option<TimeDelta> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+132  |     pub const fn days(days: i64) -> TimeDelta {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_ref` with a similar name
+     |
+1652 -                 testing_schedule: Duration::from_secs(86400 * 90), // Quarterly
+1652 +                 testing_schedule: Duration::from_ref(86400 * 90), // Quarterly
+     |
+
+error[E0599]: no method named `as_secs` found for struct `TimeDelta` in the current scope
+    --> src\enterprise\audit.rs:1667:43
+     |
+1667 |     if config.retention.default_retention.as_secs() == 0 {
+     |                                           ^^^^^^^
+     |
+help: there is a method `as_seconds_f32` with a similar name
+     |
+1667 -     if config.retention.default_retention.as_secs() == 0 {
+1667 +     if config.retention.default_retention.as_seconds_f32() == 0 {
+     |
+
+error[E0277]: the trait bound `DataType: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:909:29
+     |
+909  |     pub retention_policies: HashMap<DataType, Duration>,
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `DataType`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<DataType, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `DataType` with `#[derive(Eq)]`
+     |
+872  + #[derive(Eq)]
+873  | pub enum DataType {
+     |
+
+error[E0277]: the trait bound `DataType: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:909:29
+     |
+909  |     pub retention_policies: HashMap<DataType, Duration>,
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for `DataType`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<DataType, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `DataType` with `#[derive(Hash)]`
+     |
+872  + #[derive(Hash)]
+873  | pub enum DataType {
+     |
+
+error[E0277]: the trait bound `DataType: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:909:29
+     |
+909  |     pub retention_policies: HashMap<DataType, Duration>,
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `DataType`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<DataType, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `DataType` with `#[derive(Eq)]`
+     |
+872  + #[derive(Eq)]
+873  | pub enum DataType {
+     |
+
+error[E0277]: the trait bound `DataType: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:909:29
+     |
+909  |     pub retention_policies: HashMap<DataType, Duration>,
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for `DataType`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<DataType, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `DataType` with `#[derive(Hash)]`
+     |
+872  + #[derive(Hash)]
+873  | pub enum DataType {
+     |
+
+error[E0277]: the trait bound `DataType: std::cmp::Eq` is not satisfied
+   --> src\enterprise\multi_tenant.rs:905:35
+    |
+905 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `DataType`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<DataType, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `DataType` with `#[derive(Eq)]`
+    |
+872 + #[derive(Eq)]
+873 | pub enum DataType {
+    |
+
+error[E0277]: the trait bound `DataType: Hash` is not satisfied
+   --> src\enterprise\multi_tenant.rs:905:35
+    |
+905 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `DataType`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<DataType, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `DataType` with `#[derive(Hash)]`
+    |
+872 + #[derive(Hash)]
+873 | pub enum DataType {
+    |
+
+error[E0277]: the trait bound `multi_tenant::PerformanceMetric: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1028:21
+     |
+1028 |     pub thresholds: HashMap<PerformanceMetric, f64>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`multi_tenant::PerformanceMetric`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::PerformanceMetric, f64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `multi_tenant::PerformanceMetric` with `#[derive(Eq)]`
+     |
+1017 + #[derive(Eq)]
+1018 | pub enum PerformanceMetric {
+     |
+
+error[E0277]: the trait bound `multi_tenant::PerformanceMetric: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1028:21
+     |
+1028 |     pub thresholds: HashMap<PerformanceMetric, f64>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for `multi_tenant::PerformanceMetric`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::PerformanceMetric, f64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `multi_tenant::PerformanceMetric` with `#[derive(Hash)]`
+     |
+1017 + #[derive(Hash)]
+1018 | pub enum PerformanceMetric {
+     |
+
+error[E0277]: the trait bound `multi_tenant::PerformanceMetric: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1028:21
+     |
+1028 |     pub thresholds: HashMap<PerformanceMetric, f64>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`multi_tenant::PerformanceMetric`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::PerformanceMetric, f64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `multi_tenant::PerformanceMetric` with `#[derive(Eq)]`
+     |
+1017 + #[derive(Eq)]
+1018 | pub enum PerformanceMetric {
+     |
+
+error[E0277]: the trait bound `multi_tenant::PerformanceMetric: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1028:21
+     |
+1028 |     pub thresholds: HashMap<PerformanceMetric, f64>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for `multi_tenant::PerformanceMetric`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::PerformanceMetric, f64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `multi_tenant::PerformanceMetric` with `#[derive(Hash)]`
+     |
+1017 + #[derive(Hash)]
+1018 | pub enum PerformanceMetric {
+     |
+
+error[E0277]: the trait bound `multi_tenant::PerformanceMetric: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1025:35
+     |
+1025 | #[derive(Debug, Clone, Serialize, Deserialize)]
+     |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `multi_tenant::PerformanceMetric`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::PerformanceMetric, f64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+     |
+24   | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+     |        ------------- required by a bound in this function
+25   | where
+26   |     V: Deserialize<'de>,
+     |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+     = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `multi_tenant::PerformanceMetric` with `#[derive(Eq)]`
+     |
+1017 + #[derive(Eq)]
+1018 | pub enum PerformanceMetric {
+     |
+
+error[E0277]: the trait bound `multi_tenant::PerformanceMetric: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1025:35
+     |
+1025 | #[derive(Debug, Clone, Serialize, Deserialize)]
+     |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `multi_tenant::PerformanceMetric`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::PerformanceMetric, f64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+     |
+24   | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+     |        ------------- required by a bound in this function
+25   | where
+26   |     V: Deserialize<'de>,
+     |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+     = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `multi_tenant::PerformanceMetric` with `#[derive(Hash)]`
+     |
+1017 + #[derive(Hash)]
+1018 | pub enum PerformanceMetric {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1219:21
+     |
+1219 |     pub frameworks: HashMap<ComplianceFramework, ComplianceStatus>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Eq)]`
+     |
+554  + #[derive(Eq)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1219:21
+     |
+1219 |     pub frameworks: HashMap<ComplianceFramework, ComplianceStatus>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Hash)]`
+     |
+554  + #[derive(Hash)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1219:21
+     |
+1219 |     pub frameworks: HashMap<ComplianceFramework, ComplianceStatus>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Eq)]`
+     |
+554  + #[derive(Eq)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1219:21
+     |
+1219 |     pub frameworks: HashMap<ComplianceFramework, ComplianceStatus>,
+     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Hash)]`
+     |
+554  + #[derive(Hash)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1217:35
+     |
+1217 | #[derive(Debug, Clone, Serialize, Deserialize)]
+     |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+     |
+24   | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+     |        ------------- required by a bound in this function
+25   | where
+26   |     V: Deserialize<'de>,
+     |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+     = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Eq)]`
+     |
+554  + #[derive(Eq)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: the trait bound `multi_tenant::ComplianceFramework: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:1217:35
+     |
+1217 | #[derive(Debug, Clone, Serialize, Deserialize)]
+     |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `multi_tenant::ComplianceFramework`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<multi_tenant::ComplianceFramework, multi_tenant::ComplianceStatus>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+     |
+24   | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+     |        ------------- required by a bound in this function
+25   | where
+26   |     V: Deserialize<'de>,
+     |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+     = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `multi_tenant::ComplianceFramework` with `#[derive(Hash)]`
+     |
+554  + #[derive(Hash)]
+555  | pub enum ComplianceFramework {
+     |
+
+error[E0277]: `(dyn ResourceManager + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+    --> src\enterprise\multi_tenant.rs:1288:5
+     |
+1284 | #[derive(Debug)]
+     |          ----- in this derive macro expansion
+...
+1288 |     resource_manager: Arc<dyn ResourceManager + Send + Sync>,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+ResourceManager + std::marker::Send + Sync + 'static)`
+     |
+     = help: the following other types implement trait `std::fmt::Debug`:
+               &dyn cranelift_codegen::isa::TargetIsa
+               &dyn protobuf::reflect::message::generated::MessageFactory
+               dyn rustls::verify::ClientCertVerifier
+               dyn rustls::verify::ServerCertVerifier
+               dyn std::any::Any + std::marker::Send + Sync
+               dyn std::any::Any + std::marker::Send
+               dyn std::any::Any
+               dyn tracing::Value
+
+error[E0277]: `(dyn multi_tenant::SecurityManager + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+    --> src\enterprise\multi_tenant.rs:1289:5
+     |
+1284 | #[derive(Debug)]
+     |          ----- in this derive macro expansion
+...
+1289 |     security_manager: Arc<dyn SecurityManager + Send + Sync>,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+multi_tenant::SecurityManager + std::marker::Send + Sync + 'static)`
+     |
+     = help: the following other types implement trait `std::fmt::Debug`:
+               &dyn cranelift_codegen::isa::TargetIsa
+               &dyn protobuf::reflect::message::generated::MessageFactory
+               dyn rustls::verify::ClientCertVerifier
+               dyn rustls::verify::ServerCertVerifier
+               dyn std::any::Any + std::marker::Send + Sync
+               dyn std::any::Any + std::marker::Send
+               dyn std::any::Any
+               dyn tracing::Value
+
+error[E0277]: `(dyn BillingManager + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+    --> src\enterprise\multi_tenant.rs:1290:5
+     |
+1284 | #[derive(Debug)]
+     |          ----- in this derive macro expansion
+...
+1290 |     billing_manager: Arc<dyn BillingManager + Send + Sync>,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn BillingManager 
++ std::marker::Send + Sync + 'static)`
+     |
+     = help: the following other types implement trait `std::fmt::Debug`:
+               &dyn cranelift_codegen::isa::TargetIsa
+               &dyn protobuf::reflect::message::generated::MessageFactory
+               dyn rustls::verify::ClientCertVerifier
+               dyn rustls::verify::ServerCertVerifier
+               dyn std::any::Any + std::marker::Send + Sync
+               dyn std::any::Any + std::marker::Send
+               dyn std::any::Any
+               dyn tracing::Value
+
+error[E0277]: `(dyn ComplianceManager + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+    --> src\enterprise\multi_tenant.rs:1291:5
+     |
+1284 | #[derive(Debug)]
+     |          ----- in this derive macro expansion
+...
+1291 |     compliance_manager: Arc<dyn ComplianceManager + Send + Sync>,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+ComplianceManager + std::marker::Send + Sync + 'static)`
+     |
+     = help: the following other types implement trait `std::fmt::Debug`:
+               &dyn cranelift_codegen::isa::TargetIsa
+               &dyn protobuf::reflect::message::generated::MessageFactory
+               dyn rustls::verify::ClientCertVerifier
+               dyn rustls::verify::ServerCertVerifier
+               dyn std::any::Any + std::marker::Send + Sync
+               dyn std::any::Any + std::marker::Send
+               dyn std::any::Any
+               dyn tracing::Value
+
+error[E0277]: the trait bound `multi_tenant::PerformanceMetric: std::cmp::Eq` is not satisfied
+    --> src\enterprise\multi_tenant.rs:2403:20
+     |
+2403 |         thresholds.insert(PerformanceMetric::ResponseTime, 1000.0); // 1 second
+     |                    ^^^^^^ the trait `std::cmp::Eq` is not implemented for `multi_tenant::PerformanceMetric`
+     |
+note: required by a bound in `HashMap::<K, V, S>::insert`
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\collections\hash\map.rs:763:8
+     |
+763  |     K: Eq + Hash,
+     |        ^^ required by this bound in `HashMap::<K, V, S>::insert`
+...
+1203 |     pub fn insert(&mut self, k: K, v: V) -> Option<V> {
+     |            ------ required by a bound in this associated function
+help: consider annotating `multi_tenant::PerformanceMetric` with `#[derive(Eq)]`
+     |
+1017 + #[derive(Eq)]
+1018 | pub enum PerformanceMetric {
+     |
+
+error[E0277]: the trait bound `multi_tenant::PerformanceMetric: Hash` is not satisfied
+    --> src\enterprise\multi_tenant.rs:2403:20
+     |
+2403 |         thresholds.insert(PerformanceMetric::ResponseTime, 1000.0); // 1 second
+     |                    ^^^^^^ the trait `Hash` is not implemented for `multi_tenant::PerformanceMetric`
+     |
+note: required by a bound in `HashMap::<K, V, S>::insert`
+    --> 
+C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\collections\hash\map.rs:763:13
+     |
+763  |     K: Eq + Hash,
+     |             ^^^^ required by this bound in `HashMap::<K, V, S>::insert`
+...
+1203 |     pub fn insert(&mut self, k: K, v: V) -> Option<V> {
+     |            ------ required by a bound in this associated function
+help: consider annotating `multi_tenant::PerformanceMetric` with `#[derive(Hash)]`
+     |
+1017 + #[derive(Hash)]
+1018 | pub enum PerformanceMetric {
+     |
+
+error[E0599]: the method `insert` exists for struct `HashMap<multi_tenant::PerformanceMetric, {float}>`, but its trait bounds were not 
+satisfied
+    --> src\enterprise\multi_tenant.rs:2404:20
+     |
+1017 | pub enum PerformanceMetric {
+     | -------------------------- doesn't satisfy `multi_tenant::PerformanceMetric: Hash` or `multi_tenant::PerformanceMetric: 
+std::cmp::Eq`
+...
+2404 |         thresholds.insert(PerformanceMetric::ErrorRate, 0.05); // 5%
+     |                    ^^^^^^
+     |
+     = note: the following trait bounds were not satisfied:
+             `multi_tenant::PerformanceMetric: std::cmp::Eq`
+             `multi_tenant::PerformanceMetric: Hash`
+help: consider annotating `multi_tenant::PerformanceMetric` with `#[derive(Eq, Hash, PartialEq)]`
+     |
+1017 + #[derive(Eq, Hash, PartialEq)]
+1018 | pub enum PerformanceMetric {
+     |
+
+error[E0277]: the trait bound `siem::EventType: std::cmp::Eq` is not satisfied
+    --> src\integration\siem.rs:243:25
+     |
+243  |     pub events_by_type: HashMap<EventType, u64>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `siem::EventType`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<siem::EventType, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `siem::EventType` with `#[derive(Eq)]`
+     |
+155  + #[derive(Eq)]
+156  | pub enum EventType {
+     |
+
+error[E0277]: the trait bound `siem::EventType: Hash` is not satisfied
+    --> src\integration\siem.rs:243:25
+     |
+243  |     pub events_by_type: HashMap<EventType, u64>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for `siem::EventType`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<siem::EventType, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `siem::EventType` with `#[derive(Hash)]`
+     |
+155  + #[derive(Hash)]
+156  | pub enum EventType {
+     |
+
+error[E0277]: the trait bound `siem::SeverityLevel: std::cmp::Eq` is not satisfied
+    --> src\integration\siem.rs:244:29
+     |
+244  |     pub events_by_severity: HashMap<SeverityLevel, u64>,
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `siem::SeverityLevel`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<siem::SeverityLevel, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `siem::SeverityLevel` with `#[derive(Eq)]`
+     |
+146  + #[derive(Eq)]
+147  | pub enum SeverityLevel {
+     |
+
+error[E0277]: the trait bound `siem::SeverityLevel: Hash` is not satisfied
+    --> src\integration\siem.rs:244:29
+     |
+244  |     pub events_by_severity: HashMap<SeverityLevel, u64>,
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for `siem::SeverityLevel`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<siem::SeverityLevel, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `siem::SeverityLevel` with `#[derive(Hash)]`
+     |
+146  + #[derive(Hash)]
+147  | pub enum SeverityLevel {
+     |
+
+error[E0277]: the trait bound `siem::EventType: std::cmp::Eq` is not satisfied
+    --> src\integration\siem.rs:243:25
+     |
+243  |     pub events_by_type: HashMap<EventType, u64>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `siem::EventType`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<siem::EventType, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `siem::EventType` with `#[derive(Eq)]`
+     |
+155  + #[derive(Eq)]
+156  | pub enum EventType {
+     |
+
+error[E0277]: the trait bound `siem::EventType: Hash` is not satisfied
+    --> src\integration\siem.rs:243:25
+     |
+243  |     pub events_by_type: HashMap<EventType, u64>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for `siem::EventType`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<siem::EventType, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `siem::EventType` with `#[derive(Hash)]`
+     |
+155  + #[derive(Hash)]
+156  | pub enum EventType {
+     |
+
+error[E0277]: the trait bound `siem::SeverityLevel: std::cmp::Eq` is not satisfied
+    --> src\integration\siem.rs:244:29
+     |
+244  |     pub events_by_severity: HashMap<SeverityLevel, u64>,
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `siem::SeverityLevel`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<siem::SeverityLevel, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `siem::SeverityLevel` with `#[derive(Eq)]`
+     |
+146  + #[derive(Eq)]
+147  | pub enum SeverityLevel {
+     |
+
+error[E0277]: the trait bound `siem::SeverityLevel: Hash` is not satisfied
+    --> src\integration\siem.rs:244:29
+     |
+244  |     pub events_by_severity: HashMap<SeverityLevel, u64>,
+     |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for `siem::SeverityLevel`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<siem::SeverityLevel, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `siem::SeverityLevel` with `#[derive(Hash)]`
+     |
+146  + #[derive(Hash)]
+147  | pub enum SeverityLevel {
+     |
+
+error[E0277]: the trait bound `siem::EventType: std::cmp::Eq` is not satisfied
+   --> src\integration\siem.rs:240:35
+    |
+240 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `siem::EventType`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<siem::EventType, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `siem::EventType` with `#[derive(Eq)]`
+    |
+155 + #[derive(Eq)]
+156 | pub enum EventType {
+    |
+
+error[E0277]: the trait bound `siem::EventType: Hash` is not satisfied
+   --> src\integration\siem.rs:240:35
+    |
+240 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `siem::EventType`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<siem::EventType, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `siem::EventType` with `#[derive(Hash)]`
+    |
+155 + #[derive(Hash)]
+156 | pub enum EventType {
+    |
+
+error[E0277]: the trait bound `siem::SeverityLevel: std::cmp::Eq` is not satisfied
+   --> src\integration\siem.rs:240:35
+    |
+240 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `siem::SeverityLevel`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<siem::SeverityLevel, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `siem::SeverityLevel` with `#[derive(Eq)]`
+    |
+146 + #[derive(Eq)]
+147 | pub enum SeverityLevel {
+    |
+
+error[E0277]: the trait bound `siem::SeverityLevel: Hash` is not satisfied
+   --> src\integration\siem.rs:240:35
+    |
+240 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `siem::SeverityLevel`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<siem::SeverityLevel, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `siem::SeverityLevel` with `#[derive(Hash)]`
+    |
+146 + #[derive(Hash)]
+147 | pub enum SeverityLevel {
+    |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1175:39
+     |
+1175 |                     window: Duration::from_minutes(5),
+     |                                       ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1175 -                     window: Duration::from_minutes(5),
+1175 +                     window: Duration::from_micros(5),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1179:41
+     |
+1179 |             detection_window: Duration::from_minutes(10),
+     |                                         ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1179 -             detection_window: Duration::from_minutes(10),
+1179 +             detection_window: Duration::from_micros(10),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1180:37
+     |
+1180 |             grace_period: Duration::from_minutes(2),
+     |                                     ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1180 -             grace_period: Duration::from_minutes(2),
+1180 +             grace_period: Duration::from_micros(2),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1198:41
+     |
+1198 |             rollback_timeout: Duration::from_minutes(10),
+     |                                         ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1198 -             rollback_timeout: Duration::from_minutes(10),
+1198 +             rollback_timeout: Duration::from_micros(10),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1199:45
+     |
+1199 |             verification_timeout: Duration::from_minutes(5),
+     |                                             ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1199 -             verification_timeout: Duration::from_minutes(5),
+1199 +             verification_timeout: Duration::from_micros(5),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1227:43
+     |
+1227 |             max_check_duration: Duration::from_minutes(2),
+     |                                           ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1227 -             max_check_duration: Duration::from_minutes(2),
+1227 +             max_check_duration: Duration::from_micros(2),
+     |
+
+error[E0658]: use of unstable library feature `duration_constructors`
+    --> src\deployment\rollback.rs:1242:31
+     |
+1242 |             retention_period: Duration::from_days(30),
+     |                               ^^^^^^^^^^^^^^^^^^^
+     |
+     = note: see issue #120301 <https://github.com/rust-lang/rust/issues/120301> for more information
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1254:45
+     |
+1254 |                 escalation_delay: Duration::from_minutes(15),
+     |                                             ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1254 -                 escalation_delay: Duration::from_minutes(15),
+1254 +                 escalation_delay: Duration::from_micros(15),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1267:39
+     |
+1267 |             recovery_delay: Duration::from_minutes(5),
+     |                                       ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1267 -             recovery_delay: Duration::from_minutes(5),
+1267 +             recovery_delay: Duration::from_micros(5),
+     |
+
+error[E0599]: no function or associated item named `from_minutes` found for struct `Duration` in the current scope
+    --> src\deployment\rollback.rs:1279:42
+     |
+1279 |             operation_timeout: Duration::from_minutes(30),
+     |                                          ^^^^^^^^^^^^ function or associated item not found in `Duration`
+     |
+note: if you're trying to build a new `Duration` consider using one of the following associated functions:
+      Duration::new
+      Duration::from_secs
+      Duration::from_millis
+      Duration::from_micros
+      and 9 others
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\time.rs:194:5
+     |
+194  |     pub const fn new(secs: u64, nanos: u32) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+224  |     pub const fn from_secs(secs: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+244  |     pub const fn from_millis(millis: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+270  |     pub const fn from_micros(micros: u64) -> Duration {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_micros` with a similar name
+     |
+1279 -             operation_timeout: Duration::from_minutes(30),
+1279 +             operation_timeout: Duration::from_micros(30),
+     |
+
+error[E0277]: `(dyn deployment::metrics::MetricsCollector + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+  --> src\deployment\metrics.rs:24:5
+   |
+17 | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+24 |     collectors: Arc<RwLock<HashMap<String, Box<dyn MetricsCollector + Send + Sync>>>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented 
+for `(dyn deployment::metrics::MetricsCollector + std::marker::Send + Sync + 'static)`
+   |
+   = help: the following other types implement trait `std::fmt::Debug`:
+             &dyn cranelift_codegen::isa::TargetIsa
+             &dyn protobuf::reflect::message::generated::MessageFactory
+             dyn rustls::verify::ClientCertVerifier
+             dyn rustls::verify::ServerCertVerifier
+             dyn std::any::Any + std::marker::Send + Sync
+             dyn std::any::Any + std::marker::Send
+             dyn std::any::Any
+             dyn tracing::Value
+
+error[E0277]: `(dyn MetricsExporter + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+  --> src\deployment\metrics.rs:26:5
+   |
+17 | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+26 |     exporters: Arc<RwLock<Vec<Box<dyn MetricsExporter + Send + Sync>>>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+MetricsExporter + std::marker::Send + Sync + 'static)`
+   |
+   = help: the following other types implement trait `std::fmt::Debug`:
+             &dyn cranelift_codegen::isa::TargetIsa
+             &dyn protobuf::reflect::message::generated::MessageFactory
+             dyn rustls::verify::ClientCertVerifier
+             dyn rustls::verify::ServerCertVerifier
+             dyn std::any::Any + std::marker::Send + Sync
+             dyn std::any::Any + std::marker::Send
+             dyn std::any::Any
+             dyn tracing::Value
+
+error[E0277]: `(dyn load_balancer::LoadBalancingAlgorithm + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+  --> src\deployment\load_balancer.rs:27:5
+   |
+20 | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+27 |     algorithm: Arc<RwLock<Box<dyn LoadBalancingAlgorithm + Send + Sync>>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+load_balancer::LoadBalancingAlgorithm + std::marker::Send + Sync + 'static)`
+   |
+   = help: the following other types implement trait `std::fmt::Debug`:
+             &dyn cranelift_codegen::isa::TargetIsa
+             &dyn protobuf::reflect::message::generated::MessageFactory
+             dyn rustls::verify::ClientCertVerifier
+             dyn rustls::verify::ServerCertVerifier
+             dyn std::any::Any + std::marker::Send + Sync
+             dyn std::any::Any + std::marker::Send
+             dyn std::any::Any
+             dyn tracing::Value
+
+error[E0369]: binary operation `==` cannot be applied to type `load_balancer::ConnectionStatus`
+   --> src\deployment\load_balancer.rs:969:34
+    |
+969 |             if connection.status == ConnectionStatus::Idle {
+    |                ----------------- ^^ ---------------------- load_balancer::ConnectionStatus
+    |                |
+    |                load_balancer::ConnectionStatus
+    |
+note: an implementation of `PartialEq` might be missing for `load_balancer::ConnectionStatus`
+   --> src\deployment\load_balancer.rs:445:1
+    |
+445 | pub enum ConnectionStatus {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^ must implement `PartialEq`
+help: consider annotating `load_balancer::ConnectionStatus` with `#[derive(PartialEq)]`
+    |
+445 + #[derive(PartialEq)]
+446 | pub enum ConnectionStatus {
+    |
+
+error[E0369]: binary operation `==` cannot be applied to type `load_balancer::ConnectionStatus`
+    --> src\deployment\load_balancer.rs:1014:32
+     |
+1014 |                 if conn.status == ConnectionStatus::Idle {
+     |                    ----------- ^^ ---------------------- load_balancer::ConnectionStatus
+     |                    |
+     |                    load_balancer::ConnectionStatus
+     |
+note: an implementation of `PartialEq` might be missing for `load_balancer::ConnectionStatus`
+    --> src\deployment\load_balancer.rs:445:1
+     |
+445  | pub enum ConnectionStatus {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^ must implement `PartialEq`
+help: consider annotating `load_balancer::ConnectionStatus` with `#[derive(PartialEq)]`
+     |
+445  + #[derive(PartialEq)]
+446  | pub enum ConnectionStatus {
+     |
+
+error[E0277]: `(dyn CircuitBreakerListener + std::marker::Send + Sync + 'static)` doesn't implement `std::fmt::Debug`
+  --> src\deployment\circuit_breaker.rs:25:5
+   |
+16 | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+25 |     listeners: Arc<RwLock<Vec<Box<dyn CircuitBreakerListener + Send + Sync>>>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for 
+`(dyn CircuitBreakerListener + std::marker::Send + Sync + 'static)`
+   |
+   = help: the following other types implement trait `std::fmt::Debug`:
+             &dyn cranelift_codegen::isa::TargetIsa
+             &dyn protobuf::reflect::message::generated::MessageFactory
+             dyn rustls::verify::ClientCertVerifier
+             dyn rustls::verify::ServerCertVerifier
+             dyn std::any::Any + std::marker::Send + Sync
+             dyn std::any::Any + std::marker::Send
+             dyn std::any::Any
+             dyn tracing::Value
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+    --> src\deployment\circuit_breaker.rs:506:25
+     |
+506  |     pub time_in_states: HashMap<CircuitBreakerState, Duration>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+     |
+457  + #[derive(Eq)]
+458  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+    --> src\deployment\circuit_breaker.rs:506:25
+     |
+506  |     pub time_in_states: HashMap<CircuitBreakerState, Duration>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+     |
+457  + #[derive(Hash)]
+458  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+    --> src\deployment\circuit_breaker.rs:506:25
+     |
+506  |     pub time_in_states: HashMap<CircuitBreakerState, Duration>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+     |
+457  + #[derive(Eq)]
+458  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+    --> src\deployment\circuit_breaker.rs:506:25
+     |
+506  |     pub time_in_states: HashMap<CircuitBreakerState, Duration>,
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+     |
+457  + #[derive(Hash)]
+458  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+   --> src\deployment\circuit_breaker.rs:485:35
+    |
+485 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `circuit_breaker::CircuitBreakerState`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+    |
+457 + #[derive(Eq)]
+458 | pub enum CircuitBreakerState {
+    |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+   --> src\deployment\circuit_breaker.rs:485:35
+    |
+485 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `circuit_breaker::CircuitBreakerState`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<circuit_breaker::CircuitBreakerState, Duration>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+    |
+457 + #[derive(Hash)]
+458 | pub enum CircuitBreakerState {
+    |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+    --> src\deployment\circuit_breaker.rs:553:28
+     |
+553  |     pub breakers_by_state: HashMap<CircuitBreakerState, u64>,
+     |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+     |
+457  + #[derive(Eq)]
+458  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+    --> src\deployment\circuit_breaker.rs:553:28
+     |
+553  |     pub breakers_by_state: HashMap<CircuitBreakerState, u64>,
+     |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1772:12
+     |
+1770 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1771 |     where
+1772 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+     |
+457  + #[derive(Hash)]
+458  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+    --> src\deployment\circuit_breaker.rs:553:28
+     |
+553  |     pub breakers_by_state: HashMap<CircuitBreakerState, u64>,
+     |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+     |
+457  + #[derive(Eq)]
+458  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+    --> src\deployment\circuit_breaker.rs:553:28
+     |
+553  |     pub breakers_by_state: HashMap<CircuitBreakerState, u64>,
+     |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Hash` is not implemented for 
+`circuit_breaker::CircuitBreakerState`
+     |
+     = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+     = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.225\src\de\mod.rs:1917:12
+     |
+1915 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1916 |     where
+1917 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+     |
+457  + #[derive(Hash)]
+458  | pub enum CircuitBreakerState {
+     |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: std::cmp::Eq` is not satisfied
+   --> src\deployment\circuit_breaker.rs:548:35
+    |
+548 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `std::cmp::Eq` is not implemented for `circuit_breaker::CircuitBreakerState`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Eq)]`
+    |
+457 + #[derive(Eq)]
+458 | pub enum CircuitBreakerState {
+    |
+
+error[E0277]: the trait bound `circuit_breaker::CircuitBreakerState: Hash` is not satisfied
+   --> src\deployment\circuit_breaker.rs:548:35
+    |
+548 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `Hash` is not implemented for `circuit_breaker::CircuitBreakerState`
+    |
+    = help: the trait `Deserialize<'_>` is implemented for `HashMap<K, V, S>`
+    = note: required for `HashMap<circuit_breaker::CircuitBreakerState, u64>` to implement `Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private225::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.225\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider annotating `circuit_breaker::CircuitBreakerState` with `#[derive(Hash)]`
+    |
+457 + #[derive(Hash)]
+458 | pub enum CircuitBreakerState {
+    |
+
+error[E0277]: `(dyn deployment::metrics::MetricsCollector + 'static)` doesn't implement `std::fmt::Debug`
+  --> src\deployment\mod.rs:44:5
+   |
+31 | #[derive(Debug)]
+   |          ----- in this derive macro expansion
+...
+44 |     metrics: Arc<dyn metrics::MetricsCollector>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Debug` is not implemented for `(dyn 
+deployment::metrics::MetricsCollector + 'static)`
+   |
+   = help: the following other types implement trait `std::fmt::Debug`:
+             &dyn cranelift_codegen::isa::TargetIsa
+             &dyn protobuf::reflect::message::generated::MessageFactory
+             dyn rustls::verify::ClientCertVerifier
+             dyn rustls::verify::ServerCertVerifier
+             dyn std::any::Any + std::marker::Send + Sync
+             dyn std::any::Any + std::marker::Send
+             dyn std::any::Any
+             dyn tracing::Value
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1200:9
+     |
+1200 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `version`
+    --> src\deployment\blue_green.rs:1201:9
+     |
+1201 |         version: &str,
+     |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_version`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1210:9
+     |
+1210 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1219:9
+     |
+1219 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1238:9
+     |
+1238 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `service`
+    --> src\deployment\blue_green.rs:1268:9
+     |
+1268 |         service: &ServiceConfig,
+     |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_service`
+
+error: unused variable: `target_environment`
+    --> src\deployment\blue_green.rs:1287:9
+     |
+1287 |         target_environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_target_environment`
+
+error: unused variable: `target_environment`
+    --> src\deployment\blue_green.rs:1296:9
+     |
+1296 |         target_environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_target_environment`
+
+error: unused variable: `target_environment`
+    --> src\deployment\blue_green.rs:1308:9
+     |
+1308 |         target_environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_target_environment`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1318:9
+     |
+1318 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `deployment`
+    --> src\deployment\blue_green.rs:1346:9
+     |
+1346 |         deployment: &BlueGreenDeployment,
+     |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment`
+
+error: unused variable: `environment`
+    --> src\deployment\blue_green.rs:1353:9
+     |
+1353 |         environment: &EnvironmentConfig,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_environment`
+
+error: unused variable: `deployment`
+    --> src\deployment\blue_green.rs:1381:9
+     |
+1381 |         deployment: &BlueGreenDeployment,
+     |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment`
+
+error: unused variable: `message`
+    --> src\deployment\blue_green.rs:1382:9
+     |
+1382 |         message: String,
+     |         ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_message`
+
+error: unused variable: `deployment`
+    --> src\deployment\blue_green.rs:1390:9
+     |
+1390 |         deployment: &BlueGreenDeployment,
+     |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment`
+
+error: unused variable: `reason`
+    --> src\deployment\blue_green.rs:1391:9
+     |
+1391 |         reason: String,
+     |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_reason`
+
+error: unused variable: `deployment`
+    --> src\deployment\blue_green.rs:1399:9
+     |
+1399 |         deployment: &BlueGreenDeployment,
+     |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_deployment`
+
+error: unused variable: `reason`
+    --> src\deployment\blue_green.rs:1400:9
+     |
+1400 |         reason: String,
+     |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_reason`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1033:45
+     |
+1033 |     fn calculate_deployment_duration(&self, store: &MetricsStore, deployment_id: &str) -> Result<Duration> {
+     |                                             ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1033:67
+     |
+1033 |     fn calculate_deployment_duration(&self, store: &MetricsStore, deployment_id: &str) -> Result<Duration> {
+     |                                                                   ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1039:38
+     |
+1039 |     fn calculate_success_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                      ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1039:60
+     |
+1039 |     fn calculate_success_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                            ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1045:39
+     |
+1045 |     fn calculate_rollback_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                       ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1045:61
+     |
+1045 |     fn calculate_rollback_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                             ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1051:43
+     |
+1051 |     fn calculate_avg_response_time(&self, store: &MetricsStore, deployment_id: &str) -> Result<Duration> {
+     |                                           ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1051:65
+     |
+1051 |     fn calculate_avg_response_time(&self, store: &MetricsStore, deployment_id: &str) -> Result<Duration> {
+     |                                                                 ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1057:36
+     |
+1057 |     fn calculate_error_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1057:58
+     |
+1057 |     fn calculate_error_rate(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                          ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: 
+`_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1063:36
+     |
+1063 |     fn calculate_throughput(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                    ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1063:58
+     |
+1063 |     fn calculate_throughput(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                          ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: 
+`_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1069:46
+     |
+1069 |     fn calculate_resource_utilization(&self, store: &MetricsStore, deployment_id: &str) -> Result<ResourceUtilization> {
+     |                                              ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1069:68
+     |
+1069 |     fn calculate_resource_utilization(&self, store: &MetricsStore, deployment_id: &str) -> Result<ResourceUtilization> {
+     |                                                                    ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error: unused variable: `store`
+    --> src\deployment\metrics.rs:1080:38
+     |
+1080 |     fn calculate_health_score(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                      ^^^^^ help: if this is intentional, prefix it with an underscore: `_store`
+
+error: unused variable: `deployment_id`
+    --> src\deployment\metrics.rs:1080:60
+     |
+1080 |     fn calculate_health_score(&self, store: &MetricsStore, deployment_id: &str) -> Result<f64> {
+     |                                                            ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_deployment_id`
+
+error[E0382]: borrow of moved value: `healthy_services`
+    --> src\deployment\service_discovery.rs:1426:22
+     |
+1385 |         let healthy_services: Vec<&Service> = services
+     |             ---------------- move occurs because `healthy_services` has type `Vec<&service_discovery::Service>`, which does not 
+implement the `Copy` trait
+...
+1419 |                 for service in healthy_services {
+     |                                ---------------- `healthy_services` moved due to this implicit call to `.into_iter()`
+...
+1426 |                 Some(healthy_services[0].clone())
+     |                      ^^^^^^^^^^^^^^^^ value borrowed here after move
+     |
+note: `std::iter::IntoIterator::into_iter` takes ownership of the receiver `self`, which moves `healthy_services`
+    --> 
+C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\iter\traits\collect.rs:310:18
+     |
+310  |     fn into_iter(self) -> Self::IntoIter;
+     |                  ^^^^
+help: consider iterating over a slice of the `Vec<&service_discovery::Service>`'s content to avoid moving into the `for` loop
+     |
+1419 |                 for service in &healthy_services {
+     |                                +
+
+Some errors have detailed explanations: E0061, E0277, E0308, E0369, E0382, E0502, E0505, E0560, E0599...
+For more information about an error, try `rustc --explain E0061`.
+error: could not compile `erdps-agent` (lib) due to 226 previous errors

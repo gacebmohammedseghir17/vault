@@ -1,0 +1,2359 @@
+﻿cargo :     Checking erdps-agent v0.1.0 (D:\projecttttttttts\project-ransolution\agent)
+Au caractère Ligne:1 : 1
++ cargo check --all-features 2>&1 | Out-File -FilePath errors_current.t ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking er...solution\agent):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0412]: cannot find type `Session` in this scope
+   --> src\yara\ember_detector.rs:555:69
+    |
+555 |     fn run_inference_static(features: &EmberFeatures, session: &mut Session) -> Result<f32> {
+    |                                                                     ^^^^^^^ not found in this scope
+    |
+help: there is an enum variant `crate::enterprise::audit::ConsistencyLevel::Session` and 1 other; try using the variant's enum
+    |
+555 -     fn run_inference_static(features: &EmberFeatures, session: &mut Session) -> Result<f32> {
+555 +     fn run_inference_static(features: &EmberFeatures, session: &mut crate::enterprise::audit::ConsistencyLevel) -> Result<f32> {
+    |
+555 -     fn run_inference_static(features: &EmberFeatures, session: &mut Session) -> Result<f32> {
+555 +     fn run_inference_static(features: &EmberFeatures, session: &mut crate::enterprise::multi_region::ConsistencyLevel) -> Result<f32> {
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Value`
+   --> src\yara\ember_detector.rs:557:28
+    |
+557 |         let input_tensor = Value::from_array((input_shape, features.features.clone()))?;
+    |                            ^^^^^ use of undeclared type `Value`
+    |
+help: consider importing one of these items
+    |
+13  + use config::Value;
+    |
+13  + use opentelemetry::Value;
+    |
+13  + use redis::Value;
+    |
+13  + use rusqlite::types::Value;
+    |
+      and 4 other candidates
+
+error: unused import: `crate::detection::yara_engine::YaraEngine`
+  --> src\service.rs:32:5
+   |
+32 | use crate::detection::yara_engine::YaraEngine;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `-D unused-imports` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(unused_imports)]`
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:146:35
+    |
+146 |     pub unsafe fn Rules(&self) -> Result<INetFwRules, windows::core::Error> {
+    |                                   ^^^^^^            ---------------------- help: remove the unnecessary generic argument
+    |                                   |
+    |                                   expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:152:53
+    |
+152 |     pub unsafe fn Add(&self, _rule: &INetFwRule) -> Result<(), windows::core::Error> {
+    |                                                     ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                     |
+    |                                                     expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:156:50
+    |
+156 |     pub unsafe fn Remove(&self, _name: &BSTR) -> Result<(), windows::core::Error> {
+    |                                                  ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                  |
+    |                                                  expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:160:35
+    |
+160 |     pub unsafe fn Count(&self) -> Result<i32, windows::core::Error> {
+    |                                   ^^^^^^    ---------------------- help: remove the unnecessary generic argument
+    |                                   |
+    |                                   expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:164:47
+    |
+164 |     pub unsafe fn Item(&self, _index: i32) -> Result<INetFwRule, windows::core::Error> {
+    |                                               ^^^^^^           ---------------------- help: remove the unnecessary generic argument
+    |                                               |
+    |                                               expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:170:51
+    |
+170 |     pub unsafe fn SetName(&self, _name: &BSTR) -> Result<(), windows::core::Error> {
+    |                                                   ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                   |
+    |                                                   expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:174:58
+    |
+174 |     pub unsafe fn SetDescription(&self, _desc: &BSTR) -> Result<(), windows::core::Error> {
+    |                                                          ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                          |
+    |                                                          expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:178:61
+    |
+178 |     pub unsafe fn SetApplicationName(&self, _app: &BSTR) -> Result<(), windows::core::Error> {
+    |                                                             ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                             |
+    |                                                             expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:182:53
+    |
+182 |     pub unsafe fn SetDirection(&self, _dir: i32) -> Result<(), windows::core::Error> {
+    |                                                     ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                     |
+    |                                                     expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:186:53
+    |
+186 |     pub unsafe fn SetAction(&self, _action: i32) -> Result<(), windows::core::Error> {
+    |                                                     ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                     |
+    |                                                     expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:190:64
+    |
+190 |     pub unsafe fn SetEnabled(&self, _enabled: VARIANT_BOOL) -> Result<(), windows::core::Error> {
+    |                                                                ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                                |
+    |                                                                expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:194:57
+    |
+194 |     pub unsafe fn SetProfiles(&self, _profiles: i32) -> Result<(), windows::core::Error> {
+    |                                                         ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                         |
+    |                                                         expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:198:57
+    |
+198 |     pub unsafe fn SetProtocol(&self, _protocol: i32) -> Result<(), windows::core::Error> {
+    |                                                         ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                         |
+    |                                                         expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:202:58
+    |
+202 |     pub unsafe fn SetLocalPorts(&self, _ports: &BSTR) -> Result<(), windows::core::Error> {
+    |                                                          ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                          |
+    |                                                          expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:206:59
+    |
+206 |     pub unsafe fn SetRemotePorts(&self, _ports: &BSTR) -> Result<(), windows::core::Error> {
+    |                                                           ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                           |
+    |                                                           expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:210:66
+    |
+210 |     pub unsafe fn SetLocalAddresses(&self, _addresses: &BSTR) -> Result<(), windows::core::Error> {
+    |                                                                  ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                                  |
+    |                                                                  expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:214:67
+    |
+214 |     pub unsafe fn SetRemoteAddresses(&self, _addresses: &BSTR) -> Result<(), windows::core::Error> {
+    |                                                                   ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                                   |
+    |                                                                   expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:218:34
+    |
+218 |     pub unsafe fn Name(&self) -> Result<BSTR, windows::core::Error> {
+    |                                  ^^^^^^     ---------------------- help: remove the unnecessary generic argument
+    |                                  |
+    |                                  expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:327:43
+    |
+327 |     pub async fn initialize(&mut self) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    |                                           ^^^^^^   ------------------------------------------ help: remove the unnecessary generic argument
+    |                                           |
+    |                                           expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:365:47
+    |
+365 |     async fn check_admin_privileges(&self) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    |                                               ^^^^^^   ------------------------------------------ help: remove the unnecessary generic argument
+    |                                               |
+    |                                               expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:408:10
+    |
+408 |     ) -> Result<FirewallOperationResult, Box<dyn std::error::Error + Send + Sync>> {
+    |          ^^^^^^                        ------------------------------------------ help: remove the unnecessary generic argument
+    |          |
+    |          expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:467:60
+    |
+467 |     fn create_rule_internal(&self, rule: &FirewallRule) -> Result<(), windows::core::Error> {
+    |                                                            ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                            |
+    |                                                            expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:602:10
+    |
+602 |     ) -> Result<FirewallOperationResult, Box<dyn std::error::Error + Send + Sync>> {
+    |          ^^^^^^                        ------------------------------------------ help: remove the unnecessary generic argument
+    |          |
+    |          expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:655:56
+    |
+655 |     fn remove_rule_internal(&self, rule_name: &str) -> Result<(), windows::core::Error> {
+    |                                                        ^^^^^^   ---------------------- help: remove the unnecessary generic argument
+    |                                                        |
+    |                                                        expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:676:10
+    |
+676 |     ) -> Result<FirewallOperationResult, Box<dyn std::error::Error + Send + Sync>> {
+    |          ^^^^^^                        ------------------------------------------ help: remove the unnecessary generic argument
+    |          |
+    |          expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:714:10
+    |
+714 |     ) -> Result<FirewallOperationResult, Box<dyn std::error::Error + Send + Sync>> {
+    |          ^^^^^^                        ------------------------------------------ help: remove the unnecessary generic argument
+    |          |
+    |          expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:751:23
+    |
+751 |         F: FnMut() -> Result<T, windows::core::Error>,
+    |                       ^^^^^^  ---------------------- help: remove the unnecessary generic argument
+    |                       |
+    |                       expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:749:10
+    |
+749 |     ) -> Result<T, windows::core::Error>
+    |          ^^^^^^  ---------------------- help: remove the unnecessary generic argument
+    |          |
+    |          expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:797:10
+    |
+797 |     ) -> Result<Vec<String>, Box<dyn std::error::Error + Send + Sync>> {
+    |          ^^^^^^            ------------------------------------------ help: remove the unnecessary generic argument
+    |          |
+    |          expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:817:42
+    |
+817 |     pub async fn cleanup_rules(&self) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    |                                          ^^^^^^   ------------------------------------------ help: remove the unnecessary generic argument
+    |                                          |
+    |                                          expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0107]: type alias takes 1 generic argument but 2 generic arguments were supplied
+   --> src\response\windows_firewall.rs:839:37
+    |
+839 |     pub async fn shutdown(&self) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    |                                     ^^^^^^   ------------------------------------------ help: remove the unnecessary generic argument
+    |                                     |
+    |                                     expected 1 generic argument
+    |
+note: type alias defined here, with 1 generic parameter: `T`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-core-0.52.0\src\lib.rs:53:10
+    |
+53  | pub type Result<T> = std::result::Result<T, Error>;
+    |          ^^^^^^ -
+
+error[E0277]: `?` couldn't convert the error to `EnhancedAgentError`
+   --> src\detection\enterprise_engine.rs:534:87
+    |
+534 |         let policy_evaluation = self.policy_engine.evaluate_threat(&base_result).await?;
+    |                                 ------------------------------------------------------^ the trait `std::convert::From<Box<dyn StdError + 
+std::marker::Send + std::marker::Sync>>` is not implemented for `EnhancedAgentError`
+    |                                 |
+    |                                 this can't be annotated with `?` because it has type `Result<_, Box<dyn StdError + std::marker::Send + 
+std::marker::Sync>>`
+    |
+note: `EnhancedAgentError` needs to implement `From<Box<dyn StdError + std::marker::Send + std::marker::Sync>>`
+   --> src\core\error.rs:9:1
+    |
+9   | pub enum EnhancedAgentError {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = note: the question mark operation (`?`) implicitly performs a conversion on the error value using the `From` trait
+    = help: the following other types implement trait `std::convert::From<T>`:
+              `EnhancedAgentError` implements `std::convert::From<BehavioralEngineError>`
+              `EnhancedAgentError` implements `std::convert::From<BlueGreenError>`
+              `EnhancedAgentError` implements `std::convert::From<CoordinationError>`
+              `EnhancedAgentError` implements `std::convert::From<HeuristicEngineError>`
+              `EnhancedAgentError` implements `std::convert::From<NetworkEngineError>`
+              `EnhancedAgentError` implements `std::convert::From<PreventionEngineError>`
+              `EnhancedAgentError` implements `std::convert::From<QuarantineError>`
+              `EnhancedAgentError` implements `std::convert::From<RollbackEngineError>`
+            and 7 others
+
+error[E0308]: mismatched types
+   --> src\detection\enterprise_engine.rs:537:27
+    |
+537 |             rule_matches: policy_evaluation.matched_rules,
+    |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `Vec<String>`, found `Vec<ThreatMappingRule>`
+    |
+    = note: expected struct `Vec<std::string::String>`
+               found struct `Vec<ThreatMappingRule>`
+
+error[E0308]: mismatched types
+   --> src\detection\enterprise_engine.rs:538:34
+    |
+538 |             recommended_actions: policy_evaluation.recommended_actions,
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `core::types::ResponseAction`, found `response::ResponseAction`
+    |
+    = note: `response::ResponseAction` and `core::types::ResponseAction` have similar names, but are actually distinct types
+note: `response::ResponseAction` is defined in module `crate::response` of the current crate
+   --> src\response\mod.rs:682:1
+    |
+682 | pub enum ResponseAction {
+    | ^^^^^^^^^^^^^^^^^^^^^^^
+note: `core::types::ResponseAction` is defined in module `crate::core::types` of the current crate
+   --> src\core\types.rs:68:1
+    |
+68  | pub enum ResponseAction {
+    | ^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> src\detection\enterprise_engine.rs:539:31
+    |
+539 |             escalation_level: policy_evaluation.escalation_level,
+    |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `alerting::EscalationLevel`, found `EscalationLevel`
+    |
+    = note: `EscalationLevel` and `alerting::EscalationLevel` have similar names, but are actually distinct types
+note: `EscalationLevel` is defined in module `crate::response::enterprise_policy_engine` of the current crate
+   --> src\response\enterprise_policy_engine.rs:939:1
+    |
+939 | pub enum EscalationLevel {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^
+note: `alerting::EscalationLevel` is defined in module `crate::observability::alerting` of the current crate
+   --> src\observability\alerting.rs:84:1
+    |
+84  | pub enum EscalationLevel {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no variant or associated item named `Info` found for enum `traffic_analyzer::ThreatLevel` in the current scope
+    --> src\detection\network.rs:1428:60
+     |
+1428 |             crate::network::traffic_analyzer::ThreatLevel::Info
+     |                                                            ^^^^ variant or associated item not found in `traffic_analyzer::ThreatLevel`
+     |
+    ::: src\network\traffic_analyzer.rs:261:1
+     |
+261  | pub enum ThreatLevel {
+     | -------------------- variant or associated item `Info` not found for this enum
+
+error[E0308]: mismatched types
+    --> src\detection\network.rs:1749:35
+     |
+1749 |             connections_analyzed: traffic_data.connections.len() as u64,
+     |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+
+error[E0599]: no variant or associated item named `Info` found for enum `traffic_analyzer::ThreatLevel` in the current scope
+    --> src\detection\network.rs:1760:64
+     |
+1760 |                 crate::network::traffic_analyzer::ThreatLevel::Info
+     |                                                                ^^^^ variant or associated item not found in `traffic_analyzer::ThreatLevel`
+     |
+    ::: src\network\traffic_analyzer.rs:261:1
+     |
+261  | pub enum ThreatLevel {
+     | -------------------- variant or associated item `Info` not found for this enum
+
+error: unused variable: `model_path`
+    --> src\yara\cli_commands.rs:1692:9
+     |
+1692 |         model_path: PathBuf,
+     |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_model_path`
+     |
+     = note: requested on the command line with `-D unused-variables`
+
+error: unused variable: `scaler_path`
+    --> src\yara\cli_commands.rs:1693:9
+     |
+1693 |         scaler_path: PathBuf,
+     |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_scaler_path`
+
+error[E0433]: failed to resolve: use of undeclared type `SessionBuilder`
+   --> src\yara\ember_detector.rs:180:23
+    |
+180 |         let session = SessionBuilder::new()?
+    |                       ^^^^^^^^^^^^^^ use of undeclared type `SessionBuilder`
+
+error[E0433]: failed to resolve: use of undeclared type `GraphOptimizationLevel`
+   --> src\yara\ember_detector.rs:181:38
+    |
+181 |             .with_optimization_level(GraphOptimizationLevel::Level1)?
+    |                                      ^^^^^^^^^^^^^^^^^^^^^^ use of undeclared type `GraphOptimizationLevel`
+
+error[E0609]: no field `session` on type `&mut EmberMalwareDetector`
+   --> src\yara\ember_detector.rs:185:14
+    |
+185 |         self.session = Some(session);
+    |              ^^^^^^^ unknown field
+    |
+    = note: available fields are: `model_path`, `threshold`, `model_info`, `suspicious_apis`
+
+error[E0609]: no field `session` on type `&mut EmberMalwareDetector`
+   --> src\yara\ember_detector.rs:210:41
+    |
+210 |             if let Some(session) = self.session.as_mut() {
+    |                                         ^^^^^^^ unknown field
+    |
+    = note: available fields are: `model_path`, `threshold`, `model_info`, `suspicious_apis`
+
+error[E0559]: variant `AgentError::Network` has no field named `source`
+   --> src\behavioral\cuckoo_sandbox_client.rs:864:17
+    |
+864 |                 source: None,
+    |                 ^^^^^^ `AgentError::Network` does not have this field
+    |
+    = note: available fields are: `endpoint`
+
+error[E0559]: variant `AgentError::Network` has no field named `source`
+   --> src\behavioral\cuckoo_sandbox_client.rs:870:17
+    |
+870 |                 source: None,
+    |                 ^^^^^^ `AgentError::Network` does not have this field
+    |
+    = note: available fields are: `endpoint`
+
+error[E0559]: variant `AgentError::Network` has no field named `source`
+   --> src\behavioral\cuckoo_sandbox_client.rs:921:17
+    |
+921 |                 source: None,
+    |                 ^^^^^^ `AgentError::Network` does not have this field
+    |
+    = note: available fields are: `endpoint`
+
+error[E0559]: variant `AgentError::Network` has no field named `source`
+   --> src\behavioral\cuckoo_sandbox_client.rs:927:17
+    |
+927 |                 source: None,
+    |                 ^^^^^^ `AgentError::Network` does not have this field
+    |
+    = note: available fields are: `endpoint`
+
+error[E0559]: variant `AgentError::Network` has no field named `source`
+   --> src\behavioral\cuckoo_sandbox_client.rs:953:17
+    |
+953 |                 source: None,
+    |                 ^^^^^^ `AgentError::Network` does not have this field
+    |
+    = note: available fields are: `endpoint`
+
+error[E0559]: variant `AgentError::Network` has no field named `source`
+   --> src\behavioral\cuckoo_sandbox_client.rs:959:17
+    |
+959 |                 source: None,
+    |                 ^^^^^^ `AgentError::Network` does not have this field
+    |
+    = note: available fields are: `endpoint`
+
+error[E0559]: variant `AgentError::Network` has no field named `source`
+    --> src\behavioral\cuckoo_sandbox_client.rs:1001:17
+     |
+1001 |                 source: None,
+     |                 ^^^^^^ `AgentError::Network` does not have this field
+     |
+     = note: available fields are: `endpoint`
+
+error[E0559]: variant `AgentError::Network` has no field named `source`
+    --> src\behavioral\cuckoo_sandbox_client.rs:1007:17
+     |
+1007 |                 source: None,
+     |                 ^^^^^^ `AgentError::Network` does not have this field
+     |
+     = note: available fields are: `endpoint`
+
+error: unused variable: `decision`
+    --> src\behavioral\cuckoo_sandbox_client.rs:1161:9
+     |
+1161 |         decision: &QuarantineDecision,
+     |         ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_decision`
+
+error[E0599]: the method `join` exists for struct `Vec<&std::string::String>`, but its trait bounds were not satisfied
+   --> src\behavioral\advanced_analysis.rs:540:72
+    |
+540 |             evidence.insert("privileges".to_string(), found_privileges.join(", "));
+    |                                                                        ^^^^ method cannot be called on `Vec<&std::string::String>` due to unsatisfied 
+trait bounds
+    |
+    = note: the following trait bounds were not satisfied:
+            `[&std::string::String]: std::slice::Join<_>`
+
+error[E0599]: the method `join` exists for struct `Vec<&std::string::String>`, but its trait bounds were not satisfied
+   --> src\behavioral\advanced_analysis.rs:547:60
+    |
+547 |                     process.process_name, found_privileges.join(", ")),
+    |                                                            ^^^^ method cannot be called on `Vec<&std::string::String>` due to unsatisfied trait bounds
+    |
+    = note: the following trait bounds were not satisfied:
+            `[&std::string::String]: std::slice::Join<_>`
+
+error[E0502]: cannot borrow `*tree` as mutable because it is also borrowed as immutable
+   --> src\behavioral\advanced_analysis.rs:452:13
+    |
+448 |         let mut processes: Vec<_> = tree.iter().collect();
+    |                                     ---- immutable borrow occurs here
+...
+451 |         for (pid, _) in processes.iter().take(evict_count) {
+    |                         ---------------------------------- immutable borrow later used here
+452 |             tree.remove(pid);
+    |             ^^^^^^^^^^^^^^^^ mutable borrow occurs here
+
+error[E0382]: borrow of moved value: `unique_targets`
+   --> src\behavioral\advanced_analysis.rs:703:74
+    |
+691 |         let unique_targets: HashSet<String> = process.network_connections
+    |             -------------- move occurs because `unique_targets` has type `HashSet<std::string::String>`, which does not implement the `Copy` trait
+...
+699 |                 target_systems: unique_targets.into_iter().collect(),
+    |                                                ----------- `unique_targets` moved due to this method call
+...
+703 |                 indicators: vec![format!("Multiple network targets: {}", unique_targets.len())],
+    |                                                                          ^^^^^^^^^^^^^^ value borrowed here after move
+    |
+note: `std::iter::IntoIterator::into_iter` takes ownership of the receiver `self`, which moves `unique_targets`
+   --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\iter\traits\collect.rs:310:18
+    |
+310 |     fn into_iter(self) -> Self::IntoIter;
+    |                  ^^^^
+help: you can `clone` the value and consume it, but this might not be your desired behavior
+    |
+699 |                 target_systems: unique_targets.clone().into_iter().collect(),
+    |                                               ++++++++
+
+error: variable does not need to be mutable
+   --> src\memory\integrated_analyzer.rs:233:13
+    |
+233 |         let mut detector = self.anomaly_detector.lock().await;
+    |             ----^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+    |
+    = note: `-D unused-mut` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(unused_mut)]`
+
+error: variable does not need to be mutable
+   --> src\memory\integrated_analyzer.rs:398:21
+    |
+398 |                 let mut detector = self.anomaly_detector.lock().await;
+    |                     ----^^^^^^^^
+    |                     |
+    |                     help: remove this `mut`
+
+error[E0308]: mismatched types
+   --> src\identity\lsass_monitor.rs:192:30
+    |
+192 |                 EnableFlags: 0,
+    |                              ^ expected `EVENT_TRACE_FLAG`, found integer
+    |
+help: try wrapping the expression in `windows::Win32::System::Diagnostics::Etw::EVENT_TRACE_FLAG`
+    |
+192 |                 EnableFlags: windows::Win32::System::Diagnostics::Etw::EVENT_TRACE_FLAG(0),
+    |                              +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ +
+
+error[E0560]: struct `Etw::EVENT_TRACE_PROPERTIES` has no field named `AgeLimit`
+   --> src\identity\lsass_monitor.rs:193:17
+    |
+193 |                 AgeLimit: 0,
+    |                 ^^^^^^^^ `Etw::EVENT_TRACE_PROPERTIES` does not have this field
+    |
+    = note: available fields are: `Anonymous`
+
+error[E0308]: mismatched types
+   --> src\identity\lsass_monitor.rs:200:33
+    |
+200 |                 LoggerThreadId: 0,
+    |                                 ^ expected `HANDLE`, found integer
+    |
+help: try wrapping the expression in `windows::Win32::Foundation::HANDLE`
+    |
+200 |                 LoggerThreadId: windows::Win32::Foundation::HANDLE(0),
+    |                                 +++++++++++++++++++++++++++++++++++ +
+
+error[E0308]: mismatched types
+   --> src\identity\lsass_monitor.rs:209:17
+    |
+208 |             let result = StartTraceW(
+    |                          ----------- arguments to this function are incorrect
+209 |                 &mut session_handle,
+    |                 ^^^^^^^^^^^^^^^^^^^ expected `*mut CONTROLTRACE_HANDLE`, found `&mut HANDLE`
+    |
+    = note:    expected raw pointer `*mut CONTROLTRACE_HANDLE`
+            found mutable reference `&mut Foundation::HANDLE`
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Diagnostics\Etw\mod.rs:361:15
+    |
+361 | pub unsafe fn StartTraceW<P0>(tracehandle: *mut CONTROLTRACE_HANDLE, instancename: P0, properties: *mut EVENT_TRACE_PROPERTIES) -> ::wind...
+    |               ^^^^^^^^^^^
+
+error[E0308]: arguments to this function are incorrect
+   --> src\identity\lsass_monitor.rs:220:33
+    |
+220 |             let enable_result = EnableTraceEx2(
+    |                                 ^^^^^^^^^^^^^^
+221 |                 session_handle,
+    |                 -------------- expected `CONTROLTRACE_HANDLE`, found `HANDLE`
+222 |                 &LSASS_PROVIDER_GUID,
+223 |                 EVENT_CONTROL_CODE_ENABLE_PROVIDER,
+    |                 ---------------------------------- unexpected argument #3 of type `ENABLECALLBACK_ENABLED_STATE`
+224 |                 TRACE_LEVEL_VERBOSE,
+    |                 ------------------- argument #4 of type `u8` is missing
+    |
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Diagnostics\Etw\mod.rs:64:15
+    |
+64  | pub unsafe fn EnableTraceEx2(tracehandle: CONTROLTRACE_HANDLE, providerid: *const ::windows_core::GUID, controlcode: u32, level: u8, matc...
+    |               ^^^^^^^^^^^^^^
+help: did you mean
+    |
+220 -             let enable_result = EnableTraceEx2(
+221 -                 session_handle,
+222 -                 &LSASS_PROVIDER_GUID,
+223 -                 EVENT_CONTROL_CODE_ENABLE_PROVIDER,
+224 -                 TRACE_LEVEL_VERBOSE,
+225 -                 0, // MatchAnyKeyword
+226 -                 0, // MatchAllKeyword
+227 -                 0, // Timeout
+228 -                 None,
+229 -             );
+220 +             let enable_result = EnableTraceEx2(/* CONTROLTRACE_HANDLE */, &LSASS_PROVIDER_GUID, TRACE_LEVEL_VERBOSE, /* u8 */, 0, 0, 0, None);
+    |
+
+error[E0308]: mismatched types
+   --> src\identity\lsass_monitor.rs:234:36
+    |
+234 |                 let _ = StopTraceW(session_handle, PCWSTR::null(), &mut session_properties);
+    |                         ---------- ^^^^^^^^^^^^^^ expected `CONTROLTRACE_HANDLE`, found `HANDLE`
+    |                         |
+    |                         arguments to this function are incorrect
+    |
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Diagnostics\Etw\mod.rs:381:15
+    |
+381 | pub unsafe fn StopTraceW<P0>(tracehandle: CONTROLTRACE_HANDLE, instancename: P0, properties: *mut EVENT_TRACE_PROPERTIES) -> ::windows_co...
+    |               ^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> src\identity\lsass_monitor.rs:262:41
+    |
+262 |                 let result = StopTraceW(session_handle, PCWSTR::null(), &mut session_properties);
+    |                              ---------- ^^^^^^^^^^^^^^ expected `CONTROLTRACE_HANDLE`, found `HANDLE`
+    |                              |
+    |                              arguments to this function are incorrect
+    |
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Diagnostics\Etw\mod.rs:381:15
+    |
+381 | pub unsafe fn StopTraceW<P0>(tracehandle: CONTROLTRACE_HANDLE, instancename: P0, properties: *mut EVENT_TRACE_PROPERTIES) -> ::windows_co...
+    |               ^^^^^^^^^^
+
+error: unused variable: `sender`
+   --> src\identity\lsass_monitor.rs:297:9
+    |
+297 |         sender: &mpsc::UnboundedSender<LsassEvent>,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_sender`
+
+error[E0308]: mismatched types
+   --> src\identity\powershell_monitor.rs:336:30
+    |
+336 |                 EnableFlags: 0,
+    |                              ^ expected `EVENT_TRACE_FLAG`, found integer
+    |
+help: try wrapping the expression in `windows::Win32::System::Diagnostics::Etw::EVENT_TRACE_FLAG`
+    |
+336 |                 EnableFlags: windows::Win32::System::Diagnostics::Etw::EVENT_TRACE_FLAG(0),
+    |                              +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ +
+
+error[E0560]: struct `Etw::EVENT_TRACE_PROPERTIES` has no field named `AgeLimit`
+   --> src\identity\powershell_monitor.rs:337:17
+    |
+337 |                 AgeLimit: 0,
+    |                 ^^^^^^^^ `Etw::EVENT_TRACE_PROPERTIES` does not have this field
+    |
+    = note: available fields are: `Anonymous`
+
+error[E0308]: mismatched types
+   --> src\identity\powershell_monitor.rs:344:33
+    |
+344 |                 LoggerThreadId: 0,
+    |                                 ^ expected `HANDLE`, found integer
+    |
+help: try wrapping the expression in `windows::Win32::Foundation::HANDLE`
+    |
+344 |                 LoggerThreadId: windows::Win32::Foundation::HANDLE(0),
+    |                                 +++++++++++++++++++++++++++++++++++ +
+
+error[E0308]: mismatched types
+   --> src\identity\powershell_monitor.rs:353:17
+    |
+352 |             let result = StartTraceW(
+    |                          ----------- arguments to this function are incorrect
+353 |                 &mut session_handle,
+    |                 ^^^^^^^^^^^^^^^^^^^ expected `*mut CONTROLTRACE_HANDLE`, found `&mut HANDLE`
+    |
+    = note:    expected raw pointer `*mut CONTROLTRACE_HANDLE`
+            found mutable reference `&mut Foundation::HANDLE`
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Diagnostics\Etw\mod.rs:361:15
+    |
+361 | pub unsafe fn StartTraceW<P0>(tracehandle: *mut CONTROLTRACE_HANDLE, instancename: P0, properties: *mut EVENT_TRACE_PROPERTIES) -> ::wind...
+    |               ^^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> src\identity\powershell_monitor.rs:358:26
+    |
+358 |             if result != 0 {
+    |                ------    ^ expected `Result<(), Error>`, found integer
+    |                |
+    |                expected because this is `std::result::Result<(), windows_core::error::Error>`
+    |
+    = note: expected enum `std::result::Result<(), windows_core::error::Error>`
+               found type `{integer}`
+
+error[E0277]: `std::result::Result<(), windows_core::error::Error>` doesn't implement `std::fmt::Display`
+   --> src\identity\powershell_monitor.rs:361:35
+    |
+360 |                     "Failed to start ETW trace session {}: {}",
+    |                                                            -- required by this formatting parameter
+361 |                     session_name, result
+    |                                   ^^^^^^ `std::result::Result<(), windows_core::error::Error>` cannot be formatted with the default formatter
+    |
+    = help: the trait `std::fmt::Display` is not implemented for `std::result::Result<(), windows_core::error::Error>`
+    = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+    = note: this error originates in the macro `$crate::__macro_support::format_args` which comes from the expansion of the macro `error` (in Nightly 
+builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `std::result::Result<(), windows_core::error::Error>` doesn't implement `std::fmt::Display`
+   --> src\identity\powershell_monitor.rs:363:79
+    |
+363 |                 return Err(format!("ETW session start failed with error: {}", result).into());
+    |                                                                          --   ^^^^^^ `std::result::Result<(), windows_core::error::Error>` cannot be 
+formatted with the default formatter
+    |                                                                          |
+    |                                                                          required by this formatting parameter
+    |
+    = help: the trait `std::fmt::Display` is not implemented for `std::result::Result<(), windows_core::error::Error>`
+    = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+    = note: this error originates in the macro `$crate::__export::format_args` which comes from the expansion of the macro `format` (in Nightly builds, run 
+with -Z macro-backtrace for more info)
+
+error[E0308]: arguments to this function are incorrect
+   --> src\identity\powershell_monitor.rs:367:33
+    |
+367 |             let enable_result = EnableTraceEx2(
+    |                                 ^^^^^^^^^^^^^^
+368 |                 session_handle,
+    |                 -------------- expected `CONTROLTRACE_HANDLE`, found `HANDLE`
+369 |                 provider_guid,
+370 |                 EVENT_CONTROL_CODE_ENABLE_PROVIDER,
+    |                 ---------------------------------- unexpected argument #3 of type `ENABLECALLBACK_ENABLED_STATE`
+371 |                 TRACE_LEVEL_VERBOSE,
+    |                 ------------------- argument #4 of type `u8` is missing
+    |
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Diagnostics\Etw\mod.rs:64:15
+    |
+64  | pub unsafe fn EnableTraceEx2(tracehandle: CONTROLTRACE_HANDLE, providerid: *const ::windows_core::GUID, controlcode: u32, level: u8, matc...
+    |               ^^^^^^^^^^^^^^
+help: did you mean
+    |
+367 -             let enable_result = EnableTraceEx2(
+368 -                 session_handle,
+369 -                 provider_guid,
+370 -                 EVENT_CONTROL_CODE_ENABLE_PROVIDER,
+371 -                 TRACE_LEVEL_VERBOSE,
+372 -                 0x0000000000000001, // Enable script block logging
+373 -                 0,                  // MatchAllKeyword
+374 -                 0,                  // Timeout
+375 -                 None,
+376 -             );
+367 +             let enable_result = EnableTraceEx2(/* CONTROLTRACE_HANDLE */, provider_guid, TRACE_LEVEL_VERBOSE, /* u8 */, 0x0000000000000001, 0, 0, 
+None);
+    |
+
+error[E0308]: mismatched types
+   --> src\identity\powershell_monitor.rs:378:33
+    |
+378 |             if enable_result != 0 {
+    |                -------------    ^ expected `Result<(), Error>`, found integer
+    |                |
+    |                expected because this is `std::result::Result<(), windows_core::error::Error>`
+    |
+    = note: expected enum `std::result::Result<(), windows_core::error::Error>`
+               found type `{integer}`
+
+error[E0277]: `std::result::Result<(), windows_core::error::Error>` doesn't implement `std::fmt::Display`
+   --> src\identity\powershell_monitor.rs:381:21
+    |
+380 |                     "Failed to enable PowerShell ETW provider: {}",
+    |                                                                -- required by this formatting parameter
+381 |                     enable_result
+    |                     ^^^^^^^^^^^^^ `std::result::Result<(), windows_core::error::Error>` cannot be formatted with the default formatter
+    |
+    = help: the trait `std::fmt::Display` is not implemented for `std::result::Result<(), windows_core::error::Error>`
+    = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+    = note: this error originates in the macro `$crate::__macro_support::format_args` which comes from the expansion of the macro `error` (in Nightly 
+builds, run with -Z macro-backtrace for more info)
+
+error[E0308]: mismatched types
+   --> src\identity\powershell_monitor.rs:384:36
+    |
+384 |                 let _ = StopTraceW(session_handle, PCWSTR::null(), &mut session_properties);
+    |                         ---------- ^^^^^^^^^^^^^^ expected `CONTROLTRACE_HANDLE`, found `HANDLE`
+    |                         |
+    |                         arguments to this function are incorrect
+    |
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Diagnostics\Etw\mod.rs:381:15
+    |
+381 | pub unsafe fn StopTraceW<P0>(tracehandle: CONTROLTRACE_HANDLE, instancename: P0, properties: *mut EVENT_TRACE_PROPERTIES) -> ::windows_co...
+    |               ^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> src\identity\powershell_monitor.rs:409:41
+    |
+409 |                 let result = StopTraceW(session_handle, PCWSTR::null(), &mut session_properties);
+    |                              ---------- ^^^^^^^^^^^^^^ expected `CONTROLTRACE_HANDLE`, found `HANDLE`
+    |                              |
+    |                              arguments to this function are incorrect
+    |
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Diagnostics\Etw\mod.rs:381:15
+    |
+381 | pub unsafe fn StopTraceW<P0>(tracehandle: CONTROLTRACE_HANDLE, instancename: P0, properties: *mut EVENT_TRACE_PROPERTIES) -> ::windows_co...
+    |               ^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> src\identity\powershell_monitor.rs:411:30
+    |
+411 |                 if result != 0 {
+    |                    ------    ^ expected `Result<(), Error>`, found integer
+    |                    |
+    |                    expected because this is `std::result::Result<(), windows_core::error::Error>`
+    |
+    = note: expected enum `std::result::Result<(), windows_core::error::Error>`
+               found type `{integer}`
+
+error[E0277]: `std::result::Result<(), windows_core::error::Error>` doesn't implement `std::fmt::Display`
+   --> src\identity\powershell_monitor.rs:412:67
+    |
+412 |                     warn!("Failed to stop ETW trace session: {}", result);
+    |                                                              --   ^^^^^^ `std::result::Result<(), windows_core::error::Error>` cannot be formatted 
+with the default formatter
+    |                                                              |
+    |                                                              required by this formatting parameter
+    |
+    = help: the trait `std::fmt::Display` is not implemented for `std::result::Result<(), windows_core::error::Error>`
+    = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+    = note: this error originates in the macro `$crate::__macro_support::format_args` which comes from the expansion of the macro `warn` (in Nightly builds, 
+run with -Z macro-backtrace for more info)
+
+error: unused variable: `sender`
+   --> src\identity\powershell_monitor.rs:451:9
+    |
+451 |         sender: &mpsc::UnboundedSender<PowerShellEvent>,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_sender`
+
+error: unused variable: `suspicious_patterns`
+   --> src\identity\powershell_monitor.rs:453:9
+    |
+453 |         suspicious_patterns: &Arc<RwLock<Vec<Regex>>>,
+    |         ^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_suspicious_patterns`
+
+error: unused variable: `obfuscation_patterns`
+   --> src\identity\powershell_monitor.rs:454:9
+    |
+454 |         obfuscation_patterns: &Arc<RwLock<Vec<Regex>>>,
+    |         ^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_obfuscation_patterns`
+
+error[E0308]: mismatched types
+   --> src\identity\mod.rs:93:47
+    |
+93  |         let lsass_monitor = LsassMonitor::new(lsass_config);
+    |                             ----------------- ^^^^^^^^^^^^ expected `LsassMonitorConfig`, found `LsassConfig`
+    |                             |
+    |                             arguments to this function are incorrect
+    |
+note: associated function defined here
+   --> src\identity\lsass_monitor.rs:100:12
+    |
+100 |     pub fn new(config: LsassMonitorConfig) -> Self {
+    |            ^^^ --------------------------
+
+error[E0308]: mismatched types
+   --> src\identity\mod.rs:99:57
+    |
+99  |         let powershell_monitor = PowerShellMonitor::new(powershell_config);
+    |                                  ---------------------- ^^^^^^^^^^^^^^^^^ expected `PowerShellMonitorConfig`, found `PowerShellConfig`
+    |                                  |
+    |                                  arguments to this function are incorrect
+    |
+note: associated function defined here
+   --> src\identity\powershell_monitor.rs:143:12
+    |
+143 |     pub fn new(config: PowerShellMonitorConfig) -> Self {
+    |            ^^^ -------------------------------
+
+error[E0308]: mismatched types
+   --> src\integrity\file_integrity.rs:505:17
+    |
+503 |             let handle = CreateFileW(
+    |                          ----------- arguments to this function are incorrect
+504 |                 PCWSTR(path_str.as_ptr()),
+505 |                 FILE_LIST_DIRECTORY,
+    |                 ^^^^^^^^^^^^^^^^^^^ expected `u32`, found `FILE_ACCESS_RIGHTS`
+    |
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\Storage\FileSystem\mod.rs:511:15
+    |
+511 | pub unsafe fn CreateFileW<P0, P1>(lpfilename: P0, dwdesiredaccess: u32, dwsharemode: FILE_SHARE_MODE, lpsecurityattributes: ::core::optio...
+    |               ^^^^^^^^^^^
+
+error: unused variable: `sender`
+   --> src\integrity\file_integrity.rs:584:9
+    |
+584 |         sender: mpsc::UnboundedSender<FileIntegrityEvent>,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_sender`
+
+error: unused variable: `file_baselines`
+   --> src\integrity\file_integrity.rs:586:9
+    |
+586 |         file_baselines: Arc<RwLock<HashMap<PathBuf, FileBaseline>>>,
+    |         ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_file_baselines`
+
+error: unused variable: `critical_files`
+   --> src\integrity\file_integrity.rs:587:9
+    |
+587 |         critical_files: Arc<RwLock<HashSet<PathBuf>>>,
+    |         ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_critical_files`
+
+error: unused variable: `sender`
+   --> src\integrity\file_integrity.rs:612:9
+    |
+612 |         sender: mpsc::UnboundedSender<FileIntegrityEvent>,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_sender`
+
+error[E0308]: mismatched types
+   --> src\integrity\process_watch.rs:432:26
+    |
+432 |             if result == TRUE {
+    |                ------    ^^^^ expected `Result<(), Error>`, found `BOOL`
+    |                |
+    |                expected because this is `std::result::Result<(), windows_core::error::Error>`
+    |
+    = note: expected enum `std::result::Result<(), windows_core::error::Error>`
+             found struct `Foundation::BOOL`
+
+error[E0277]: the trait bound `i32: IntoParam<Foundation::BOOL, CopyType>` is not satisfied
+    --> src\integrity\process_watch.rs:479:17
+     |
+477  |             let process_handle = OpenProcess(
+     |                                  ----------- required by a bound introduced by this call
+478  |                 PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,
+479  |                 FALSE,
+     |                 ^^^^^ the trait `CanInto<Foundation::BOOL>` is not implemented for `i32`
+     |
+     = help: the following other types implement trait `CanInto<T>`:
+               `AsyncIAdviseSink` implements `CanInto<windows_core::unknown::IUnknown>`
+               `AsyncIAdviseSink2` implements `CanInto<AsyncIAdviseSink>`
+               `AsyncIAdviseSink2` implements `CanInto<windows_core::unknown::IUnknown>`
+               `BCRYPT_ALG_HANDLE` implements `CanInto<BCRYPT_HANDLE>`
+               `BCRYPT_HASH_HANDLE` implements `CanInto<BCRYPT_HANDLE>`
+               `BCRYPT_KEY_HANDLE` implements `CanInto<BCRYPT_HANDLE>`
+               `BCRYPT_SECRET_HANDLE` implements `CanInto<BCRYPT_HANDLE>`
+               `CIE4ConnectionPoint` implements `CanInto<IConnectionPoint>`
+             and 1363 others
+     = note: required for `i32` to implement `IntoParam<Foundation::BOOL, CopyType>`
+note: required by a bound in `windows::Win32::System::Threading::OpenProcess`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Threading\mod.rs:1662:9
+     |
+1660 | pub unsafe fn OpenProcess<P0>(dwdesiredaccess: PROCESS_ACCESS_RIGHTS, binherithandle: P0, dwprocessid: u32) -> ::windows_core::Result<sup...
+     |               ----------- required by a bound in this function
+1661 | where
+1662 |     P0: ::windows_core::IntoParam<super::super::Foundation::BOOL>,
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `OpenProcess`
+
+error[E0308]: mismatched types
+   --> src\integrity\process_watch.rs:577:30
+    |
+577 |                 EnableFlags: 0,
+    |                              ^ expected `EVENT_TRACE_FLAG`, found integer
+    |
+help: try wrapping the expression in `windows::Win32::System::Diagnostics::Etw::EVENT_TRACE_FLAG`
+    |
+577 |                 EnableFlags: windows::Win32::System::Diagnostics::Etw::EVENT_TRACE_FLAG(0),
+    |                              +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ +
+
+error[E0560]: struct `Etw::EVENT_TRACE_PROPERTIES` has no field named `AgeLimit`
+   --> src\integrity\process_watch.rs:578:17
+    |
+578 |                 AgeLimit: 0,
+    |                 ^^^^^^^^ `Etw::EVENT_TRACE_PROPERTIES` does not have this field
+    |
+    = note: available fields are: `Anonymous`
+
+error[E0308]: mismatched types
+   --> src\integrity\process_watch.rs:585:33
+    |
+585 |                 LoggerThreadId: 0,
+    |                                 ^ expected `HANDLE`, found integer
+    |
+help: try wrapping the expression in `windows::Win32::Foundation::HANDLE`
+    |
+585 |                 LoggerThreadId: windows::Win32::Foundation::HANDLE(0),
+    |                                 +++++++++++++++++++++++++++++++++++ +
+
+error[E0308]: mismatched types
+   --> src\integrity\process_watch.rs:593:17
+    |
+592 |             let result = StartTraceW(
+    |                          ----------- arguments to this function are incorrect
+593 |                 &mut session_handle,
+    |                 ^^^^^^^^^^^^^^^^^^^ expected `*mut CONTROLTRACE_HANDLE`, found `&mut HANDLE`
+    |
+    = note:    expected raw pointer `*mut CONTROLTRACE_HANDLE`
+            found mutable reference `&mut Foundation::HANDLE`
+note: function defined here
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-0.52.0\src\Windows\Win32\System\Diagnostics\Etw\mod.rs:361:15
+    |
+361 | pub unsafe fn StartTraceW<P0>(tracehandle: *mut CONTROLTRACE_HANDLE, instancename: P0, properties: *mut EVENT_TRACE_PROPERTIES) -> ::wind...
+    |               ^^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> src\integrity\process_watch.rs:598:26
+    |
+598 |             if result != 0 {
+    |                ------    ^ expected `Result<(), Error>`, found integer
+    |                |
+    |                expected because this is `std::result::Result<(), windows_core::error::Error>`
+    |
+    = note: expected enum `std::result::Result<(), windows_core::error::Error>`
+               found type `{integer}`
+
+error[E0277]: `std::result::Result<(), windows_core::error::Error>` doesn't implement `std::fmt::Display`
+   --> src\integrity\process_watch.rs:599:65
+    |
+599 |                 error!("Failed to start ETW trace session: {}", result);
+    |                                                            --   ^^^^^^ `std::result::Result<(), windows_core::error::Error>` cannot be formatted with 
+the default formatter
+    |                                                            |
+    |                                                            required by this formatting parameter
+    |
+    = help: the trait `std::fmt::Display` is not implemented for `std::result::Result<(), windows_core::error::Error>`
+    = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+    = note: this error originates in the macro `$crate::__macro_support::format_args` which comes from the expansion of the macro `error` (in Nightly 
+builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: `std::result::Result<(), windows_core::error::Error>` doesn't implement `std::fmt::Display`
+   --> src\integrity\process_watch.rs:600:79
+    |
+600 |                 return Err(format!("ETW session start failed with error: {}", result).into());
+    |                                                                          --   ^^^^^^ `std::result::Result<(), windows_core::error::Error>` cannot be 
+formatted with the default formatter
+    |                                                                          |
+    |                                                                          required by this formatting parameter
+    |
+    = help: the trait `std::fmt::Display` is not implemented for `std::result::Result<(), windows_core::error::Error>`
+    = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+    = note: this error originates in the macro `$crate::__export::format_args` which comes from the expansion of the macro `format` (in Nightly builds, run 
+with -Z macro-backtrace for more info)
+
+error[E0599]: no method named `record_gauge` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:900:14
+    |
+900 |         self.record_gauge("system.cpu.usage_percent", metrics.cpu_usage_percent)?;
+    |              ^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `record_gauge` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:903:14
+    |
+903 |         self.record_gauge("system.memory.usage_percent", metrics.memory_usage_percent)?;
+    |              ^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `record_gauge` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:906:14
+    |
+906 |         self.record_gauge("system.disk.usage_percent", metrics.disk_usage_percent)?;
+    |              ^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `record_counter` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:909:14
+    |
+909 |         self.record_counter("system.network.bytes_sent", metrics.network_bytes_sent as f64)?;
+    |              ^^^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `record_counter` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:912:14
+    |
+912 |         self.record_counter("system.network.bytes_received", metrics.network_bytes_received as f64)?;
+    |              ^^^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `record_counter` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:930:14
+    |
+930 |         self.record_counter("app.scans.total", app_metrics.scans_total as f64)?;
+    |              ^^^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `record_gauge` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:933:14
+    |
+933 |         self.record_gauge("app.scans.active", app_metrics.scans_active as f64)?;
+    |              ^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `record_counter` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:936:14
+    |
+936 |         self.record_counter("app.threats.detected", app_metrics.threats_detected as f64)?;
+    |              ^^^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `record_histogram` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:939:14
+    |
+939 |         self.record_histogram("app.scan.duration_ms", app_metrics.scan_duration_avg_ms, &[])?;
+    |              ^^^^^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `record_gauge` found for reference `&metrics_collector::MetricsCollector` in the current scope
+   --> src\monitoring\metrics_collector.rs:948:14
+    |
+948 |         self.record_gauge("app.memory.pool_usage_percent", memory_pool_usage)?;
+    |              ^^^^^^^^^^^^ method not found in `&metrics_collector::MetricsCollector`
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+  --> src\response\action_executor.rs:91:14
+   |
+90 | /         self.metrics
+91 | |             .increment_response_actions("process_termination", "success");
+   | |             -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+   | |_____________|
+   |
+
+error[E0599]: no method named `increment_quarantine_operations` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\action_executor.rs:152:14
+    |
+151 | /         self.metrics
+152 | |             .increment_quarantine_operations("file", "success");
+    | |             -^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\action_executor.rs:192:22
+    |
+192 |         self.metrics.increment_response_actions("alert", "sent");
+    |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+
+error[E0308]: mismatched types
+   --> src\response\enterprise_policy_engine.rs:348:45
+    |
+348 | ...                   target: NetworkTarget::IpAddress(ip),
+    |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `String`, found `NetworkTarget`
+
+error[E0559]: variant `response::ResponseAction::FirewallBlock` has no field named `duration`
+   --> src\response\enterprise_policy_engine.rs:350:37
+    |
+350 | ...                   duration: Some(Duration::from_secs(3600)), // 1 hour
+    |                       ^^^^^^^^ `response::ResponseAction::FirewallBlock` does not have this field
+    |
+    = note: available fields are: `rule_type`
+
+error[E0599]: no method named `to_string_lossy` found for enum `std::option::Option` in the current scope
+    --> src\response\enterprise_policy_engine.rs:740:43
+     |
+740  |             source: base_result.file_path.to_string_lossy().to_string(),
+     |                                           ^^^^^^^^^^^^^^^ method not found in `std::option::Option<PathBuf>`
+     |
+note: the method `to_string_lossy` exists on the type `PathBuf`
+    --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\path.rs:2331:5
+     |
+2331 |     pub fn to_string_lossy(&self) -> Cow<'_, str> {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: consider using `Option::expect` to unwrap the `PathBuf` value, panicking if the value is an `Option::None`
+     |
+740  |             source: base_result.file_path.expect("REASON").to_string_lossy().to_string(),
+     |                                          +++++++++++++++++
+
+error[E0609]: no field `threat_score` on type `&core::types::DetectionResult`
+   --> src\response\enterprise_policy_engine.rs:741:35
+    |
+741 |             severity: base_result.threat_score,
+    |                                   ^^^^^^^^^^^^ unknown field
+    |
+help: a field with a similar name exists
+    |
+741 -             severity: base_result.threat_score,
+741 +             severity: base_result.threat_type,
+    |
+
+error[E0609]: no field `threat_score` on type `&core::types::DetectionResult`
+   --> src\response\enterprise_policy_engine.rs:757:76
+    |
+757 |             if self.rule_conditions_met(rule, &security_event, base_result.threat_score) {
+    |                                                                            ^^^^^^^^^^^^ unknown field
+    |
+help: a field with a similar name exists
+    |
+757 -             if self.rule_conditions_met(rule, &security_event, base_result.threat_score) {
+757 +             if self.rule_conditions_met(rule, &security_event, base_result.threat_type) {
+    |
+
+error[E0609]: no field `threat_score` on type `&core::types::DetectionResult`
+   --> src\response\enterprise_policy_engine.rs:761:98
+    |
+761 |                 let rule_actions = self.generate_rule_actions(rule, &security_event, base_result.threat_score).await?;
+    |                                                                                                  ^^^^^^^^^^^^ unknown field
+    |
+help: a field with a similar name exists
+    |
+761 -                 let rule_actions = self.generate_rule_actions(rule, &security_event, base_result.threat_score).await?;
+761 +                 let rule_actions = self.generate_rule_actions(rule, &security_event, base_result.threat_type).await?;
+    |
+
+error[E0689]: can't call method `max` on ambiguous numeric type `{float}`
+   --> src\response\enterprise_policy_engine.rs:772:41
+    |
+772 |                 confidence = confidence.max(security_event.confidence);
+    |                                         ^^^
+    |
+help: you must specify a type for this binding, like `f32`
+    |
+753 |         let mut confidence: f32 = 0.5;
+    |                           +++++
+
+error[E0599]: no method named `increment_network_isolations` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\network_controller.rs:164:14
+    |
+163 | /         self.metrics
+164 | |             .increment_network_isolations("target_isolated", "success");
+    | |             -^^^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________|
+    |
+
+error[E0599]: no method named `add_data_upload_bytes` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\network_controller.rs:227:22
+    |
+227 |         self.metrics.add_data_upload_bytes("process", bytes as f64);
+    |                      ^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+
+error[E0599]: no method named `increment_suspicious_connections` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\network_controller.rs:237:18
+    |
+236 | /             self.metrics
+237 | |                 .increment_suspicious_connections("high_upload", "detected");
+    | |_________________-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+help: there is a method `increment_suspicious_process_chains` with a similar name, but with different arguments
+   --> src\metrics\mod.rs:342:5
+    |
+342 |     pub fn increment_suspicious_process_chains(&self, operation_type: &str) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no method named `increment_dns_requests_anomalous` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\network_controller.rs:259:14
+    |
+258 | /         self.metrics
+259 | |             .increment_dns_requests_anomalous("domain", "detected");
+    | |             -^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\auto_engine.rs:510:14
+    |
+509 | /         self.metrics
+510 | |             .increment_response_actions("suspension", "success");
+    | |             -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________|
+    |
+
+error[E0599]: no method named `increment_quarantine_operations` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\auto_engine.rs:550:22
+    |
+549 | /                 self.metrics
+550 | |                     .increment_quarantine_operations("auto_quarantine", "success");
+    | |                     -^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________________|
+    |
+
+error[E0599]: no method named `increment_network_isolations` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\auto_engine.rs:581:14
+    |
+580 | /         self.metrics
+581 | |             .increment_network_isolations("firewall_block", "success");
+    | |             -^^^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________|
+    |
+
+error[E0599]: no method named `map_err` found for struct `Vec<response::ResponseAction>` in the current scope
+   --> src\response\concurrent_processor.rs:226:14
+    |
+224 |           let response = timeout(timeout_duration, response_receiver).await
+    |  ________________________-
+225 | |             .map_err(|_| "Event processing timeout")??
+226 | |             .map_err(|e| format!("Event processing failed: {:?}", e))?;
+    | |_____________-^^^^^^^
+    |
+help: there is a method `sink_map_err` with a similar name
+    |
+226 |             .sink_map_err(|e| format!("Event processing failed: {:?}", e))?;
+    |              +++++
+
+error[E0599]: no method named `finish` found for struct `DefaultHasher` in the current scope
+   --> src\response\concurrent_processor.rs:268:96
+    |
+268 |             hash: Some(format!("sha256:{:x}", std::collections::hash_map::DefaultHasher::new().finish())),
+    |                                                                                                ^^^^^^ method not found in `DefaultHasher`
+    |
+   ::: C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\hash\mod.rs:335:8
+    |
+335 |     fn finish(&self) -> u64;
+    |        ------ the method is available for `DefaultHasher` here
+    |
+    = help: items from traits can only be used if the trait is in scope
+help: trait `Hasher` which provides `finish` is implemented but not in scope; perhaps you want to import it
+    |
+6   + use std::hash::Hasher;
+    |
+
+error: unused variable: `config`
+   --> src\response\concurrent_processor.rs:302:13
+    |
+302 |         let config = self.config.clone();
+    |             ^^^^^^ help: if this is intentional, prefix it with an underscore: `_config`
+
+error[E0061]: this method takes 2 arguments but 3 arguments were supplied
+   --> src\response\concurrent_processor.rs:377:17
+    |
+377 |         metrics.record_counter(
+    |                 ^^^^^^^^^^^^^^
+...
+380 |             Some(vec![("priority".to_string(), format!("{:?}", request.priority))]),
+    |             ----------------------------------------------------------------------- unexpected argument #3 of type 
+`std::option::Option<Vec<(std::string::String, std::string::String)>>`
+    |
+note: method defined here
+   --> src\metrics\mod.rs:277:12
+    |
+277 |     pub fn record_counter(&self, name: &str, value: f64) {
+    |            ^^^^^^^^^^^^^^
+help: remove the extra argument
+    |
+379 -             1.0,
+380 -             Some(vec![("priority".to_string(), format!("{:?}", request.priority))]),
+379 +             1.0,
+    |
+
+error[E0599]: no method named `increment_quarantine_operations` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\network_quarantine.rs:218:22
+    |
+217 | /                 self.metrics
+218 | |                     .increment_quarantine_operations("create", "success");
+    | |                     -^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________________|
+    |
+
+error[E0599]: no method named `increment_quarantine_operations` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\network_quarantine.rs:258:26
+    |
+257 | /                     self.metrics
+258 | |                         .increment_quarantine_operations("remove", "success");
+    | |                         -^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________________|
+    |
+
+error[E0599]: no method named `increment_quarantine_operations` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\network_quarantine.rs:322:18
+    |
+321 | /             self.metrics
+322 | |                 .increment_quarantine_operations("cleanup", "success");
+    | |                 -^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\risk_score.rs:573:14
+    |
+572 | /         self.metrics
+573 | |             .increment_response_actions("risk_assessment", &risk_level_str);
+    | |             -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________|
+    |
+
+error[E0599]: no method named `record_ml_anomaly_score` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\risk_score.rs:577:14
+    |
+576 | /         self.metrics
+577 | |             .record_ml_anomaly_score(assessment.unified_score);
+    | |             -^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________|
+    |
+
+error[E0599]: no method named `record_ml_anomaly_score` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\risk_score.rs:581:14
+    |
+580 | /         self.metrics
+581 | |             .record_ml_anomaly_score(assessment.components.anomaly_score);
+    | |             -^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________|
+    |
+
+error[E0277]: `?` couldn't convert the error to `windows_core::error::Error`
+   --> src\response\windows_firewall.rs:338:75
+    |
+337 |             CoInitializeEx(None, COINIT_APARTMENTTHREADED)
+    |             ---------------------------------------------- this has type `Result<_, windows_core::error::Error>`
+338 |                 .map_err(|e| format!("Failed to initialize COM: {:?}", e))?;
+    |                  ---------------------------------------------------------^ the trait `std::convert::From<std::string::String>` is not implemented for 
+`windows_core::error::Error`
+    |                  |
+    |                  this can't be annotated with `?` because it has type `Result<_, std::string::String>`
+    |
+    = note: the question mark operation (`?`) implicitly performs a conversion on the error value using the `From` trait
+    = help: the following other types implement trait `std::convert::From<T>`:
+              `windows_core::error::Error` implements `std::convert::From<FromUtf16Error>`
+              `windows_core::error::Error` implements `std::convert::From<HRESULT>`
+              `windows_core::error::Error` implements `std::convert::From<Infallible>`
+              `windows_core::error::Error` implements `std::convert::From<NTSTATUS>`
+              `windows_core::error::Error` implements `std::convert::From<TryFromIntError>`
+              `windows_core::error::Error` implements `std::convert::From<WIN32_ERROR>`
+              `windows_core::error::Error` implements `std::convert::From<std::string::FromUtf8Error>`
+
+error[E0277]: the trait bound `windows_core::error::Error: std::convert::From<&str>` is not satisfied
+   --> src\response\windows_firewall.rs:371:59
+    |
+371 |                 return Err("Failed to open process token".into());
+    |                                                           ^^^^ the trait `std::convert::From<&str>` is not implemented for `windows_core::error::Error`
+    |
+    = help: the following other types implement trait `std::convert::From<T>`:
+              `windows_core::error::Error` implements `std::convert::From<FromUtf16Error>`
+              `windows_core::error::Error` implements `std::convert::From<HRESULT>`
+              `windows_core::error::Error` implements `std::convert::From<Infallible>`
+              `windows_core::error::Error` implements `std::convert::From<NTSTATUS>`
+              `windows_core::error::Error` implements `std::convert::From<TryFromIntError>`
+              `windows_core::error::Error` implements `std::convert::From<WIN32_ERROR>`
+              `windows_core::error::Error` implements `std::convert::From<std::string::FromUtf8Error>`
+    = note: required for `&str` to implement `Into<windows_core::error::Error>`
+
+error[E0308]: mismatched types
+   --> src\response\windows_firewall.rs:383:17
+    |
+380 |             if !GetTokenInformation(
+    |                 ------------------- arguments to this function are incorrect
+...
+383 |                 Some(&mut elevation as *mut _ as *mut _),
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `*mut c_void`, found `Option<*mut _>`
+    |
+    = note: expected raw pointer `*mut lz4_sys::c_void`
+                      found enum `std::option::Option<*mut _>`
+note: function defined here
+   --> src\response\windows_firewall.rs:32:8
+    |
+32  |     fn GetTokenInformation(
+    |        ^^^^^^^^^^^^^^^^^^^
+...
+35  |         token_information: *mut std::ffi::c_void,
+    |         -----------------
+
+error[E0277]: the trait bound `windows_core::error::Error: std::convert::From<&str>` is not satisfied
+   --> src\response\windows_firewall.rs:390:72
+    |
+390 |                 return Err("Failed to get token elevation information".into());
+    |                                                                        ^^^^ the trait `std::convert::From<&str>` is not implemented for 
+`windows_core::error::Error`
+    |
+    = help: the following other types implement trait `std::convert::From<T>`:
+              `windows_core::error::Error` implements `std::convert::From<FromUtf16Error>`
+              `windows_core::error::Error` implements `std::convert::From<HRESULT>`
+              `windows_core::error::Error` implements `std::convert::From<Infallible>`
+              `windows_core::error::Error` implements `std::convert::From<NTSTATUS>`
+              `windows_core::error::Error` implements `std::convert::From<TryFromIntError>`
+              `windows_core::error::Error` implements `std::convert::From<WIN32_ERROR>`
+              `windows_core::error::Error` implements `std::convert::From<std::string::FromUtf8Error>`
+    = note: required for `&str` to implement `Into<windows_core::error::Error>`
+
+error[E0277]: the trait bound `windows_core::error::Error: std::convert::From<&str>` is not satisfied
+   --> src\response\windows_firewall.rs:396:88
+    |
+396 |                 return Err("Administrator privileges required for firewall operations".into());
+    |                                                                                        ^^^^ the trait `std::convert::From<&str>` is not implemented 
+for `windows_core::error::Error`
+    |
+    = help: the following other types implement trait `std::convert::From<T>`:
+              `windows_core::error::Error` implements `std::convert::From<FromUtf16Error>`
+              `windows_core::error::Error` implements `std::convert::From<HRESULT>`
+              `windows_core::error::Error` implements `std::convert::From<Infallible>`
+              `windows_core::error::Error` implements `std::convert::From<NTSTATUS>`
+              `windows_core::error::Error` implements `std::convert::From<TryFromIntError>`
+              `windows_core::error::Error` implements `std::convert::From<WIN32_ERROR>`
+              `windows_core::error::Error` implements `std::convert::From<std::string::FromUtf8Error>`
+    = note: required for `&str` to implement `Into<windows_core::error::Error>`
+
+error: variable does not need to be mutable
+   --> src\response\windows_firewall.rs:410:13
+    |
+410 |         let mut retry_count = 0;
+    |             ----^^^^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
+error[E0277]: `?` couldn't convert the error to `windows_core::error::Error`
+   --> src\response\windows_firewall.rs:798:74
+    |
+798 |         let rules = self.rules.as_ref().ok_or("Firewall not initialized")?;
+    |                                         ---------------------------------^ the trait `std::convert::From<&str>` is not implemented for 
+`windows_core::error::Error`
+    |                                         |
+    |                                         this can't be annotated with `?` because it has type `Result<_, &str>`
+    |
+    = note: the question mark operation (`?`) implicitly performs a conversion on the error value using the `From` trait
+    = help: the following other types implement trait `std::convert::From<T>`:
+              `windows_core::error::Error` implements `std::convert::From<FromUtf16Error>`
+              `windows_core::error::Error` implements `std::convert::From<HRESULT>`
+              `windows_core::error::Error` implements `std::convert::From<Infallible>`
+              `windows_core::error::Error` implements `std::convert::From<NTSTATUS>`
+              `windows_core::error::Error` implements `std::convert::From<TryFromIntError>`
+              `windows_core::error::Error` implements `std::convert::From<WIN32_ERROR>`
+              `windows_core::error::Error` implements `std::convert::From<std::string::FromUtf8Error>`
+
+error[E0061]: this enum variant takes 1 argument but 0 arguments were supplied
+   --> src\response\windows_firewall.rs:819:20
+    |
+819 |             return Ok();
+    |                    ^^-- argument #1 of type `()` is missing
+    |
+note: tuple variant defined here
+   --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\result.rs:552:5
+    |
+552 |     Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+    |     ^^
+help: provide the argument
+    |
+819 |             return Ok(());
+    |                       ++
+
+error[E0063]: missing field `windows_firewall` in initializer of `ResponseSystem`
+  --> src\response\mod.rs:87:12
+   |
+87 |         Ok(ResponseSystem {
+   |            ^^^^^^^^^^^^^^ missing `windows_firewall`
+
+error[E0308]: mismatched types
+   --> src\response\mod.rs:324:33
+    |
+324 |                         target: NetworkTarget::IpAddress(ip),
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `String`, found `NetworkTarget`
+
+error[E0559]: variant `response::ResponseAction::FirewallBlock` has no field named `duration`
+   --> src\response\mod.rs:326:25
+    |
+326 |                         duration: None,
+    |                         ^^^^^^^^ `response::ResponseAction::FirewallBlock` does not have this field
+    |
+    = note: available fields are: `rule_type`
+
+error[E0026]: variant `response::ResponseAction::FirewallBlock` does not have a field named `duration`
+   --> src\response\mod.rs:403:17
+    |
+403 |                 duration,
+    |                 ^^^^^^^^
+    |                 |
+    |                 variant `response::ResponseAction::FirewallBlock` does not have this field
+    |                 help: `response::ResponseAction::FirewallBlock` has a field named `rule_type`
+
+error[E0027]: pattern does not mention field `rule_type`
+   --> src\response\mod.rs:400:13
+    |
+400 | /             ResponseAction::FirewallBlock {
+401 | |                 target,
+402 | |                 reason,
+403 | |                 duration,
+404 | |             } => {
+    | |_____________^ missing field `rule_type`
+    |
+help: include the missing field in the pattern
+    |
+403 -                 duration,
+404 -             } => {
+403 +                 duration, rule_type } => {
+    |
+help: if you don't care about this missing field, you can explicitly ignore it
+    |
+403 -                 duration,
+404 -             } => {
+403 +                 duration, rule_type: _ } => {
+    |
+help: or always ignore missing fields here
+    |
+403 -                 duration,
+404 -             } => {
+403 +                 duration, .. } => {
+    |
+
+error[E0308]: mismatched types
+   --> src\response\mod.rs:407:21
+    |
+406 |                 let quarantine_target = match target {
+    |                                               ------ this expression has type `&std::string::String`
+407 |                     NetworkTarget::Process(pid) => {
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `String`, found `NetworkTarget`
+
+error[E0308]: mismatched types
+   --> src\response\mod.rs:410:21
+    |
+406 |                 let quarantine_target = match target {
+    |                                               ------ this expression has type `&std::string::String`
+...
+410 |                     NetworkTarget::IpAddress(ip) => {
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `String`, found `NetworkTarget`
+
+error[E0308]: mismatched types
+   --> src\response\mod.rs:413:21
+    |
+406 |                 let quarantine_target = match target {
+    |                                               ------ this expression has type `&std::string::String`
+...
+413 |                     NetworkTarget::Port(port) => network_quarantine::QuarantineTarget::Port(*port),
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^ expected `String`, found `NetworkTarget`
+
+error[E0308]: mismatched types
+   --> src\response\mod.rs:414:21
+    |
+406 |                 let quarantine_target = match target {
+    |                                               ------ this expression has type `&std::string::String`
+...
+414 |                     NetworkTarget::All => {
+    |                     ^^^^^^^^^^^^^^^^^^ expected `String`, found `NetworkTarget`
+...
+731 |     All,
+    |     --- unit variant defined here
+
+error[E0599]: no method named `file_name` found for reference `&std::string::String` in the current scope
+   --> src\response\mod.rs:448:46
+    |
+448 |                     quarantine_dir.join(path.file_name().unwrap_or_default());
+    |                                              ^^^^^^^^^
+    |
+help: there is a method `type_name` with a similar name
+    |
+448 -                     quarantine_dir.join(path.file_name().unwrap_or_default());
+448 +                     quarantine_dir.join(path.type_name().unwrap_or_default());
+    |
+
+error[E0599]: no method named `display` found for reference `&std::string::String` in the current scope
+   --> src\response\mod.rs:452:26
+    |
+452 |                     path.display(),
+    |                          ^^^^^^^
+    |
+help: there is a method `fmt_display` with a similar name
+    |
+452 |                     path.fmt_display(),
+    |                          ++++
+
+error[E0308]: mismatched types
+   --> src\response\mod.rs:512:40
+    |
+512 | ...                   return Err(e);
+    |                              --- ^ expected `Box<dyn Error + Send + Sync>`, found `Error`
+    |                              |
+    |                              arguments to this enum variant are incorrect
+    |
+    = note: expected struct `Box<dyn StdError + std::marker::Send + std::marker::Sync>`
+               found struct `windows_core::error::Error`
+    = note: for more on the distinction between the stack and the heap, read https://doc.rust-lang.org/book/ch15-01-box.html, 
+https://doc.rust-lang.org/rust-by-example/std/box.html, and https://doc.rust-lang.org/std/boxed/index.html
+help: the type constructed contains `windows_core::error::Error` due to the type of the argument passed
+   --> src\response\mod.rs:512:36
+    |
+512 | ...                   return Err(e);
+    |                              ^^^^-^
+    |                                  |
+    |                                  this argument influences the type of `Err`
+note: tuple variant defined here
+   --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\result.rs:557:5
+    |
+557 |     Err(#[stable(feature = "rust1", since = "1.0.0")] E),
+    |     ^^^
+help: store this in the heap by calling `Box::new`
+    |
+512 |                             return Err(Box::new(e));
+    |                                        +++++++++ +
+
+error[E0308]: mismatched types
+   --> src\response\mod.rs:540:40
+    |
+540 | ...                   return Err(e);
+    |                              --- ^ expected `Box<dyn Error + Send + Sync>`, found `Error`
+    |                              |
+    |                              arguments to this enum variant are incorrect
+    |
+    = note: expected struct `Box<dyn StdError + std::marker::Send + std::marker::Sync>`
+               found struct `windows_core::error::Error`
+    = note: for more on the distinction between the stack and the heap, read https://doc.rust-lang.org/book/ch15-01-box.html, 
+https://doc.rust-lang.org/rust-by-example/std/box.html, and https://doc.rust-lang.org/std/boxed/index.html
+help: the type constructed contains `windows_core::error::Error` due to the type of the argument passed
+   --> src\response\mod.rs:540:36
+    |
+540 | ...                   return Err(e);
+    |                              ^^^^-^
+    |                                  |
+    |                                  this argument influences the type of `Err`
+note: tuple variant defined here
+   --> C:\Users\GACEB\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\result.rs:557:5
+    |
+557 |     Err(#[stable(feature = "rust1", since = "1.0.0")] E),
+    |     ^^^
+help: store this in the heap by calling `Box::new`
+    |
+540 |                             return Err(Box::new(e));
+    |                                        +++++++++ +
+
+error[E0277]: `EscalationStats` is not a future
+   --> src\response\mod.rs:583:42
+    |
+583 |         Ok(engine.get_escalation_stats().await)
+    |                                          ^^^^^ `EscalationStats` is not a future
+    |
+    = help: the trait `futures::Future` is not implemented for `EscalationStats`
+    = note: EscalationStats must be a future or must implement `IntoFuture` to be awaited
+    = note: required for `EscalationStats` to implement `std::future::IntoFuture`
+help: remove the `.await`
+    |
+583 -         Ok(engine.get_escalation_stats().await)
+583 +         Ok(engine.get_escalation_stats())
+    |
+
+error[E0624]: associated function `new` is private
+    --> src\tests\network_analysis_tests_functional.rs:90:69
+     |
+90   |         let traffic_analyzer = Arc::new(Mutex::new(TrafficAnalyzer::new()));
+     |                                                                     ^^^ private associated function
+     |
+    ::: src\detection\network.rs:1856:5
+     |
+1856 |     fn new() -> Self {
+     |     ---------------- private associated function defined here
+     |
+     = help: items from traits can only be used if the trait is in scope
+help: trait `Paint` which provides `new` is implemented but not in scope; perhaps you want to import it
+     |
+7    + use yansi::paint::Paint;
+     |
+
+error[E0624]: associated function `new` is private
+    --> src\tests\integration_tests_functional.rs:146:55
+     |
+146  |             Some(Arc::new(Mutex::new(TrafficAnalyzer::new())))
+     |                                                       ^^^ private associated function
+     |
+    ::: src\detection\network.rs:1856:5
+     |
+1856 |     fn new() -> Self {
+     |     ---------------- private associated function defined here
+     |
+     = help: items from traits can only be used if the trait is in scope
+help: trait `Paint` which provides `new` is implemented but not in scope; perhaps you want to import it
+     |
+6    + use yansi::paint::Paint;
+     |
+
+error[E0277]: the trait bound `AtomicU64: Clone` is not satisfied
+   --> src\behavioral\advanced_analysis.rs:876:5
+    |
+874 | #[derive(Debug, Clone, Default)]
+    |                 ----- in this derive macro expansion
+875 | pub struct AdvancedBehavioralMetrics {
+876 |     pub processes_tracked: std::sync::atomic::AtomicU64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Clone` is not implemented for `AtomicU64`
+
+error[E0277]: the trait bound `AtomicU64: Clone` is not satisfied
+   --> src\behavioral\advanced_analysis.rs:877:5
+    |
+874 | #[derive(Debug, Clone, Default)]
+    |                 ----- in this derive macro expansion
+...
+877 |     pub behavioral_analyses: std::sync::atomic::AtomicU64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Clone` is not implemented for `AtomicU64`
+
+error[E0277]: the trait bound `AtomicU64: Clone` is not satisfied
+   --> src\behavioral\advanced_analysis.rs:878:5
+    |
+874 | #[derive(Debug, Clone, Default)]
+    |                 ----- in this derive macro expansion
+...
+878 |     pub anomalies_detected: std::sync::atomic::AtomicU64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Clone` is not implemented for `AtomicU64`
+
+error[E0277]: the trait bound `AtomicU64: Clone` is not satisfied
+   --> src\behavioral\advanced_analysis.rs:879:5
+    |
+874 | #[derive(Debug, Clone, Default)]
+    |                 ----- in this derive macro expansion
+...
+879 |     pub lateral_movement_detections: std::sync::atomic::AtomicU64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Clone` is not implemented for `AtomicU64`
+
+error[E0277]: the trait bound `AtomicU64: Clone` is not satisfied
+   --> src\behavioral\advanced_analysis.rs:880:5
+    |
+874 | #[derive(Debug, Clone, Default)]
+    |                 ----- in this derive macro expansion
+...
+880 |     pub persistence_detections: std::sync::atomic::AtomicU64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Clone` is not implemented for `AtomicU64`
+
+error[E0277]: the trait bound `AtomicU64: Clone` is not satisfied
+   --> src\behavioral\advanced_analysis.rs:881:5
+    |
+874 | #[derive(Debug, Clone, Default)]
+    |                 ----- in this derive macro expansion
+...
+881 |     pub entropy_analyses: std::sync::atomic::AtomicU64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Clone` is not implemented for `AtomicU64`
+
+error[E0560]: struct `MemoryForensicsFeatures` has no field named `injection_count`
+   --> src\memory\integrated_analyzer.rs:583:13
+    |
+583 |             injection_count: stats.get("avg_injection_count").copied().unwrap_or(0.0),
+    |             ^^^^^^^^^^^^^^^ `MemoryForensicsFeatures` does not have this field
+    |
+    = note: available fields are: `feature_count`, `anomaly_indicators`
+
+error[E0560]: struct `MemoryForensicsFeatures` has no field named `shellcode_count`
+   --> src\memory\integrated_analyzer.rs:584:13
+    |
+584 |             shellcode_count: stats.get("avg_shellcode_count").copied().unwrap_or(0.0),
+    |             ^^^^^^^^^^^^^^^ `MemoryForensicsFeatures` does not have this field
+    |
+    = note: available fields are: `feature_count`, `anomaly_indicators`
+
+error[E0560]: struct `MemoryForensicsFeatures` has no field named `high_entropy_regions`
+   --> src\memory\integrated_analyzer.rs:585:13
+    |
+585 |             high_entropy_regions: stats.get("avg_entropy_regions").copied().unwrap_or(0.0),
+    |             ^^^^^^^^^^^^^^^^^^^^ `MemoryForensicsFeatures` does not have this field
+    |
+    = note: available fields are: `feature_count`, `anomaly_indicators`
+
+error[E0560]: struct `MemoryForensicsFeatures` has no field named `critical_threats`
+   --> src\memory\integrated_analyzer.rs:586:13
+    |
+586 |             critical_threats: stats.get("avg_critical_threats").copied().unwrap_or(0.0),
+    |             ^^^^^^^^^^^^^^^^ `MemoryForensicsFeatures` does not have this field
+    |
+    = note: available fields are: `feature_count`, `anomaly_indicators`
+
+error[E0061]: this method takes 3 arguments but 2 arguments were supplied
+   --> src\response\enterprise_policy_engine.rs:657:22
+    |
+657 |           self.metrics.record_histogram(
+    |  ______________________^^^^^^^^^^^^^^^^-
+658 | |             "policy_decision_latency_ms",
+659 | |             decision_time.as_millis() as f64,
+660 | |         );
+    | |_________- argument #3 of type `&[(&str, &str)]` is missing
+    |
+note: method defined here
+   --> src\metrics\mod.rs:289:12
+    |
+289 |     pub fn record_histogram(&self, name: &str, value: f64, labels: &[(&str, &str)]) {
+    |            ^^^^^^^^^^^^^^^^                                -----------------------
+help: provide the argument
+    |
+657 -         self.metrics.record_histogram(
+658 -             "policy_decision_latency_ms",
+659 -             decision_time.as_millis() as f64,
+660 -         );
+657 +         self.metrics.record_histogram("policy_decision_latency_ms", decision_time.as_millis() as f64, /* &[(&str, &str)] */);
+    |
+
+error[E0308]: mismatched types
+   --> src\response\enterprise_policy_engine.rs:664:65
+    |
+664 |             .record_counter("threat_mapping_evaluations_total", 1);
+    |              --------------                                     ^ expected `f64`, found integer
+    |              |
+    |              arguments to this method are incorrect
+    |
+note: method defined here
+   --> src\metrics\mod.rs:277:12
+    |
+277 |     pub fn record_counter(&self, name: &str, value: f64) {
+    |            ^^^^^^^^^^^^^^                    ----------
+help: use a float literal
+    |
+664 |             .record_counter("threat_mapping_evaluations_total", 1.0);
+    |                                                                  ++
+
+error[E0308]: mismatched types
+   --> src\response\enterprise_policy_engine.rs:668:68
+    |
+668 |         self.metrics.record_counter("threshold_evaluations_total", 1);
+    |                      --------------                                ^ expected `f64`, found integer
+    |                      |
+    |                      arguments to this method are incorrect
+    |
+note: method defined here
+   --> src\metrics\mod.rs:277:12
+    |
+277 |     pub fn record_counter(&self, name: &str, value: f64) {
+    |            ^^^^^^^^^^^^^^                    ----------
+help: use a float literal
+    |
+668 |         self.metrics.record_counter("threshold_evaluations_total", 1.0);
+    |                                                                     ++
+
+error[E0308]: mismatched types
+   --> src\response\enterprise_policy_engine.rs:682:64
+    |
+682 |             self.metrics.record_counter("erdps_actions_total", 1);
+    |                          --------------                        ^ expected `f64`, found integer
+    |                          |
+    |                          arguments to this method are incorrect
+    |
+note: method defined here
+   --> src\metrics\mod.rs:277:12
+    |
+277 |     pub fn record_counter(&self, name: &str, value: f64) {
+    |            ^^^^^^^^^^^^^^                    ----------
+help: use a float literal
+    |
+682 |             self.metrics.record_counter("erdps_actions_total", 1.0);
+    |                                                                 ++
+
+error[E0277]: the trait bound `response::ResponseAction: serde::Serialize` is not satisfied
+    --> src\response\enterprise_policy_engine.rs:948:24
+     |
+948  | #[derive(Debug, Clone, Serialize, Deserialize)]
+     |                        ^^^^^^^^^ the trait `error::_::_serde::Serialize` is not implemented for `response::ResponseAction`
+...
+951  |     pub recommended_actions: Vec<ResponseAction>,
+     |     --- required by a bound introduced by this call
+     |
+     = note: for local types consider adding `#[derive(serde::Serialize)]` to your `response::ResponseAction` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `error::_::_serde::Serialize`:
+               &'a T
+               &'a mut T
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+               (T0, T1, T2, T3)
+               (T0, T1, T2, T3, T4)
+             and 2343 others
+     = note: required for `Vec<response::ResponseAction>` to implement `error::_::_serde::Serialize`
+note: required by a bound in `error::_::_serde::ser::SerializeStruct::serialize_field`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.228\src\ser\mod.rs:1917:21
+     |
+1915 |     fn serialize_field<T>(&mut self, key: &'static str, value: &T) -> Result<(), Self::Error>
+     |        --------------- required by a bound in this associated function
+1916 |     where
+1917 |         T: ?Sized + Serialize;
+     |                     ^^^^^^^^^ required by this bound in `SerializeStruct::serialize_field`
+     = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `response::ResponseAction: serde::Deserialize<'de>` is not satisfied
+    --> src\response\enterprise_policy_engine.rs:951:30
+     |
+951  |     pub recommended_actions: Vec<ResponseAction>,
+     |                              ^^^^^^^^^^^^^^^^^^^ the trait `error::_::_serde::Deserialize<'_>` is not implemented for `response::ResponseAction`
+     |
+     = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `response::ResponseAction` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `error::_::_serde::Deserialize<'de>`:
+               `&'a [u8]` implements `error::_::_serde::Deserialize<'de>`
+               `&'a bstr::bstr::BStr` implements `error::_::_serde::Deserialize<'de>`
+               `&'a serde_json::value::RawValue` implements `error::_::_serde::Deserialize<'de>`
+               `&'a std::path::Path` implements `error::_::_serde::Deserialize<'de>`
+               `&'a str` implements `error::_::_serde::Deserialize<'de>`
+               `()` implements `error::_::_serde::Deserialize<'de>`
+               `(T,)` implements `error::_::_serde::Deserialize<'de>`
+               `(T0, T1)` implements `error::_::_serde::Deserialize<'de>`
+             and 2348 others
+     = note: required for `Vec<response::ResponseAction>` to implement `error::_::_serde::Deserialize<'_>`
+note: required by a bound in `next_element`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.228\src\de\mod.rs:1771:12
+     |
+1769 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1770 |     where
+1771 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+
+error[E0277]: the trait bound `response::ResponseAction: serde::Deserialize<'de>` is not satisfied
+    --> src\response\enterprise_policy_engine.rs:951:30
+     |
+951  |     pub recommended_actions: Vec<ResponseAction>,
+     |                              ^^^^^^^^^^^^^^^^^^^ the trait `error::_::_serde::Deserialize<'_>` is not implemented for `response::ResponseAction`
+     |
+     = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `response::ResponseAction` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `error::_::_serde::Deserialize<'de>`:
+               `&'a [u8]` implements `error::_::_serde::Deserialize<'de>`
+               `&'a bstr::bstr::BStr` implements `error::_::_serde::Deserialize<'de>`
+               `&'a serde_json::value::RawValue` implements `error::_::_serde::Deserialize<'de>`
+               `&'a std::path::Path` implements `error::_::_serde::Deserialize<'de>`
+               `&'a str` implements `error::_::_serde::Deserialize<'de>`
+               `()` implements `error::_::_serde::Deserialize<'de>`
+               `(T,)` implements `error::_::_serde::Deserialize<'de>`
+               `(T0, T1)` implements `error::_::_serde::Deserialize<'de>`
+             and 2348 others
+     = note: required for `Vec<response::ResponseAction>` to implement `error::_::_serde::Deserialize<'_>`
+note: required by a bound in `next_value`
+    --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.228\src\de\mod.rs:1916:12
+     |
+1914 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1915 |     where
+1916 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+
+error[E0277]: the trait bound `response::ResponseAction: serde::Deserialize<'de>` is not satisfied
+   --> src\response\enterprise_policy_engine.rs:948:35
+    |
+948 | #[derive(Debug, Clone, Serialize, Deserialize)]
+    |                                   ^^^^^^^^^^^ the trait `error::_::_serde::Deserialize<'_>` is not implemented for `response::ResponseAction`
+    |
+    = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `response::ResponseAction` type
+    = note: for types from other crates check whether the crate offers a `serde` feature flag
+    = help: the following other types implement trait `error::_::_serde::Deserialize<'de>`:
+              `&'a [u8]` implements `error::_::_serde::Deserialize<'de>`
+              `&'a bstr::bstr::BStr` implements `error::_::_serde::Deserialize<'de>`
+              `&'a serde_json::value::RawValue` implements `error::_::_serde::Deserialize<'de>`
+              `&'a std::path::Path` implements `error::_::_serde::Deserialize<'de>`
+              `&'a str` implements `error::_::_serde::Deserialize<'de>`
+              `()` implements `error::_::_serde::Deserialize<'de>`
+              `(T,)` implements `error::_::_serde::Deserialize<'de>`
+              `(T0, T1)` implements `error::_::_serde::Deserialize<'de>`
+            and 2348 others
+    = note: required for `Vec<response::ResponseAction>` to implement `error::_::_serde::Deserialize<'_>`
+note: required by a bound in `error::_::_serde::__private228::de::missing_field`
+   --> C:\Users\GACEB\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs:26:8
+    |
+24  | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+    |        ------------- required by a bound in this function
+25  | where
+26  |     V: Deserialize<'de>,
+    |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+    = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\policy_engine.rs:419:14
+    |
+418 | /         self.metrics
+419 | |             .increment_response_actions("policy_evaluation", "processed");
+    | |             -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_____________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\policy_engine.rs:426:26
+    |
+425 | /                     self.metrics
+426 | |                         .increment_response_actions("process_termination", "generated");
+    | |                         -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\policy_engine.rs:430:26
+    |
+429 | /                     self.metrics
+430 | |                         .increment_response_actions("file_quarantine", "generated");
+    | |                         -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\policy_engine.rs:434:26
+    |
+433 | /                     self.metrics
+434 | |                         .increment_response_actions("network_isolation", "generated");
+    | |                         -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\policy_engine.rs:438:26
+    |
+437 | /                     self.metrics
+438 | |                         .increment_response_actions("alert", "generated");
+    | |                         -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\policy_engine.rs:443:26
+    |
+442 | /                     self.metrics
+443 | |                         .increment_response_actions("process_suspend", "generated");
+    | |                         -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\policy_engine.rs:447:26
+    |
+446 | /                     self.metrics
+447 | |                         .increment_response_actions("network_quarantine", "generated");
+    | |                         -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\policy_engine.rs:451:26
+    |
+450 | /                     self.metrics
+451 | |                         .increment_response_actions("firewall_block", "generated");
+    | |                         -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________________|
+    |
+
+error[E0599]: no method named `increment_response_actions` found for struct `Arc<metrics::MetricsCollector>` in the current scope
+   --> src\response\policy_engine.rs:455:26
+    |
+454 | /                     self.metrics
+455 | |                         .increment_response_actions("risk_assessment", "generated");
+    | |                         -^^^^^^^^^^^^^^^^^^^^^^^^^^ method not found in `Arc<metrics::MetricsCollector>`
+    | |_________________________|
+    |
+
+error[E0277]: the trait bound `tokio::sync::oneshot::Sender<Vec<response::ResponseAction>>: Clone` is not satisfied
+  --> src\response\concurrent_processor.rs:48:5
+   |
+44 | #[derive(Debug, Clone)]
+   |                 ----- in this derive macro expansion
+...
+48 |     pub response_sender: Option<oneshot::Sender<Vec<ResponseAction>>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Clone` is not implemented for 
+`tokio::sync::oneshot::Sender<Vec<response::ResponseAction>>`
+   |
+   = note: required for `std::option::Option<tokio::sync::oneshot::Sender<Vec<response::ResponseAction>>>` to implement `Clone`
+
+Some errors have detailed explanations: E0026, E0027, E0061, E0063, E0107, E0277, E0308, E0382, E0412...
+For more information about an error, try `rustc --explain E0026`.
+error: could not compile `erdps-agent` (lib) due to 196 previous errors

@@ -1,0 +1,11 @@
+# ERDPS Agent Configuration
+metrics_port: 19093
+max_concurrency: 4
+rate_limit: 100
+quarantine_dir: "C:\\ERDPS\\quarantine"
+excluded_paths:
+  - "C:\\Windows\\System32"
+  - "C:\\Program Files"
+additional_rules_dirs:
+  - "./rules"
+log_level: "info

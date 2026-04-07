@@ -1,0 +1,5 @@
+This is a clean test file that should not trigger any YARA rules.
+It contains normal, benign content for testing purposes.
+No malicious patterns or suspicious commands are present here.
+This file is used to test that the YARA engine correctly identifies clean files.
+Just some regular text content without any threats.

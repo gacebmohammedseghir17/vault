@@ -1,0 +1,14 @@
+# ERDPS Agent Configuration for Service Mode
+
+[agent]
+agent_id = "test-service-agent"
+ipc_key = "test-service-key-12345"
+
+[logging]
+level = "info"
+file = "erdps-agent.log"
+
+[metrics]
+enabled = true
+port = 9090
+bin

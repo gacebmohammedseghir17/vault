@@ -1,0 +1,21 @@
+# Grafana Data Source Provisioning Configuration for ERDPS Agent
+apiVersion: 1
+
+datasources:
+  - name: 'ERDPS Prometheus'
+    type: prometheus
+    access: proxy
+    url: http://localhost:9091
+    isDefault: true
+    editable: true
+    jsonData:
+      httpMethod: GET
+      prometheusType: Prometheus
+      prometheusVersion: 2.40.0
+      exemplarTraceIdDestinations:
+        - name: trace_id
+          datasourceUid: jaeger
+    secureJsonData:
+      # Add authentication if needed
+      # basicAuthPassword: 'password'
+    version: 1

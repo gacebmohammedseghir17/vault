@@ -1,0 +1,157 @@
+# ERDPS Agent Configuration
+
+# Ensure quarantine path is writable for non-admin runs
+quarantine_path = "D:\\projecttttttttts\\project-ransolution\\agent\\quarantine"
+audit_log_path = "D:\\projecttttttttts\\project-ransolution\\agent\\logs\\audit.log"
+
+# Required top-level fields
+config_version = "2.0"
+agent_id = "erdps-agent-local"
+# IPC key used for local testing; replace for production
+ipc_key = "dGVzdF9pcGNfa2V5XzEyMzQ1Njc4OTBhYmNkZWY="
+allow_terminate = false
+mitigation_score_threshold = 70
+auto_mitigate = true
+process_behavior_window_secs = 300
+process_behavior_write_threshold = 100
+entropy_threshold = 7.0
+dry_run = false
+auto_quarantine_score = 80
+ransom_note_patterns = ["README", "DECRYPT", "RANSOM", "PAYMENT"]
+
+[service]
+mode = "production"
+scan_paths = [
+  "D:\\projecttttttttts\\project-ransolution\\ransom_sim_sandbox"
+]
+exclude_paths = [
+  "C:\\Windows\\System32",
+  "C:\\Windows\\SysWOW64",
+  "C:\\$Recycle.Bin"
+]
+ipc_bind = "127.0.0.1:8888"
+allow_volume_scan = false
+
+[observability]
+metrics_bind = "127.0.0.1:19092"
+metrics_port = 19092
+dashboard_bind = "127.0.0.1:19101"
+dashboard_port = 19101
+log_level = "debug"
+log_filters = "notify=info,erdps_agent=info,erdps_agent::dashboard=info,erdps_agent::behavioral::etw_monitor=warn,erdps_agent::filesystem=warn"
+
+[performance]
+cpu_limit_percent = 6.0
+memory_limit_mb = 200
+enable_enforcement = true
+
+[detection]
+mttd_target_seconds = 60
+false_positive_threshold = 0.1
+enable_yara_fs_monitor = true
+yara_rules_path = "./rules"
+
+# Full YARA configuration to ensure real-time monitoring and correct extensions
+[yara]
+enabled = false
+rules_path = "rules/"
+additional_rules_paths = [
+  "rules/local/",
+  "rules/signature-base/",
+  "rules/eset-malware-iocs/",
+  "rules/yara-forge-full/",
+  "rules/elastic-security/",
+  "rules/reversinglabs-yara/",
+  "rules/yara-forge-core/",
+  "rules/kaggle-yara-rules/",
+  "rules/awesome-yara/"
+]
+scan_directories = [
+  "C:\\Users",
+  "C:\\Downloads",
+  "C:\\Documents",
+  "C:\\Desktop",
+  "C:\\Temp"
+]
+excluded_directories = [
+  "C:\\Windows\\System32",
+  "C:\\Windows\\SysWOW64",
+  "C:\\Program Files",
+  "C:\\Program Files (x86)"
+]
+file_extensions = [
+  ".exe",
+  ".dll",
+  ".bat",
+  ".cmd",
+  ".ps1",
+  ".vbs",
+  ".js",
+  ".jar",
+  ".scr",
+  ".com",
+  ".pif",
+  ".txt",
+  ".ransom_test",
+  ".enc"
+]
+max_file_size_mb = 100
+scan_timeout_seconds = 30
+max_concurrent_scans = 4
+memory_chunk_size = 1048576
+
+[yara.real_time_monitoring]
+enabled = false
+watch_directories = [
+  "D:\\projecttttttttts\\project-ransolution\\ransom_sim_sandbox"
+]
+scan_on_write = true
+scan_on_create = true
+scan_on_modify = true
+debounce_ms = 500
+max_pending_events = 1000
+
+[yara.periodic_scan]
+enabled = false
+interval_minutes = 60
+full_system_scan_hours = 24
+
+[yara.performance]
+memory_limit_mb = 512
+cpu_limit_percent = 25
+io_priority = "low"
+
+[yara.alerts]
+send_to_dashboard = true
+log_to_file = true
+severity_threshold = "medium"
+
+# YARA updater configuration (required when YARA feature is enabled)
+[yara_updater]
+enabled = true
+repo_url = "https://github.com/Neo23x0/signature-base"
+branch = "master"
+# Use local rules directory
+rules_directory = "D:\\projecttttttttts\\project-ransolution\\agent\\rules"
+update_interval_hours = 24
+request_timeout_seconds = 300
+max_retries = 3
+verify_checksums = true
+enforce_signature = true
+manifest_public_key_pem = "C:\\Users\\GACEB\\.ssh\\public.pem"
+
+[installer]
+signing_enabled = false
+signtool_path = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\x64\\signtool.exe"
+certificate_thumbprint = ""
+timestamp_url = "http://timestamp.digicert.com"
+artifact_paths = [
+  "D:\\projecttttttttts\\project-ransolution\\agent\\target\\release\\erdps-agent.exe"
+]
+[ai]
+ollama_url = "http://localhost:11434"
+default_model = "deepseek-r1:1.5b"
+timeout_seconds = 30
+max_retries = 3
+enable_cache = true
+cache_ttl = 3600
