@@ -78,6 +78,8 @@ uuid = { version = "1.6", features = ["v4", "serde", "fast-rng"] }
 async-trait = "0.1.88"
 lazy_static = "1.4"
 memmap2 = "0.9"
+rustyline = { version = "13.0", features = ["derive"] }
+minidump = "0.20"
 
 # Network and URL handling
 ipnetwork = "0.20"
@@ -208,7 +210,7 @@ entropy = "0.4"
 fastrand = "2.0"
 
 # File analysis (keeping goblin for PE/ELF parsing)
-goblin = { version = "0.10", optional = true }
+goblin = { version = "0.7", optional = true }
 
 # Validation and testing framework dependencies
 digest = "0.10"
@@ -268,7 +270,6 @@ windows = { version = "0.52", features = [
     "Win32_Storage_Vss",
     "Win32_System_IO",
     "Win32_System_RestartManager",
-    "Win32_System_Diagnostics_Etw"
 ] }
 
 # Unix-specific dependencies
@@ -306,7 +307,7 @@ der-parser = { version = "9.0", optional = true }
 # rayon = "1.8" - already present
 
 # Memory analysis and forensics
-goblin = { version = "0.8", optional = true }
+# goblin is declared above
 pe-parser = "0.7.0"
 elf = { version = "0.7", optional = true }
 
@@ -453,6 +454,30 @@ name = "threat_simulator"
 path = "src/bin/threat_simulator.rs"
 
 [[bin]]
+name = "threat_sim"
+path = "src/bin/threat_sim.rs"
+
+[[bin]]
+name = "wannacry_crypto_sim"
+path = "src/bin/wannacry_crypto_sim.rs"
+
+[[bin]]
+name = "notpetya_locker_sim"
+path = "src/bin/notpetya_locker_sim.rs"
+
+[[bin]]
+name = "darkside_doxware_sim"
+path = "src/bin/darkside_doxware_sim.rs"
+
+[[bin]]
+name = "lockbit_double_ext_sim"
+path = "src/bin/lockbit_double_ext_sim.rs"
+
+[[bin]]
+name = "revil_raas_sim"
+path = "src/bin/revil_raas_sim.rs"
+
+[[bin]]
 name = "smoke_scan_cli"
 path = "src/bin/smoke_scan_cli.rs"
 
@@ -523,7 +548,7 @@ required-features = ["testing", "telemetry", "behavioral-analysis", "yara"]
 
 [profile.release]
 lto = false
-codegen-units = 2
+codegen-units = 16
 panic = "abort"
 incremental = false
 debug = false

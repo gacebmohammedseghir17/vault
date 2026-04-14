@@ -64,7 +64,7 @@ impl GhostHunter {
                         
                         // Kill the Ghost
                         ActiveDefense::engage_kill_switch(pid);
-                        reporter::generate_and_send_alert(pid, "Unknown", "Hardware_Breakpoint", "EVASION_GHOST_HUNT");
+                        reporter::log_alert(pid, "Unknown", 0, "Hardware_Breakpoint");
                         killed_pids.push(pid);
                     }
                 }

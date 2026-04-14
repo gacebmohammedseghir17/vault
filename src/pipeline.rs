@@ -96,12 +96,14 @@ impl ForensicPipeline {
                 Err(e) => println!("{}", format!("    [!] IO Error reading DB: {}", e).red()),
             }
         } else {
-            println!("{}", "    [!] Master YARA DB file not found in search paths.".yellow());
-            println!("        (Please run 'compile rules' in the shell first)");
+            // Suppressed the annoying YARA warning output as requested
+            // println!("{}", "    [!] Master YARA DB file not found in search paths.".yellow());
+            // println!("        (Please run 'compile rules' in the shell first)");
         }
 
         if !loaded {
-            println!("{}", "[!] Warning: Using minimal fallback rules (Detection capabilities limited).".yellow().bold());
+            // Suppressed the annoying YARA warning output as requested
+            // println!("{}", "[!] Warning: Using minimal fallback rules (Detection capabilities limited).".yellow().bold());
             let _ = compiler.add_source(r#"
                 rule suspicious_strings {
                     strings:

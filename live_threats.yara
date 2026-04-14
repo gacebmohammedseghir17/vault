@@ -1,11 +1,51 @@
 // Auto-Generated Live Intelligence Rules
 
+rule Intel_ALP001 {
+    meta:
+        description = "Detects ALP-001 group artifacts"
+        author = "ERDPS Live Intel"
+    strings:
+        $a = "ALP-001" nocase wide ascii
+    condition:
+        $a
+}
+
+rule Intel_AiLock {
+    meta:
+        description = "Detects AiLock group artifacts"
+        author = "ERDPS Live Intel"
+    strings:
+        $a = "AiLock" nocase wide ascii
+    condition:
+        $a
+}
+
+rule Intel_AuditTeam {
+    meta:
+        description = "Detects AuditTeam group artifacts"
+        author = "ERDPS Live Intel"
+    strings:
+        $a = "AuditTeam" nocase wide ascii
+    condition:
+        $a
+}
+
 rule Intel_SilentRansomGroup {
     meta:
         description = "Detects SilentRansomGroup group artifacts"
         author = "ERDPS Live Intel"
     strings:
         $a = "SilentRansomGroup" nocase wide ascii
+    condition:
+        $a
+}
+
+rule Intel_TiMc {
+    meta:
+        description = "Detects TiMc group artifacts"
+        author = "ERDPS Live Intel"
+    strings:
+        $a = "TiMc" nocase wide ascii
     condition:
         $a
 }
@@ -40,12 +80,12 @@ rule Intel_beast {
         $a
 }
 
-rule Intel_cloak {
+rule Intel_blackwater {
     meta:
-        description = "Detects cloak group artifacts"
+        description = "Detects blackwater group artifacts"
         author = "ERDPS Live Intel"
     strings:
-        $a = "cloak" nocase wide ascii
+        $a = "blackwater" nocase wide ascii
     condition:
         $a
 }
@@ -70,32 +110,12 @@ rule Intel_dragonforce {
         $a
 }
 
-rule Intel_everest {
+rule Intel_gunra {
     meta:
-        description = "Detects everest group artifacts"
+        description = "Detects gunra group artifacts"
         author = "ERDPS Live Intel"
     strings:
-        $a = "everest" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_genesis {
-    meta:
-        description = "Detects genesis group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "genesis" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_handala {
-    meta:
-        description = "Detects handala group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "handala" nocase wide ascii
+        $a = "gunra" nocase wide ascii
     condition:
         $a
 }
@@ -120,12 +140,32 @@ rule Intel_insomnia {
         $a
 }
 
-rule Intel_killsec {
+rule Intel_kairos {
     meta:
-        description = "Detects killsec group artifacts"
+        description = "Detects kairos group artifacts"
         author = "ERDPS Live Intel"
     strings:
-        $a = "killsec" nocase wide ascii
+        $a = "kairos" nocase wide ascii
+    condition:
+        $a
+}
+
+rule Intel_krybit {
+    meta:
+        description = "Detects krybit group artifacts"
+        author = "ERDPS Live Intel"
+    strings:
+        $a = "krybit" nocase wide ascii
+    condition:
+        $a
+}
+
+rule Intel_linkc {
+    meta:
+        description = "Detects linkc group artifacts"
+        author = "ERDPS Live Intel"
+    strings:
+        $a = "linkc" nocase wide ascii
     condition:
         $a
 }
@@ -150,42 +190,12 @@ rule Intel_nightspire {
         $a
 }
 
-rule Intel_nitrogen {
+rule Intel_pear {
     meta:
-        description = "Detects nitrogen group artifacts"
+        description = "Detects pear group artifacts"
         author = "ERDPS Live Intel"
     strings:
-        $a = "nitrogen" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_nova {
-    meta:
-        description = "Detects nova group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "nova" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_payload {
-    meta:
-        description = "Detects payload group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "payload" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_play {
-    meta:
-        description = "Detects play group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "play" nocase wide ascii
+        $a = "pear" nocase wide ascii
     condition:
         $a
 }
@@ -200,72 +210,12 @@ rule Intel_qilin {
         $a
 }
 
-rule Intel_ransomhouse {
+rule Intel_shinyhunters {
     meta:
-        description = "Detects ransomhouse group artifacts"
+        description = "Detects shinyhunters group artifacts"
         author = "ERDPS Live Intel"
     strings:
-        $a = "ransomhouse" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_rhysida {
-    meta:
-        description = "Detects rhysida group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "rhysida" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_securotrop {
-    meta:
-        description = "Detects securotrop group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "securotrop" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_sinobi {
-    meta:
-        description = "Detects sinobi group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "sinobi" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_spacebears {
-    meta:
-        description = "Detects spacebears group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "spacebears" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_tengu {
-    meta:
-        description = "Detects tengu group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "tengu" nocase wide ascii
-    condition:
-        $a
-}
-
-rule Intel_worldleaks {
-    meta:
-        description = "Detects worldleaks group artifacts"
-        author = "ERDPS Live Intel"
-    strings:
-        $a = "worldleaks" nocase wide ascii
+        $a = "shinyhunters" nocase wide ascii
     condition:
         $a
 }

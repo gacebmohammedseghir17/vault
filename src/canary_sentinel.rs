@@ -23,22 +23,13 @@ impl CanarySentinel {
     pub fn deploy() {
         println!("\x1b[35m[CANARY] 🐤 DEPLOYING ACTIVE DECEPTION TRAPS (Phase 1)...\x1b[0m");
 
-        let user_profile = std::env::var("USERPROFILE").unwrap_or_else(|_| "C:\\Users\\Public".to_string());
-        let base_path = Path::new(&user_profile);
+        // Target Directory
+        let base_path = Path::new("C:\\Users\\Public");
 
-        // Targeted Directories (High Probability Ransomware Targets)
-        let targets = vec![
-            base_path.join("Documents"),
-            base_path.join("Desktop"),
-            base_path.join("Downloads"),
-            base_path.join("Music"),
-            base_path.join("Pictures"),
-        ];
-
-        // Irresistible Bait Names (Alphabetized to be hit first)
+        // Irresistible Bait Names
         let bait_names = vec![
-            "0000_Accounting_2026.xlsx",
-            "~$passwords.docx",
+            "passwords.txt",
+            "wallet.dat",
             "00_Backup_Codes.txt",
             "!_CRITICAL_FINANCE.pdf",
             "__Secret_Keys.kdbx"
@@ -46,12 +37,9 @@ impl CanarySentinel {
 
         let mut active_traps = Vec::new();
 
-        for dir in &targets {
-            if dir.exists() {
-                // Pick a random bait name
-                let mut rng = rand::thread_rng();
-                let bait_name = bait_names[rng.gen_range(0..bait_names.len())];
-                let trap_path = dir.join(bait_name);
+        if base_path.exists() {
+            for bait_name in bait_names {
+                let trap_path = base_path.join(bait_name);
 
                 if Self::plant_trap(&trap_path) {
                     active_traps.push(trap_path);
@@ -73,31 +61,19 @@ impl CanarySentinel {
         });
     }
 
-    /// ELITE UPGRADE: The Tar-Pit Trap. 
-    /// Creates a massive (1GB) sparse file. It takes up 0 bytes on disk, 
-    /// but forces ransomware to spend minutes trying to encrypt it, 
-    /// acting as a time-delay trap. 
+    /// Creates dummy files and sets them to hidden.
     fn plant_trap(path: &Path) -> bool { 
-        let file = match File::create(path) { 
-            Ok(f) => f, 
-            Err(_) => return false, 
-        }; 
+        let dummy_content = "This is a dummy bait file for ransomware detection.";
+        if std::fs::write(path, dummy_content).is_err() {
+            return false;
+        }
 
-        // 1. Create a 1 Gigabyte File instantly using set_len 
-        // To the OS and Ransomware, this is a 1GB file. 
-        // To the hard drive, it takes up almost no physical space. 
-        let one_gigabyte: u64 = 1024 * 1024 * 1024; 
-        if file.set_len(one_gigabyte).is_err() { 
-            return false; 
-        } 
-
-        // 2. Set Attributes: Hidden + System + ReadOnly (Phase 1 Requirement) 
+        // Set Attributes: Hidden + System
         let path_str = path.to_string_lossy().to_string(); 
         let mut path_wide: Vec<u16> = path_str.encode_utf16().collect(); 
         path_wide.push(0); 
 
         unsafe { 
-            // We use the Windows API to hide it from the user, but ransomware will still find it 
             let _ = SetFileAttributesW( 
                 PCWSTR(path_wide.as_ptr()), 
                 FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM 

@@ -114,7 +114,7 @@ impl HookHunter {
                         
                         println!("\x1b[31m[STARGATE] ⚡ EVASION DETECTED. NEUTRALIZING THREAT.\x1b[0m");
                         ActiveDefense::engage_kill_switch(pid);
-                        reporter::generate_and_send_alert(pid, "Unknown", "ntdll.dll", "API_HOOKING_EVASION");
+                        reporter::log_alert(pid, "Unknown", 0, "ntdll.dll");
                         break; 
                     }
                 }

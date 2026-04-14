@@ -7,17 +7,27 @@ use std::time::Duration;
 use std::process::Command;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
+use std::sync::atomic::Ordering;
 use crate::active_defense::ActiveDefense;
 use crate::ml_engine::NeuralEngine;
 use crate::behavioral_engine::BehavioralSentinel;
 use colored::*;
 use crate::reporter;
 use crate::graph_engine::TopologyEngine;
+use crate::SENTINEL_UI_ACTIVE;
 use once_cell::sync::Lazy;
 use winapi::um::tlhelp32::{CreateToolhelp32Snapshot, Process32FirstW, Process32NextW, PROCESSENTRY32W, TH32CS_SNAPPROCESS};
 use winapi::um::handleapi::CloseHandle;
 use winapi::shared::minwindef::FALSE;
 use winapi::shared::winerror::ERROR_NO_MORE_FILES;
+
+macro_rules! s_println {
+    ($($arg:tt)*) => {
+        if crate::SENTINEL_UI_ACTIVE.load(std::sync::atomic::Ordering::SeqCst) {
+            println!($($arg)*);
+        }
+    };
+}
 
 static TOPOLOGY: Lazy<Mutex<TopologyEngine>> = Lazy::new(|| Mutex::new(TopologyEngine::new()));
 
@@ -106,11 +116,11 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
             let result = FilterConnectCommunicationPort(windows::core::PCWSTR(port_name.as_ptr()), 0, None, 0, None);
 
             if result.is_err() {
-                println!("[ERROR] Driver not found. Is 'ERDPS_Sentinel.sys' loaded?");
+                s_println!("[ERROR] Driver not found. Is 'ERDPS_Sentinel.sys' loaded?");
                 return;
             }
             let port_handle = result.unwrap();
-            println!("[LINK] Connected to Kernel Driver. Listening for threats...");
+            s_println!("[LINK] Connected to Kernel Driver. Listening for threats...");
 
             loop {
                 let mut message: MessageWrapper = std::mem::zeroed();
@@ -126,12 +136,12 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                         let parent_name = get_process_name(ppid);
                         if let Ok(mut topo) = TOPOLOGY.lock() {
                             if let Some(alert) = topo.track_process_spawn(ppid, parent_name, pid, process_name.clone()) {
-                                println!("\x1b[31m[GRAPH] {}\x1b[0m", alert);
+                                s_println!("\x1b[31m[GRAPH] {}\x1b[0m", alert);
                                 // [ACTIVE DEFENSE] Graph Topology Kill
                                 if alert.contains("MALICIOUS") {
-                                    println!("\x1b[31m[ACTIVE DEFENSE] 🕸️ Graph Topology Rule Triggered: {}\x1b[0m", alert);
+                                    s_println!("\x1b[31m[ACTIVE DEFENSE] 🕸️ Graph Topology Rule Triggered: {}\x1b[0m", alert);
                                     ActiveDefense::engage_kill_switch(pid);
-                                    reporter::generate_and_send_alert(pid, &process_name, &target_file, "GRAPH_TOPOLOGY_KILL");
+                                    reporter::log_alert(pid, &process_name, reason, &target_file);
                                     // We continue processing to allow logging, but the process is dead.
                                 }
                             }
@@ -141,34 +151,44 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                     // --- THE NEW COLORED OUTPUT LOGIC ---
                     match reason {
                         1 => {
-                            println!("\x1b[31m[THREAT] 💀 PROCESS KILLED (PID: {})\x1b[0m", pid);
-                        },
+                            s_println!("\x1b[31m[CRITICAL] ☠️  PROCESS KILLED: {} (PID: {})\x1b[0m", process_name, pid);
+                        }
                         2 => {
-                            println!("\x1b[33m[BEHAVIOR] ⚠️ SUSPICIOUS FILE ACCESS (PID: {})\x1b[0m", pid);
-                        },
+                            s_println!("\x1b[33m[WARNING] ⚠️  SUSPICIOUS FILE ACCESS: {} (PID: {})\x1b[0m", process_name, pid);
+                        }
                         3 => {
-                            // Reason 3 = PreSetInfo Block (Rename/Delete Prevention)
-                            println!("\x1b[32m[DEFENSE] 🛡️ BLOCKED RANSOMWARE ATTEMPT (Rename/Delete) | PID: {}\x1b[0m", pid);
-
-                            // 1. TRIGGER KILL SWITCH
+                            s_println!("\x1b[41;37m[CRITICAL] ☠️  BLOCKED RANSOMWARE ATTEMPT (RENAME/DELETE) -> PID: {}\x1b[0m", pid);
                             ActiveDefense::engage_kill_switch(pid);
-
-                            // 2. TRIGGER SHADOW COPY RESTORE
                             ActiveDefense::create_snapshot();
-                        },
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
                         4 => {
-                            // Reason 4 = DELTA ENTROPY TRIGGER
-                            // Driver says: "This PID is writing high-entropy data (Ciphertext) to a file."
-                            // We confirm and kill.
-                            println!("\x1b[41;37m[ENTROPY] 🚨 DETECTED REAL-TIME ENCRYPTION LOOP (PID: {})\x1b[0m", pid);
-                            println!("\x1b[31m[ENTROPY] 📉 Delta: High Entropy Write (Ciphertext) detected.\x1b[0m");
-                            
-                            // KILL IMMEDIATELY
+                            s_println!("\x1b[41;37m[CRITICAL] ☠️  DELTA ENTROPY TRIGGERED (ENCRYPTION LOOP) -> PID: {}\x1b[0m", pid);
                             ActiveDefense::engage_kill_switch(pid);
-                            reporter::generate_and_send_alert(pid, &process_name, &target_file, "ENTROPY_ENCRYPTION_LOOP");
-                        },
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
+                        5 => {
+                            s_println!("\x1b[41;37m[CRITICAL] ☠️  DETECTED RAW DISK / MBR WRITE (PID: {})\x1b[0m", pid);
+                            ActiveDefense::engage_kill_switch(pid);
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
+                        6 => {
+                            s_println!("\x1b[41;37m[CRITICAL] ☠️  ZERO-TRUST EXECUTION BLOCKED (PID: {})\x1b[0m", pid);
+                            ActiveDefense::engage_kill_switch(pid);
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
+                        7 => {
+                            s_println!("\x1b[41;37m[CRITICAL] ☠️  VULNERABLE BYOVD DRIVER LOAD BLOCKED (PID: {})\x1b[0m", pid);
+                            ActiveDefense::engage_kill_switch(pid);
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
+                        8 => {
+                            s_println!("\x1b[41;37m[CRITICAL] KERNEL BLOCKED CANARY TAMPERING -> PID: {}\x1b[0m", pid);
+                            ActiveDefense::engage_kill_switch(pid);
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
                         _ => {
-                            println!("\x1b[34m[KERNEL] Raw Alert Received: PID={} Reason={}\x1b[0m", pid, reason);
+                            s_println!("\x1b[34m[KERNEL] Raw Alert Received: PID={} Reason={}\x1b[0m", pid, reason);
                         }
                     }
 
@@ -181,7 +201,7 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                     if process_name != "System" && process_name != "Unknown" {
                         // --- DIAMOND PATCH: BLOCK KNOWN RANSOMWARE TOOLS (Chaos v4) ---
                         if ActiveDefense::is_ransomware_tool(&process_name) {
-                            println!("\x1b[31m[!!!] BLOCKED RANSOMWARE TOOL: {}\x1b[0m", process_name);
+                            s_println!("\x1b[31m[!!!] BLOCKED RANSOMWARE TOOL: {}\x1b[0m", process_name);
                             kill_it = true;
                             threat_label = "RANSOMWARE_TOOL_BLOCK";
                             
@@ -197,16 +217,16 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                             let (malicious_score, _) = ai_engine.scan_static(&proc_path);
                             
                             if malicious_score > 0.95 {
-                                println!("\x1b[31m[ACTIVE DEFENSE] 🧠 AI CONFIDENCE > 95% (Score: {:.2}). ENGAGING LETHAL FORCE.\x1b[0m", malicious_score);
+                                s_println!("\x1b[31m[ACTIVE DEFENSE] 🧠 AI CONFIDENCE > 95% (Score: {:.2}). ENGAGING LETHAL FORCE.\x1b[0m", malicious_score);
                                 kill_it = true;
                                 threat_label = "AI_STATIC_CRITICAL";
                             } else if malicious_score > 0.7 {
-                                println!("\x1b[33m[ACTIVE DEFENSE] 🧠 AI SUSPICIOUS (Score: {:.2}). ENGAGING CONTAINMENT.\x1b[0m", malicious_score);
+                                s_println!("\x1b[33m[ACTIVE DEFENSE] 🧠 AI SUSPICIOUS (Score: {:.2}). ENGAGING CONTAINMENT.\x1b[0m", malicious_score);
                                 // Non-Lethal Response: Suspend + Isolate
                                 ActiveDefense::engage_suspend(pid);
                                 ActiveDefense::engage_network_isolation(pid, &proc_path);
                                 threat_label = "AI_STATIC_SUSPICIOUS";
-                                reporter::generate_and_send_alert(pid, &process_name, &target_file, "CONTAINMENT_PROTOCOL");
+                                reporter::log_alert(pid, &process_name, reason, &target_file);
                             } else if malicious_score < 0.2 {
                                 // AI says it's safe (e.g., explorer.exe)
                                 // We IGNORE the alert unless it's a Honeypot trigger.
@@ -218,7 +238,7 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                     // 2. KERNEL REASON LOGIC (Backup)
                     if !kill_it {
                         if reason == 1 {
-                            println!("[*] HONEYPOT TRIGGERED. KILLING...");
+                            s_println!("[*] HONEYPOT TRIGGERED. KILLING...");
                             kill_it = true;
                             threat_label = "HONEYPOT";
                         }
@@ -226,7 +246,7 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                             // Rename detected. AI didn't flag it, but Kernel did.
                             // If AI score was low (safe), we trust AI and ignore.
                             // If AI score was medium (0.5), we trust Kernel and block.
-                             println!("[!] SUSPICIOUS RENAME by {}", process_name);
+                             s_println!("[!] SUSPICIOUS RENAME by {}", process_name);
                              // For now, only kill if not explorer
                              if process_name.to_lowercase() != "explorer.exe" {
                                  kill_it = true;
@@ -237,8 +257,12 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
 
                     if kill_it {
                         ActiveDefense::engage_kill_switch(pid);
-                        reporter::generate_and_send_alert(pid, &process_name, &target_file, threat_label);
+                        reporter::log_alert(pid, &process_name, reason, &target_file);
                     }
+                } else {
+                    // THIS PREVENTS THE CRASH
+                    s_println!("\x1b[31m[!] KERNEL PORT DISCONNECTED. Exiting listener thread gracefully.\x1b[0m");
+                    break; 
                 }
             }
         }

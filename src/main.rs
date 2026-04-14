@@ -14,11 +14,13 @@ mod rootkit_hunter; // Phase 12: Rootkit Hunter
 mod entropy_engine; // Phase 13: AVX2 Entropy
 mod dns_hunter; // Phase 14: DNS Hunter
 mod canary_sentinel; // Phase 16: Canary Sentinel
+mod behavior;
 mod persistence_hunter; // Phase 17: Persistence Hunter
 mod hook_hunter; // Phase 18: Hook Hunter
 mod io_hunter;
 mod yara_forge; // Phase 19: Yara Forge
 mod yara_engine; // Yara Engine (Connected to Forge)
+pub mod forensic; // Phase 1: Deep PE Analysis & Simulated Cloud Threat Intel
 mod forensic_shell; // Import the new shell module
 mod ml_ngram; // ML N-Gram Engine
 mod model_hashes;
@@ -30,8 +32,11 @@ pub mod live_hunter; // New Live Hunter Module
 // mod memory_scanner; // Phase 9: Memory Hunter (Moved to Lib)
 
 use std::io::{self, Write};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::path::Path;
+
+pub static SENTINEL_UI_ACTIVE: AtomicBool = AtomicBool::new(false);
 
 use std::time::Duration;
 use erdps_agent::network::etw_hunter::EtwNetworkHunter;
@@ -120,10 +125,20 @@ fn main() {
 
     // 3. MAIN MENU 
     loop { 
+        std::process::Command::new("cmd").args(["/c", "cls"]).status().ok();
+        
+        SENTINEL_UI_ACTIVE.store(false, Ordering::SeqCst);
+        std::env::set_var("SENTINEL_UI_ACTIVE", "false");
+        
+        print_dashboard();
+        
         println!("\nSELECT OPERATION MODE:"); 
         println!("[1] START SENTINEL (Autonomous Active Defense)"); 
         println!("[2] FORENSIC TOOLKIT (Manual CLI Shell)"); 
         println!("[3] Exit"); 
+        println!("[4] LIFT QUARANTINE & CLEANUP ROLLBACK"); 
+        println!("[5] LOAD KERNEL DRIVER");
+        println!("[6] UNLOAD KERNEL DRIVER");
         
         print!("\nChoice > "); 
         io::stdout().flush().unwrap(); 
@@ -133,12 +148,15 @@ fn main() {
 
         match input.trim() { 
             "1" => { 
+                SENTINEL_UI_ACTIVE.store(true, Ordering::SeqCst);
+                std::env::set_var("SENTINEL_UI_ACTIVE", "true");
                 println!("[***] SENTINEL AI: ONLINE [***]"); 
                 
                 // --- CANARY DEPLOYMENT ---
                 // Phase 1: Deploy hidden files to trap ransomware
                 canary_sentinel::CanarySentinel::deploy();
                 io_hunter::IoHunter::start();
+                crate::behavior::start_behavior_monitor();
                 
                 // --- GHOST HUNTING ---
                 // Scan for hardware breakpoints (VEH evasion)
@@ -177,8 +195,13 @@ fn main() {
                 #[cfg(not(feature = "network-monitoring"))]
                 println!("[!] Network Sentinel disabled (feature: network-monitoring).");
                 
-                println!("[*] Monitoring Kernel Events... (Ctrl+C to stop)"); 
-                loop { std::thread::park(); } 
+                println!("\n\x1b[32;1m[ Press ENTER to safely stop Sentinel and return to Main Menu ]\x1b[0m");
+                std::io::stdin().read_line(&mut String::new()).unwrap();
+                println!("[*] Stopping Sentinel and returning to menu...");
+                
+                SENTINEL_UI_ACTIVE.store(false, Ordering::SeqCst);
+                std::env::set_var("SENTINEL_UI_ACTIVE", "false");
+                continue;
             },  
             "2" => { 
                 // [FORENSIC SHELL]
@@ -196,11 +219,82 @@ fn main() {
                 println!("Exiting...");
                 std::process::exit(0);
             }, 
+            "4" => {
+                println!("[*] Attempting to lift Network Quarantine & Cleanup Rollback...");
+                let result = std::process::Command::new("powershell.exe")
+                    .args(["-WindowStyle", "Hidden", "-Command", "Get-NetAdapter | Enable-NetAdapter -Confirm:$false"])
+                    .stdout(std::process::Stdio::null())
+                    .stderr(std::process::Stdio::null())
+                    .spawn()
+                    .ok();
+                
+                std::process::Command::new("cmd.exe") 
+                    .args(["/c", "rmdir", "C:\\ERDPS_Rollback"]) 
+                    .stdout(std::process::Stdio::null()) 
+                    .stderr(std::process::Stdio::null()) 
+                    .spawn() 
+                    .ok(); 
+
+                match result {
+                    Some(_) => println!("\x1b[32;1m[+] Network Restored. Rollback Mount Cleaned.\x1b[0m"),
+                    None => println!("\x1b[31;1m[!] Failed to execute command.\x1b[0m"),
+                }
+            },
+            "5" => {
+                println!("[*] Attempting to load Kernel Driver...");
+                let result = std::process::Command::new("cmd.exe")
+                    .args(["/c", "fltmc load ERDPS_Sentinel"])
+                    .status();
+                
+                match result {
+                    Ok(status) if status.success() => println!("\x1b[32;1m[+] Kernel Driver Loaded Successfully.\x1b[0m"),
+                    _ => println!("\x1b[31;1m[!] Failed to load Kernel Driver. (Are you running as Administrator?)\x1b[0m"),
+                }
+            },
+            "6" => {
+                println!("[*] Attempting to unload Kernel Driver...");
+                let result = std::process::Command::new("cmd.exe")
+                    .args(["/c", "fltmc unload ERDPS_Sentinel"])
+                    .status();
+                
+                match result {
+                    Ok(status) if status.success() => println!("\x1b[32;1m[+] Kernel Driver Unloaded Successfully.\x1b[0m"),
+                    _ => println!("\x1b[31;1m[!] Failed to unload Kernel Driver. (Are you running as Administrator?)\x1b[0m"),
+                }
+            },
             _ => println!("[!] Invalid selection."), 
         } 
     } 
 } 
 
+fn print_dashboard() {
+    let driver_check = std::process::Command::new("cmd.exe")
+        .args(["/c", "fltmc | findstr ERDPS_Sentinel"])
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .status();
+
+    let driver_status = match driver_check {
+        Ok(status) if status.success() => "\x1b[32;1mLOADED (Active Defense ON)\x1b[0m",
+        _ => "\x1b[31;1mOFFLINE\x1b[0m",
+    };
+
+    let network_check = std::process::Command::new("cmd.exe")
+        .args(["/c", "ping -n 1 8.8.8.8"])
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .status();
+
+    let network_status = match network_check {
+        Ok(status) if status.success() => "\x1b[32;1mSECURE (Connected)\x1b[0m",
+        _ => "\x1b[31;1mQUARANTINED (Host Isolated)\x1b[0m",
+    };
+
+    println!("\n=== [ ERDPS SYSTEM STATUS ] ===");
+    println!("[+] KERNEL DRIVER:   {}", driver_status);
+    println!("[+] NETWORK STATE:   {}", network_status);
+    println!("===============================");
+} 
 fn print_banner() { 
     println!(r#" 
     ███████╗██████╗ ██████╗ ██████╗ ███████╗ 
