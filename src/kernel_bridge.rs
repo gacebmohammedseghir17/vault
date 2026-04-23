@@ -5,7 +5,7 @@ use std::mem::size_of;
 use std::thread;
 use std::time::Duration;
 use std::process::Command;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, Mutex};
 use std::sync::atomic::Ordering;
 use crate::active_defense::ActiveDefense;
@@ -110,6 +110,7 @@ fn get_parent_pid(pid: u32) -> Option<u32> {
 pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
     thread::spawn(move || {
         let _strike_map: Arc<Mutex<HashMap<u32, u32>>> = Arc::new(Mutex::new(HashMap::new()));
+        let mut killed_pids: HashSet<u32> = HashSet::new();
 
         unsafe {
             let port_name: Vec<u16> = "\\ERDPSPort".encode_utf16().chain(Some(0)).collect();
@@ -128,6 +129,7 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
 
                 if result.is_ok() {
                     let pid = message.alert.pid;
+                    if killed_pids.contains(&pid) { continue; }
                     let reason = message.alert.reason;
                     let target_file = String::from_utf16_lossy(&message.alert.file_path).trim_matches(char::from(0)).to_string();
                     let process_name = get_process_name(pid);
@@ -256,6 +258,8 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                     }
 
                     if kill_it {
+                        killed_pids.insert(pid);
+                        s_println!("\x1b[31m[KILL] Neutralized Threat: {} (Label: {})\x1b[0m", process_name, threat_label);
                         ActiveDefense::engage_kill_switch(pid);
                         reporter::log_alert(pid, &process_name, reason, &target_file);
                     }

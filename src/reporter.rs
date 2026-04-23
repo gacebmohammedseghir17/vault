@@ -62,7 +62,7 @@ pub fn log_alert(pid: u32, process_name: &str, reason_code: u32, target_file: &s
     if log_obj["level"] == "CRITICAL" {
         // Trigger Host Isolation
         std::process::Command::new("cmd.exe")
-            .args(["/c", "netsh interface set interface \"Ethernet\" admin=disable & netsh interface set interface \"Ethernet0\" admin=disable & netsh interface set interface \"Wi-Fi\" admin=disable"])
+            .args(["/c", "netsh advfirewall set allprofiles state on & netsh advfirewall firewall add rule name=\"ERDPS_ISOLATION\" dir=in action=block & netsh advfirewall firewall add rule name=\"ERDPS_ISOLATION\" dir=out action=block"])
             .stdout(std::process::Stdio::null()) // CRITICAL: Silences the output
             .stderr(std::process::Stdio::null()) // CRITICAL: Silences errors to prevent CLI lag
             .spawn()

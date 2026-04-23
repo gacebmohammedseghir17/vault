@@ -101,7 +101,11 @@ impl ActiveDefense {
             }
         }
 
-        // CRITICAL: Right before the .kill() command is executed, call create_memory_dump
+        // CRITICAL: Freeze -> Dump -> Kill pipeline
+        // This ensures the dump completes successfully before the process is terminated
+        println!("\x1b[33m[ACTIVE DEFENSE] ❄️ FREEZING PROCESS PID: {} for Memory Dump\x1b[0m", pid);
+        ProcessFreezer::freeze(pid);
+
         Self::create_memory_dump(pid, &process_name_for_dump);
 
         unsafe {

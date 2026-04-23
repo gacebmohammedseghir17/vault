@@ -11,39 +11,7 @@ use colored::*;
 use std::thread;
 use std::sync::mpsc;
 use std::time::Duration;
-use rustyline::{Editor, Config, Result as RlResult, Context};
-use rustyline::completion::{FilenameCompleter, Completer, Pair};
-use rustyline::hint::Hinter;
-use rustyline::highlight::Highlighter;
-use rustyline::validate::Validator;
-use rustyline::Helper;
-
-struct ShellHelper {
-    completer: FilenameCompleter,
-}
-
-impl Completer for ShellHelper {
-    type Candidate = Pair;
-
-    fn complete(
-        &self,
-        line: &str,
-        pos: usize,
-        ctx: &Context<'_>,
-    ) -> rustyline::Result<(usize, Vec<Pair>)> {
-        self.completer.complete(line, pos, ctx)
-    }
-}
-
-impl Hinter for ShellHelper {
-    type Hint = String;
-}
-
-impl Highlighter for ShellHelper {}
-
-impl Validator for ShellHelper {}
-
-impl Helper for ShellHelper {}
+use rustyline::{Editor, Config, Result as RlResult};
 
 use windows::Win32::System::Memory::{VirtualQueryEx, MEMORY_BASIC_INFORMATION, PAGE_EXECUTE_READWRITE, PAGE_EXECUTE_READ, MEM_COMMIT}; 
 use windows::Win32::System::Threading::{OpenProcess, PROCESS_QUERY_INFORMATION, PROCESS_VM_READ}; 
@@ -95,22 +63,7 @@ fn scan_unbacked_memory(pid: u32) -> (bool, usize, bool) {
                     }
 
                     // Check for Header Stomping: Read the first 2 bytes (MZ header)
-                    let mut mz_buf = [0u8; 2];
-                    let mut bytes_read = 0;
-                    if windows::Win32::System::Diagnostics::Debug::ReadProcessMemory(
-                        handle,
-                        mem_info.BaseAddress,
-                        mz_buf.as_mut_ptr() as *mut c_void,
-                        2,
-                        Some(&mut bytes_read),
-                    ).is_ok() && bytes_read == 2 {
-                        // If it's a PE file allocation base, it should start with 'MZ' (0x4D, 0x5A)
-                        // If it's all zeros, the header has been stomped to evade memory scanners
-                        if mz_buf[0] == 0 && mz_buf[1] == 0 {
-                            has_stomped = true;
-                            total_size += mem_info.RegionSize;
-                        }
-                    }
+                    // REMOVED false positive mz_buf check per user request
                 }
             }
 
@@ -184,11 +137,7 @@ pub fn run(engine: Arc<NeuralEngine>) {
     let config = Config::builder()
         .auto_add_history(true)
         .build();
-    let mut rl = Editor::<ShellHelper, rustyline::history::DefaultHistory>::with_config(config).unwrap();
-    let helper = ShellHelper {
-        completer: FilenameCompleter::new(),
-    };
-    rl.set_helper(Some(helper));
+    let mut rl = Editor::<(), rustyline::history::DefaultHistory>::with_config(config).unwrap();
 
     loop {
         let readline = rl.readline("\x1b[1mERDPS > \x1b[0m");

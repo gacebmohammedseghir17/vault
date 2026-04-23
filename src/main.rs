@@ -52,6 +52,21 @@ const MODE_LABEL: &str = "MAXIMUM ENTROPY ANALYSIS";
 fn main() {
     print_banner();
 
+    // Auto-Recovery on Boot
+    std::process::Command::new("cmd.exe")
+        .args(["/c", "netsh advfirewall firewall delete rule name=\"ERDPS_ISOLATION\""])
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .spawn()
+        .ok();
+    
+    std::process::Command::new("cmd.exe") 
+        .args(["/c", "rmdir", "C:\\ERDPS_Rollback"]) 
+        .stdout(std::process::Stdio::null()) 
+        .stderr(std::process::Stdio::null()) 
+        .spawn() 
+        .ok();
+
     // Live Threat Intel Update
     println!("[*] Syncing Threat Intel...");
     match crate::live_hunter::fetch_active_groups() {
@@ -221,8 +236,8 @@ fn main() {
             }, 
             "4" => {
                 println!("[*] Attempting to lift Network Quarantine & Cleanup Rollback...");
-                let result = std::process::Command::new("powershell.exe")
-                    .args(["-WindowStyle", "Hidden", "-Command", "Get-NetAdapter | Enable-NetAdapter -Confirm:$false"])
+                let result = std::process::Command::new("cmd.exe")
+                    .args(["/c", "netsh advfirewall firewall delete rule name=\"ERDPS_ISOLATION\""])
                     .stdout(std::process::Stdio::null())
                     .stderr(std::process::Stdio::null())
                     .spawn()
