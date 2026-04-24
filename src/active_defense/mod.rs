@@ -6,7 +6,7 @@ use crate::active_defense::process_freeze::ProcessFreezer;
 use sysinfo::{System, Pid};
 use winapi::um::processthreadsapi::{OpenProcess, TerminateProcess};
 use winapi::um::handleapi::CloseHandle;
-use winapi::um::winnt::{PROCESS_TERMINATE, PROCESS_QUERY_INFORMATION, PROCESS_VM_READ, GENERIC_WRITE, FILE_SHARE_READ, FILE_ATTRIBUTE_NORMAL};
+use winapi::um::winnt::{PROCESS_TERMINATE, PROCESS_QUERY_INFORMATION, PROCESS_VM_READ, GENERIC_WRITE, GENERIC_READ, FILE_SHARE_READ, FILE_ATTRIBUTE_NORMAL};
 use std::fs;
 use windows::Win32::System::Diagnostics::Debug::{MiniDumpWriteDump, MiniDumpWithFullMemory, MiniDumpWithFullMemoryInfo, MINIDUMP_TYPE};
 use windows::Win32::Foundation::HANDLE;
@@ -33,7 +33,7 @@ impl ActiveDefense {
 
             let file_handle = CreateFileW(
                 wide_path.as_ptr(),
-                GENERIC_WRITE,
+                GENERIC_READ | GENERIC_WRITE,
                 FILE_SHARE_READ,
                 std::ptr::null_mut(),
                 CREATE_ALWAYS,

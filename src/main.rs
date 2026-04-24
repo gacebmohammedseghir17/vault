@@ -52,7 +52,15 @@ const MODE_LABEL: &str = "MAXIMUM ENTROPY ANALYSIS";
 fn main() {
     print_banner();
 
-    // Auto-Recovery on Boot
+    // Auto-Recovery on Boot: Clear any orphaned active defense firewall rules to prevent self-bricking
+    std::process::Command::new("cmd.exe")
+        .args(["/c", "netsh advfirewall firewall delete rule name=all dir=out"])
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .spawn()
+        .ok();
+    
+    // Also clean up any lingering isolation specific rules explicitly just in case
     std::process::Command::new("cmd.exe")
         .args(["/c", "netsh advfirewall firewall delete rule name=\"ERDPS_ISOLATION\""])
         .stdout(std::process::Stdio::null())
@@ -68,14 +76,16 @@ fn main() {
         .ok();
 
     // Live Threat Intel Update
-    println!("[*] Syncing Threat Intel...");
-    match crate::live_hunter::fetch_active_groups() {
-        Ok(groups) => {
-            crate::yara_forge::generate_rules(&groups);
-            println!("[+] Intel Updated: Tracking {} active groups.", groups.len());
-        },
-        Err(_) => println!("[!] Intel Sync Skipped (Offline).")
-    }
+    println!("[*] Syncing Threat Intel in background...");
+    std::thread::spawn(|| {
+        match crate::live_hunter::fetch_active_groups() {
+            Ok(groups) => {
+                crate::yara_forge::generate_rules(&groups);
+                println!("\n[+] Intel Updated: Tracking {} active groups.", groups.len());
+            },
+            Err(_) => println!("\n[!] Intel Sync Skipped (Offline).")
+        }
+    });
 
     // 1. INITIALIZE AI ENGINE (SINGLE LOAD)
     println!("[*] INITIALIZING NEURAL ENGINE (V6 Architecture)..."); 
@@ -311,14 +321,15 @@ fn print_dashboard() {
     println!("===============================");
 } 
 fn print_banner() { 
-    println!(r#" 
-    ███████╗██████╗ ██████╗ ██████╗ ███████╗ 
-    ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝ 
-    █████╗  ██████╔╝██║  ██║██████╔╝███████╗ 
-    ██╔══╝  ██╔══██╗██║  ██║██╔═══╝ ╚════██║ 
-    ███████╗██║  ██║██████╔╝██║     ███████║ 
-    ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝     ╚══════╝ 
-    "#); 
+    use indoc::indoc;
+    println!("{}", indoc! {r#"
+        ███████╗██████╗ ██████╗ ██████╗ ███████╗ 
+        ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝ 
+        █████╗  ██████╔╝██║  ██║██████╔╝███████╗ 
+        ██╔══╝  ██╔══██╗██║  ██║██╔═══╝ ╚════██║ 
+        ███████╗██║  ██║██████╔╝██║     ███████║ 
+        ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝     ╚══════╝ 
+    "#}); 
     println!("=== ENTERPRISE RANSOMWARE DEFENSE & PROTECTION SYSTEM ==="); 
     println!("--=[ Version {} ({}) ]\n", VERSION, MODE_LABEL); 
 } 

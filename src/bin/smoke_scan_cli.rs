@@ -23,15 +23,18 @@ impl Default for Options {
 }
 
 fn print_usage() {
-    println!(
-        "Smoke Scan CLI\n\
-         \nUsage:\n\
-         \tsmoke_scan_cli --mode <file|dir|quick> [--path <path>] [--json] [--limit <N>]\n\
-         \nExamples:\n\
-         \tsmoke_scan_cli --mode file --path C:\\Temp\\eicar.txt\n\
-         \tsmoke_scan_cli --mode dir --path C:\\Downloads\n\
-         \tsmoke_scan_cli --mode quick --limit 20\n"
-    );
+    use indoc::indoc;
+    println!("{}", indoc! {"
+        Smoke Scan CLI
+        
+        Usage:
+        \tsmoke_scan_cli --mode <file|dir|quick> [--path <path>] [--json] [--limit <N>]
+        
+        Examples:
+        \tsmoke_scan_cli --mode file --path C:\\Temp\\eicar.txt
+        \tsmoke_scan_cli --mode dir --path C:\\Downloads
+        \tsmoke_scan_cli --mode quick --limit 20
+    "});
 }
 
 fn parse_args() -> Options {

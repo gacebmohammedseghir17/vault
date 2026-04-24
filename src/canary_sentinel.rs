@@ -87,9 +87,8 @@ impl CanarySentinel {
     fn watch_traps(traps: Vec<PathBuf>) {
         let (tx, rx) = channel();
 
-        // Configure watcher with a small delay to debounce events
-        let config = Config::default()
-            .with_poll_interval(Duration::from_millis(100));
+        // Configure watcher with default configuration
+        let config = Config::default();
 
         let mut watcher: RecommendedWatcher = Watcher::new(tx, config).expect("Failed to create watcher");
 
@@ -110,9 +109,12 @@ impl CanarySentinel {
                         for trap in &traps {
                             if path == trap {
                                 match event.kind {
-                                    EventKind::Modify(_) | EventKind::Remove(_) | EventKind::Access(_) => {
+                                    EventKind::Modify(_) | EventKind::Remove(_) => {
                                         // 🚨 TRAP TRIGGERED!
                                         Self::trigger_failsafe(trap);
+                                    },
+                                    EventKind::Access(_) => {
+                                        // Ignore access to prevent false positives from indexers or accidental clicks
                                     },
                                     _ => {}
                                 }

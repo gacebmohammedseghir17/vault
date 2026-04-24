@@ -276,18 +276,38 @@ impl LsassMonitor {
         let config = self.config.clone();
         let sender = self.event_sender.clone();
         let is_running = self.is_running.clone();
+        let session_handle = self.session_handle.clone();
 
         tokio::spawn(async move {
             let mut interval = tokio::time::interval(Duration::from_millis(
                 config.read().await.processing_interval_ms,
             ));
 
+            // Wait for ETW thread to start processing
+            tokio::task::spawn_blocking(move || {
+                if let Some(handle) = *session_handle.blocking_read() {
+                    unsafe {
+                        let mut log_file = EVENT_TRACE_LOGFILEW {
+                            LoggerName: core::mem::transmute(HSTRING::from("ErdpsLsassMonitorSession").as_ptr()),
+                            Anonymous1: EVENT_TRACE_LOGFILEW_0 {
+                                ProcessTraceMode: PROCESS_TRACE_MODE_REAL_TIME | PROCESS_TRACE_MODE_EVENT_RECORD,
+                            },
+                            Anonymous2: EVENT_TRACE_LOGFILEW_1 {
+                                EventRecordCallback: Some(lsass_event_callback),
+                            },
+                            ..Default::default()
+                        };
+                        let trace_handle = OpenTraceW(&mut log_file);
+                        if trace_handle.Value != u64::MAX {
+                            let _ = ProcessTrace(&[trace_handle], None, None);
+                            let _ = CloseTrace(trace_handle);
+                        }
+                    }
+                }
+            });
+
             while *is_running.read().await {
                 interval.tick().await;
-
-                // Process ETW events (placeholder for actual ETW event consumption)
-                // In a real implementation, this would consume events from the ETW session
-                Self::process_etw_events(&sender, &config).await;
             }
         });
     }
@@ -298,12 +318,6 @@ impl LsassMonitor {
         config: &Arc<RwLock<LsassMonitorConfig>>,
     ) {
         // This is a placeholder implementation
-        // In a real implementation, this would:
-        // 1. Consume events from the ETW session
-        // 2. Parse event data
-        // 3. Calculate risk scores
-        // 4. Send events through the channel
-
         let config_guard = config.read().await;
         if config_guard.verbose_logging {
             debug!("Processing ETW events for LSASS monitoring");
@@ -331,6 +345,23 @@ impl LsassMonitor {
         };
 
         adjusted_score.min(1.0)
+    }
+}
+
+/// C-style callback for LSASS ETW events
+#[cfg(windows)]
+unsafe extern "system" fn lsass_event_callback(event: *mut EVENT_RECORD) {
+    if event.is_null() { return; }
+    
+    let event_id = (*event).EventHeader.EventDescriptor.Id;
+    let provider_id = (*event).EventHeader.ProviderId;
+    
+    if provider_id == LSASS_PROVIDER_GUID {
+        let pid = (*event).EventHeader.ProcessId;
+        // Example: Event ID 10 might be memory read
+        if event_id == 10 {
+            tracing::warn!("LSASS Alert: Memory read detected from PID {}", pid);
+        }
     }
 }
 

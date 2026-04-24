@@ -189,6 +189,11 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                             ActiveDefense::engage_kill_switch(pid);
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
+                        10 => {
+                            s_println!("\x1b[41;37m[CRITICAL] ☠️  KERNEL BLOCKED HIGH-ENTROPY WRITE (ENCRYPTED PAYLOAD) -> PID: {}\x1b[0m", pid);
+                            ActiveDefense::engage_kill_switch(pid);
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
                         _ => {
                             s_println!("\x1b[34m[KERNEL] Raw Alert Received: PID={} Reason={}\x1b[0m", pid, reason);
                         }
