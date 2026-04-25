@@ -60,20 +60,12 @@ pub fn log_alert(pid: u32, process_name: &str, reason_code: u32, target_file: &s
 
     // Host Isolation logic
     if log_obj["level"] == "CRITICAL" {
-        // Trigger Host Isolation
-        std::process::Command::new("cmd.exe")
-            .args(["/c", "netsh advfirewall set allprofiles state on & netsh advfirewall firewall add rule name=\"ERDPS_ISOLATION\" dir=in action=block & netsh advfirewall firewall add rule name=\"ERDPS_ISOLATION\" dir=out action=block"])
-            .stdout(std::process::Stdio::null()) // CRITICAL: Silences the output
-            .stderr(std::process::Stdio::null()) // CRITICAL: Silences errors to prevent CLI lag
-            .spawn()
-            .ok();
+        // Micro-Segmentation is now handled at the ActiveDefense level via block_specific_ip
+        // Removed global network isolation (dir=out action=block) to prevent self-bricking
 
         // Print a massive red warning to the console ONLY IF SENTINEL_UI_ACTIVE is true
-        // Since we had an issue resolving crate::SENTINEL_UI_ACTIVE in the reporter module earlier,
-        // we'll safely use std::env to pass the state, or we can just rely on the fact that
-        // when the UI is active, the agent sets an environment variable we can read.
         if std::env::var("SENTINEL_UI_ACTIVE").unwrap_or_else(|_| "false".to_string()) == "true" {
-            println!("\x1b[31;1m[!!!] HOST ISOLATED: NETWORK QUARANTINE ENGAGED TO PREVENT LATERAL MOVEMENT [!!!]\x1b[0m");
+            println!("\x1b[31;1m[!!!] THREAT NEUTRALIZED: MICRO-SEGMENTATION APPLIED TO PREVENT LATERAL MOVEMENT [!!!]\x1b[0m");
             println!("\x1b[32m[ACTIVE DEFENSE] [+] INITIATING AUTOMATED VSS ROLLBACK...\x1b[0m"); 
             println!("\x1b[32m[ACTIVE DEFENSE] [+] Pristine File System Mounted at: C:\\ERDPS_Rollback\\\x1b[0m"); 
         }

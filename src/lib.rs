@@ -85,6 +85,8 @@ pub mod pickle_scanner;
 pub mod ghost_hunter;
 pub mod dfir_triage;
 pub mod reporter;
+pub mod forensic;
+pub mod ai_copilot;
 
 use std::sync::Arc;
 use tokio::task::JoinHandle;

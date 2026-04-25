@@ -15,6 +15,7 @@ use windows::Win32::System::Threading::{OpenProcess, QueryFullProcessImageNameW,
 use windows::Win32::Foundation::{CloseHandle, MAX_PATH};
 use windows::core::{PCWSTR, PWSTR};
 use crate::active_defense::ActiveDefense;
+use erdps_agent::ai_copilot::sentinel_brain::evaluate_process_behavior;
 
 pub struct CanarySentinel;
 
@@ -99,11 +100,17 @@ impl CanarySentinel {
             }
         }
 
-        println!("[CANARY] 👁️ Watchtower running...");
+        println!("[CANARY] 👁️ Watchtower running... (Arming in 2 seconds)");
+        let arming_time = std::time::Instant::now();
 
         for res in rx {
             match res {
                 Ok(event) => {
+                    // Grace period: Drop all filesystem events for 2 seconds to allow the agent to finish deploying honeypots
+                    if arming_time.elapsed().as_secs() < 2 {
+                        continue;
+                    }
+                    
                     // Filter: We only care if the event touches one of our TRAPS
                     for path in &event.paths {
                         for trap in &traps {
@@ -146,12 +153,27 @@ impl CanarySentinel {
             let process_path = Self::get_process_path(pid).unwrap_or_else(|| "unknown_hostile.exe".to_string());
             println!("[CANARY] 📂 Process Path: {}", process_path);
             
-            // 2. EXECUTE LETHAL RESPONSE
-            println!("[CANARY] ⚡ ENGAGING ACTIVE DEFENSE FOR PID {}...", pid);
-            
-            ActiveDefense::engage_suspend(pid); // Freeze it first
-            ActiveDefense::engage_network_isolation(pid, &process_path); // Cut comms
-            ActiveDefense::engage_kill_switch(pid); // Terminate
+            // 2. AI COPILOT EVALUATION (The Sentinel Genius Mind)
+            let mut sys = sysinfo::System::new();
+            sys.refresh_processes();
+            let cmd_line = if let Some(process) = sys.process(sysinfo::Pid::from_u32(pid)) {
+                process.cmd().join(" ")
+            } else {
+                String::from("<unknown>")
+            };
+
+            println!("[AI COPILOT] Evaluating suspicious behavior...");
+            if erdps_agent::ai_copilot::sentinel_brain::evaluate_process_behavior(&process_path, &cmd_line) {
+                // 3. EXECUTE LETHAL RESPONSE
+                println!("[CANARY] ⚡ ENGAGING ACTIVE DEFENSE FOR PID {}...", pid);
+                println!("[AI COPILOT] Verdict: BLOCK. Engaging Kill Switch.");
+                
+                ActiveDefense::engage_suspend(pid); // Freeze it first
+                ActiveDefense::engage_network_isolation(pid, &process_path); // Cut comms
+                ActiveDefense::engage_kill_switch(pid, "Canary Trap (Honeypot) Modified/Removed"); // Terminate
+            } else {
+                println!("[AI COPILOT] Verdict: ALLOW (Legitimate activity). Bypassing kill switch.");
+            }
         }
         
         // 3. Snapshot for recovery

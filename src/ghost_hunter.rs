@@ -63,7 +63,7 @@ impl GhostHunter {
                         println!("\x1b[31m[GHOST] ⚡ EVASION ATTEMPT DETECTED. ENGAGING KILL SWITCH.\x1b[0m");
                         
                         // Kill the Ghost
-                        ActiveDefense::engage_kill_switch(pid);
+                        ActiveDefense::engage_kill_switch(pid, "Hardware Breakpoint Detected (Evasion)");
                         reporter::log_alert(pid, "Unknown", 0, "Hardware_Breakpoint");
                         killed_pids.push(pid);
                     }

@@ -157,13 +157,14 @@ fn main() {
         
         print_dashboard();
         
-        println!("\nSELECT OPERATION MODE:"); 
-        println!("[1] START SENTINEL (Autonomous Active Defense)"); 
-        println!("[2] FORENSIC TOOLKIT (Manual CLI Shell)"); 
-        println!("[3] Exit"); 
-        println!("[4] LIFT QUARANTINE & CLEANUP ROLLBACK"); 
-        println!("[5] LOAD KERNEL DRIVER");
-        println!("[6] UNLOAD KERNEL DRIVER");
+        println!(r#"
+SELECT OPERATION MODE:
+[1] START SENTINEL (Autonomous Active Defense)
+[2] FORENSIC TOOLKIT (Manual CLI Shell)
+[3] Exit
+[4] LIFT QUARANTINE & CLEANUP ROLLBACK
+[5] LOAD KERNEL DRIVER
+[6] UNLOAD KERNEL DRIVER"#);
         
         print!("\nChoice > "); 
         io::stdout().flush().unwrap(); 
@@ -315,21 +316,21 @@ fn print_dashboard() {
         _ => "\x1b[31;1mQUARANTINED (Host Isolated)\x1b[0m",
     };
 
-    println!("\n=== [ ERDPS SYSTEM STATUS ] ===");
-    println!("[+] KERNEL DRIVER:   {}", driver_status);
-    println!("[+] NETWORK STATE:   {}", network_status);
-    println!("===============================");
+    println!(r#"
+=== [ ERDPS SYSTEM STATUS ] ===
+[+] KERNEL DRIVER:   {}
+[+] NETWORK STATE:   {}
+==============================="#, driver_status, network_status);
 } 
 fn print_banner() { 
-    use indoc::indoc;
-    println!("{}", indoc! {r#"
-        ███████╗██████╗ ██████╗ ██████╗ ███████╗ 
-        ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝ 
-        █████╗  ██████╔╝██║  ██║██████╔╝███████╗ 
-        ██╔══╝  ██╔══██╗██║  ██║██╔═══╝ ╚════██║ 
-        ███████╗██║  ██║██████╔╝██║     ███████║ 
-        ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝     ╚══════╝ 
-    "#}); 
+    println!(r#"
+███████╗██████╗ ██████╗ ██████╗ ███████╗ 
+██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔════╝ 
+█████╗  ██████╔╝██║  ██║██████╔╝███████╗ 
+██╔══╝  ██╔══██╗██║  ██║██╔═══╝ ╚════██║ 
+███████╗██║  ██║██████╔╝██║     ███████║ 
+╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝     ╚══════╝ 
+"#); 
     println!("=== ENTERPRISE RANSOMWARE DEFENSE & PROTECTION SYSTEM ==="); 
     println!("--=[ Version {} ({}) ]\n", VERSION, MODE_LABEL); 
 } 

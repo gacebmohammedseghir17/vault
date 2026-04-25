@@ -23,18 +23,18 @@ impl Default for Options {
 }
 
 fn print_usage() {
-    use indoc::indoc;
-    println!("{}", indoc! {"
-        Smoke Scan CLI
-        
-        Usage:
-        \tsmoke_scan_cli --mode <file|dir|quick> [--path <path>] [--json] [--limit <N>]
-        
-        Examples:
-        \tsmoke_scan_cli --mode file --path C:\\Temp\\eicar.txt
-        \tsmoke_scan_cli --mode dir --path C:\\Downloads
-        \tsmoke_scan_cli --mode quick --limit 20
-    "});
+    println!(r#"
+Smoke Scan CLI
+
+Usage:
+smoke_scan_cli --mode <file|dir|quick> [--path <path>] [--json] [--limit <N>]
+
+Examples:
+smoke_scan_cli --mode file --path C:\Temp\eicar.txt
+smoke_scan_cli --mode dir --path C:\Downloads
+smoke_scan_cli --mode quick --limit 20
+smoke_scan_cli analyze C:\Temp\suspicious.exe
+"#);
 }
 
 fn parse_args() -> Options {
@@ -49,6 +49,9 @@ fn parse_args() -> Options {
             }
             "--mode" => {
                 if let Some(v) = args.next() { opts.mode = v; }
+            }
+            "analyze" => {
+                opts.mode = "analyze".to_string();
             }
             "--path" => {
                 if let Some(v) = args.next() { opts.path = Some(PathBuf::from(v)); }
@@ -74,9 +77,14 @@ fn parse_args() -> Options {
                 }
             }
             unknown => {
-                eprintln!("Unknown argument: {}", unknown);
-                print_usage();
-                std::process::exit(2);
+                // If the mode is "analyze" and we don't have a path yet, assume this is the path
+                if opts.mode == "analyze" && opts.path.is_none() {
+                    opts.path = Some(PathBuf::from(unknown));
+                } else {
+                    eprintln!("Unknown argument: {}", unknown);
+                    print_usage();
+                    std::process::exit(2);
+                }
             }
         }
     }
@@ -122,9 +130,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Dispatch by mode
     match opts.mode.as_str() {
+        "analyze" => {
+            let path = opts.path.clone().ok_or("path is required for analyze mode")?;
+            erdps_agent::ai_copilot::forensics::perform_ai_forensics(path.to_string_lossy().as_ref());
+            return Ok(());
+        }
         "file" => {
             let path = opts.path.clone().ok_or("--path is required for --mode file")?;
-            run_file_scan(&scanner, path, opts.json).await?;
+            run_file_scan(&scanner, path.clone(), opts.json).await?;
+            erdps_agent::ai_copilot::forensics::perform_ai_forensics(path.to_string_lossy().as_ref());
         }
         "dir" => {
             let path = opts.path.clone().ok_or("--path is required for --mode dir")?;

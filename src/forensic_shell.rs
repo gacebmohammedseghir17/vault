@@ -430,6 +430,9 @@ pub fn run(engine: Arc<NeuralEngine>) {
                                     Ok(path) => println!("[+] Evidence (HTML) Saved: {}", path.yellow()),
                                     Err(e) => println!("[!] Failed to save HTML: {}", e.to_string().red()),
                                 }
+
+                                // Step 3: Force the CLI to wait for the AI
+                                erdps_agent::ai_copilot::forensics::perform_ai_forensics(resolved_target);
                             },
                             Err(e) => println!("[!] Analysis Failed: {}", e),
                         }

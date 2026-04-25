@@ -4,6 +4,7 @@ use std::sync::{Arc, Mutex};
 use std::thread;
 use tokio::sync::mpsc::UnboundedSender;
 use tracing::{error, info, warn};
+use crate::ai_copilot::sentinel_brain::evaluate_process_behavior;
 
 #[cfg(windows)]
 use windows::Win32::System::Diagnostics::Etw::*;
@@ -202,8 +203,24 @@ unsafe extern "system" fn event_callback(event: *mut EVENT_RECORD) {
                 tracing::error!("\x1b[41;37m[CRITICAL] ☠️  ETW ALERT: VSS COM BYPASS DETECTED -> PID: {}\x1b[0m", pid);
                 tracing::error!("Malicious process attempted to silently delete \\Device\\HarddiskVolumeShadowCopy objects!");
                 
-                // Terminate the process
-                crate::active_defense::ActiveDefense::engage_kill_switch(pid);
+                // AI COPILOT EVALUATION (The Sentinel Genius Mind)
+                let mut sys = sysinfo::System::new();
+                sys.refresh_processes();
+                
+                let (process_name, cmd_line) = if let Some(process) = sys.process(sysinfo::Pid::from_u32(pid)) {
+                    (process.name().to_string(), process.cmd().join(" "))
+                } else {
+                    (String::from("unknown_process.exe"), String::from("<unknown>"))
+                };
+
+                println!("[AI COPILOT] Evaluating suspicious behavior...");
+                if crate::ai_copilot::sentinel_brain::evaluate_process_behavior(&process_name, &cmd_line) {
+                    println!("[AI COPILOT] Verdict: BLOCK. Engaging Kill Switch.");
+                    // Terminate the process
+                    crate::active_defense::ActiveDefense::engage_kill_switch(pid, "VSS COM Bypass Detected (ETW)");
+                } else {
+                    println!("[AI COPILOT] Verdict: ALLOW (Legitimate activity). Bypassing kill switch.");
+                }
             }
         }
     }

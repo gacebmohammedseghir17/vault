@@ -8,3 +8,5 @@ onnx_extracted/
 *.exe
 *.a
 *.lib
+# Secret Environment Variables
+.env

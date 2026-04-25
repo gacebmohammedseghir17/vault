@@ -91,6 +91,7 @@ urlencoding = "2.1"
 ollama-rs = { version = "0.1", features = ["stream"] }
 ntapi = "0.4"
 notify = "6.1"
+dotenvy = "0.15"
 
 # Windows-specific dependencies
 winapi = { version = "0.3.9", features = ["processthreadsapi", "tlhelp32", "winnt", "handleapi", "winuser", "psapi", "winsvc", "winbase", "winreg", "evntprov", "sysinfoapi", "memoryapi", "minwindef", "ntdef", "errhandlingapi", "ioapiset", "winioctl"] }

@@ -37,7 +37,7 @@ impl RootkitHunter {
             for pid in hidden_pids {
                 println!("\x1b[31m   |-> 💀 HIDDEN PID: {} (Unlinked from ActiveProcessLinks)\x1b[0m", pid);
                 // AUTO-KILL (Active Defense)
-                crate::active_defense::ActiveDefense::engage_kill_switch(pid);
+                crate::active_defense::ActiveDefense::engage_kill_switch(pid, "Hidden Rootkit Process Detected (Evasion)");
             }
         }
     }

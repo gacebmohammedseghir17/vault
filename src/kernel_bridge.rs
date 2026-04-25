@@ -142,7 +142,7 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                                 // [ACTIVE DEFENSE] Graph Topology Kill
                                 if alert.contains("MALICIOUS") {
                                     s_println!("\x1b[31m[ACTIVE DEFENSE] 🕸️ Graph Topology Rule Triggered: {}\x1b[0m", alert);
-                                    ActiveDefense::engage_kill_switch(pid);
+                                    ActiveDefense::engage_kill_switch(pid, "Graph Topology Rule Triggered");
                                     reporter::log_alert(pid, &process_name, reason, &target_file);
                                     // We continue processing to allow logging, but the process is dead.
                                 }
@@ -160,38 +160,58 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                         }
                         3 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  BLOCKED RANSOMWARE ATTEMPT (RENAME/DELETE) -> PID: {}\x1b[0m", pid);
-                            ActiveDefense::engage_kill_switch(pid);
+                            ActiveDefense::engage_kill_switch(pid, "Ransomware Extension Rename/Delete Blocked by Kernel (Alert 3)");
                             ActiveDefense::create_snapshot();
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         4 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  DELTA ENTROPY TRIGGERED (ENCRYPTION LOOP) -> PID: {}\x1b[0m", pid);
-                            ActiveDefense::engage_kill_switch(pid);
+                            ActiveDefense::engage_kill_switch(pid, "Delta Entropy Triggered (Encryption Loop) by Kernel (Alert 4)");
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         5 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  DETECTED RAW DISK / MBR WRITE (PID: {})\x1b[0m", pid);
-                            ActiveDefense::engage_kill_switch(pid);
+                            ActiveDefense::engage_kill_switch(pid, "Raw Disk/MBR Write Detected by Kernel (Alert 5)");
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         6 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  ZERO-TRUST EXECUTION BLOCKED (PID: {})\x1b[0m", pid);
-                            ActiveDefense::engage_kill_switch(pid);
+                            ActiveDefense::engage_kill_switch(pid, "Zero-Trust Execution Blocked by Kernel (Alert 6)");
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         7 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  VULNERABLE BYOVD DRIVER LOAD BLOCKED (PID: {})\x1b[0m", pid);
-                            ActiveDefense::engage_kill_switch(pid);
+                            ActiveDefense::engage_kill_switch(pid, "Vulnerable BYOVD Driver Load Blocked by Kernel (Alert 7)");
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         8 => {
                             s_println!("\x1b[41;37m[CRITICAL] KERNEL BLOCKED CANARY TAMPERING -> PID: {}\x1b[0m", pid);
-                            ActiveDefense::engage_kill_switch(pid);
+                            ActiveDefense::engage_kill_switch(pid, "Canary Tampering Blocked by Kernel (Alert 8)");
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         10 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  KERNEL BLOCKED HIGH-ENTROPY WRITE (ENCRYPTED PAYLOAD) -> PID: {}\x1b[0m", pid);
-                            ActiveDefense::engage_kill_switch(pid);
+                            ActiveDefense::engage_kill_switch(pid, "High Entropy Write Blocked by Kernel (Alert 10)");
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
+                        11 => {
+                            s_println!("\x1b[41;37m[KERNEL] 🛑 CRITICAL: SAFE MODE REGISTRY TAMPERING DETECTED! (Conti/Snatch Behavior). Engage Kill Switch. -> PID: {}\x1b[0m", pid);
+                            ActiveDefense::engage_kill_switch(pid, "Safe Mode Registry Tampering Blocked by Kernel (Alert 11)");
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
+                        12 => {
+                            s_println!("\x1b[41;37m[KERNEL] 🛑 CRITICAL: VULNERABLE DRIVER LOAD BLOCKED! (BYOVD / BlackCat Behavior). Engage Kill Switch. -> PID: {}\x1b[0m", pid);
+                            ActiveDefense::engage_kill_switch(pid, "BYOVD Vulnerable Driver Load Blocked by Kernel (Alert 12)");
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
+                        13 => {
+                            s_println!("\x1b[41;37m[KERNEL] 🛑 CRITICAL: CROSS-PROCESS THREAD INJECTION DETECTED! (Process Hollowing). Engage Kill Switch. -> PID: {}\x1b[0m", pid);
+                            ActiveDefense::engage_kill_switch(pid, "Cross-Process Thread Injection Blocked by Kernel (Alert 13)");
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                        }
+                        14 => {
+                            s_println!("\x1b[41;37m[KERNEL] 🛑 CRITICAL: INTERMITTENT ENCRYPTION PATTERN BLOCKED! (LockBit 3.0 Behavior). Engage Kill Switch. -> PID: {}\x1b[0m", pid);
+                            ActiveDefense::engage_kill_switch(pid, "Intermittent Encryption Pattern Blocked by Kernel (Alert 14)");
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         _ => {
@@ -265,7 +285,7 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                     if kill_it {
                         killed_pids.insert(pid);
                         s_println!("\x1b[31m[KILL] Neutralized Threat: {} (Label: {})\x1b[0m", process_name, threat_label);
-                        ActiveDefense::engage_kill_switch(pid);
+                        ActiveDefense::engage_kill_switch(pid, threat_label);
                         reporter::log_alert(pid, &process_name, reason, &target_file);
                     }
                 } else {

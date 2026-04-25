@@ -76,7 +76,7 @@ impl ActiveDefense {
     }
 
     /// Kills the malicious process immediately
-    pub fn engage_kill_switch(pid: u32) {
+    pub fn engage_kill_switch(pid: u32, reason: &str) {
         println!("\x1b[31m[ACTIVE DEFENSE] ⚡ ENGAGING KILL SWITCH for PID: {}\x1b[0m", pid);
 
         let mut sys = System::new_all();
@@ -115,6 +115,16 @@ impl ActiveDefense {
                 CloseHandle(handle);
                 if result != 0 {
                     println!("\x1b[32m[+] THREAT NEUTRALIZED (PID: {}). Process Terminated.\x1b[0m", pid);
+                    
+                    // Generate the standalone HTML incident report
+                    let dump_path = format!("C:\\ERDPS_Vault\\Dumps\\{}_{}.dmp", process_name_for_dump, pid);
+                    crate::forensic::incident_report::IncidentReport::generate(
+                        pid,
+                        &process_name_for_dump,
+                        reason,
+                        &dump_path
+                    );
+                    
                     return;
                 }
             }
@@ -130,30 +140,32 @@ impl ActiveDefense {
 
     /// Isolates the process from the network using Windows Firewall
     pub fn engage_network_isolation(pid: u32, exe_path: &str) {
-        println!("\x1b[33m[ACTIVE DEFENSE] 🛡️ ISOLATING NETWORK for PID: {}\x1b[0m", pid);
+        println!("\x1b[33m[ACTIVE DEFENSE] 🛡️ Micro-Segmentation Active. Skipping global network isolation for PID: {}\x1b[0m", pid);
+    }
+
+    /// Blocks a specific malicious IP address using Micro-Segmentation
+    pub fn block_specific_ip(ip_address: &str) {
+        println!("\x1b[33m[ACTIVE DEFENSE] 🛡️ MICRO-SEGMENTATION: Blocking IP {}\x1b[0m", ip_address);
         
-        let rule_name = format!("ERDPS_BLOCK_PID_{}", pid);
+        let rule_name = format!("ERDPS_AI_BLOCK_{}", ip_address);
         
-        // Block outbound traffic for this specific program
         let output = Command::new("netsh")
             .args(&[
                 "advfirewall", "firewall", "add", "rule",
                 &format!("name={}", rule_name),
                 "dir=out",
                 "action=block",
-                &format!("program=\"{}\"", exe_path),
-                "enable=yes",
-                "profile=any"
+                &format!("remoteip={}", ip_address)
             ])
             .output();
 
         match output {
             Ok(o) => {
                 if o.status.success() {
-                    println!("\x1b[32m[+] NETWORK ISOLATION ACTIVE: {} (PID: {})\x1b[0m", exe_path, pid);
+                    println!("\x1b[32m[+] SURGICAL BLOCK ACTIVE: Severed connection to {}\x1b[0m", ip_address);
                 } else {
                     let err = String::from_utf8_lossy(&o.stderr);
-                    println!("\x1b[31m[!] ISOLATION FAILED: {}\x1b[0m", err.trim());
+                    println!("\x1b[31m[!] MICRO-SEGMENTATION FAILED: {}\x1b[0m", err.trim());
                 }
             },
             Err(e) => println!("\x1b[31m[!] Failed to execute netsh: {}\x1b[0m", e),
