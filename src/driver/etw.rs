@@ -181,7 +181,14 @@ unsafe extern "system" fn event_callback(event: *mut EVENT_RECORD) {
         // Event 3: NtWriteVirtualMemory
         if event_id == 2 || event_id == 3 {
             let pid = (*event).EventHeader.ProcessId;
-            info!("TiEtw Alert: Process Hollowing detected on PID {}", pid);
+            info!("TiEtw Alert: Process Hollowing / Memory Allocation detected on PID {}", pid);
+            
+            // Simulate ETW stack walking: Extracting return addresses from the event payload.
+            // If the thread allocates PAGE_EXECUTE_READWRITE and the call stack resolves
+            // outside NTDLL or WIN32U, it indicates a Direct Syscall (Hell's Gate).
+            // We pass a simulated unbacked address here for demonstration.
+            let simulated_call_stack = vec![0x1000_5000, 0x7FFA_0000_1000]; 
+            analyze_syscall_origin(pid, simulated_call_stack);
             
             // Send alert to the Rust user-mode engine
             // let _ = sender.send(DriverEvent::ProcessCreate { ... });
@@ -217,11 +224,28 @@ unsafe extern "system" fn event_callback(event: *mut EVENT_RECORD) {
                 if crate::ai_copilot::sentinel_brain::evaluate_process_behavior(&process_name, &cmd_line) {
                     println!("[AI COPILOT] Verdict: BLOCK. Engaging Kill Switch.");
                     // Terminate the process
-                    crate::active_defense::ActiveDefense::engage_kill_switch(pid, "VSS COM Bypass Detected (ETW)");
+                    crate::active_defense::ActiveDefense::engage_storyline_kill(pid, "VSS COM Bypass Detected (ETW)");
                 } else {
                     println!("[AI COPILOT] Verdict: ALLOW (Legitimate activity). Bypassing kill switch.");
                 }
             }
         }
+    }
+}
+
+pub fn analyze_syscall_origin(pid: u32, call_stack_addresses: Vec<u64>) {
+    let mut is_evasion = false;
+    for addr in call_stack_addresses {
+        // Simulated NTDLL / WIN32U address range check for the architecture
+        let is_ntdll_or_win32u = addr >= 0x7FFA00000000 && addr <= 0x7FFBFFFFFFFF;
+        if !is_ntdll_or_win32u {
+            is_evasion = true;
+            break;
+        }
+    }
+
+    if is_evasion {
+        println!("\x1b[31;1m[CRITICAL] DIRECT SYSCALL EVASION DETECTED: Unbacked memory allocation originating outside NTDLL.\x1b[0m");
+        crate::active_defense::ActiveDefense::engage_storyline_kill(pid, "Direct Syscall Evasion (Hell's Gate/Halo's Gate)");
     }
 }

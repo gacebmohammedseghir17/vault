@@ -77,7 +77,9 @@ fn scan_unbacked_memory(pid: u32) -> (bool, usize, bool) {
 
 // Updated Signature: Reuse existing engine
 pub fn run(engine: Arc<NeuralEngine>) {
-    println!("\x1b[36m=== ERDPS FORENSIC SHELL ({}: MLFP ACTIVE) ===\x1b[0m", crate::MODE_LABEL);
+    println!("");
+    println!("=== ERDPS FORENSIC SHELL ({}: MLFP ACTIVE) ===", crate::MODE_LABEL);
+    println!("");
     
     // ASYNC PIPELINE INITIALIZATION
     // Note: ForensicPipeline internally creates its own NgramEngine. 
@@ -134,16 +136,19 @@ pub fn run(engine: Arc<NeuralEngine>) {
     println!("(+) Live Intelligence Layer: \x1b[32mACTIVE\x1b[0m");
     println!("Status: Ready. Type 'scan <file>' or 'help'.");
 
-    let config = Config::builder()
-        .auto_add_history(true)
-        .build();
-    let mut rl = Editor::<(), rustyline::history::DefaultHistory>::with_config(config).unwrap();
-
     loop {
-        let readline = rl.readline("\x1b[1mERDPS > \x1b[0m");
-        match readline {
-            Ok(line) => {
-                let input = line.trim();
+        print!("ERDPS > ");
+        std::io::stdout().flush().unwrap();
+        
+        let mut line = String::new();
+        match std::io::stdin().read_line(&mut line) {
+            Ok(0) => {
+                println!("CTRL-D");
+                break;
+            },
+            Ok(_) => {
+                let sanitized_input = line.replace('\t', "");
+                let input = sanitized_input.trim();
                 if input.is_empty() { continue; }
                 
                 let parts: Vec<&str> = input.split_whitespace().collect();
@@ -526,18 +531,25 @@ pub fn run(engine: Arc<NeuralEngine>) {
                         crate::forensic::carver::triage_dump(path);
                         println!("----------------------------------------");
                     },
+                    "memscan" => {
+                        if parts.len() < 2 {
+                            println!("[!] Usage: memscan <PID>");
+                            continue;
+                        }
+                        if let Ok(pid) = parts[1].parse::<u32>() {
+                            if let Some(result) = crate::forensic::memory_hunter::scan_process_memory(pid) {
+                                println!("{}", result);
+                            } else {
+                                println!("\x1b[31m[!] Failed to open process {} for memory scanning (Access Denied / Process Dead).\x1b[0m", pid);
+                            }
+                        } else {
+                            println!("[!] Invalid PID format.");
+                        }
+                    },
                     "exit" => break,
                     "cls" | "clear" => print!("\x1b[2J\x1b[1;1H"),
                     _ => println!("[!] Unknown command."),
                 }
-            },
-            Err(rustyline::error::ReadlineError::Interrupted) => {
-                println!("CTRL-C");
-                break;
-            },
-            Err(rustyline::error::ReadlineError::Eof) => {
-                println!("CTRL-D");
-                break;
             },
             Err(err) => {
                 println!("Error: {:?}", err);

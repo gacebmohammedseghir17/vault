@@ -65,9 +65,23 @@ pub fn perform_ai_forensics(file_path: &str) {
             }
         }
     }
+    
+    // Truncate the final assembly string to a maximum of 2000 characters
+    if assembly_code.len() > 2000 {
+        assembly_code.truncate(2000);
+        assembly_code.push_str("\n...[TRUNCATED]...");
+    }
 
     let prompt = format!(
-        "You are an elite Malware Reverse Engineer. Analyze these assembly instructions, imports, and entropy. Is this malware? What type? Be concise.\n\n\
+        "You are an elite Malware Reverse Engineer. Analyze these assembly instructions, imports, and entropy. Is this malware? What type? Be concise. If you determine this file is malware, you MUST output a valid YARA rule to detect it inside a ```yara ... ``` code block at the end of your report.\n\
+        You are an Autonomous EDR Agent. At the end of your analysis, you MUST output a JSON block formatted exactly like this:\n\
+        ```json\n\
+        {{\n\
+          \"verdict\": \"MALICIOUS|BENIGN\",\n\
+          \"confidence\": 0.0-1.0,\n\
+          \"action\": \"KILL_PROCESS|LOG_ONLY\"\n\
+        }}\n\
+        ```\n\n\
         File Data:\n\
         Name: {}\n\
         Size: {} bytes\n\
@@ -90,6 +104,74 @@ pub fn perform_ai_forensics(file_path: &str) {
             println!("\n\x1b[32m=== [ 🧠 AI FORENSIC REPORT ] ===\x1b[0m");
             println!("{}", report);
             println!("\x1b[32m=================================\x1b[0m\n");
+
+            // Extract YARA rule if present
+            if let Some(yara_start) = report.find("```yara") {
+                if let Some(yara_end_offset) = report[yara_start + 7..].find("```") {
+                    let yara_content = &report[yara_start + 7..yara_start + 7 + yara_end_offset];
+                    let yara_content = yara_content.trim();
+                    
+                    if !yara_content.is_empty() {
+                        let rules_dir = std::path::Path::new("rules");
+                        if !rules_dir.exists() {
+                            let _ = std::fs::create_dir_all(rules_dir);
+                        }
+                        
+                        let timestamp = chrono::Local::now().format("%Y%m%d_%H%M%S");
+                        let rule_path = rules_dir.join(format!("auto_generated_{}.yar", timestamp));
+                        
+                        if std::fs::write(&rule_path, yara_content).is_ok() {
+                            println!("\x1b[32;1m[+] AI AUTO-IMMUNITY: New YARA rule generated and saved! ({})\x1b[0m", rule_path.display());
+                            
+                            // SIEM Forwarder
+                            crate::siem::siem_forwarder::push_alert(
+                                "HIGH",
+                                "AI_AUTO_IMMUNITY_YARA_GENERATED",
+                                &format!("DeepSeek AI autonomously generated a YARA rule for: {}", file_name),
+                                vec![rule_path.display().to_string()],
+                            );
+                        }
+                    }
+                }
+            }
+
+            // Extract Executioner JSON block
+            if let Some(json_start) = report.find("```json") {
+                if let Some(json_end_offset) = report[json_start + 7..].find("```") {
+                    let json_content = &report[json_start + 7..json_start + 7 + json_end_offset];
+                    let json_content = json_content.trim();
+                    
+                    if let Ok(verdict_data) = serde_json::from_str::<serde_json::Value>(json_content) {
+                        let verdict = verdict_data["verdict"].as_str().unwrap_or("");
+                        let confidence = verdict_data["confidence"].as_f64().unwrap_or(0.0);
+                        let action = verdict_data["action"].as_str().unwrap_or("");
+                        
+                        if verdict == "MALICIOUS" && confidence >= 0.90 && action == "KILL_PROCESS" {
+                            println!("\x1b[31;1m[!] AGENTIC AI COMMAND RECEIVED: Executing KILL_PROCESS with {} certainty.\x1b[0m", confidence);
+                            
+                            // Try to find the PID by process name to kill it
+                            let mut sys = sysinfo::System::new();
+                            sys.refresh_processes();
+                            
+                            for (pid, process) in sys.processes() {
+                                let exe_path_str = process.exe().map(|p| p.to_string_lossy().to_string()).unwrap_or_default();
+                                if process.name().to_lowercase() == file_name.to_lowercase() || 
+                                   exe_path_str.to_lowercase() == file_path.to_lowercase() {
+                                    crate::active_defense::ActiveDefense::engage_storyline_kill(pid.as_u32(), "Agentic AI Autonomous Kill Command");
+                                    
+                                    // SIEM Forwarder
+                                    crate::siem::siem_forwarder::push_alert(
+                                        "CRITICAL",
+                                        "AI_EXECUTIONER_KILL",
+                                        &format!("Agentic AI executed autonomous kill on {}. Verdict: MALICIOUS, Confidence: {}", file_name, confidence),
+                                        vec![exe_path_str.clone()],
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         Err(e) => {
             println!("\x1b[31m[!] AI Analysis failed: {}\x1b[0m", e);

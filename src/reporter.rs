@@ -61,7 +61,41 @@ pub fn log_alert(pid: u32, process_name: &str, reason_code: u32, target_file: &s
     // Host Isolation logic
     if log_obj["level"] == "CRITICAL" {
         // Micro-Segmentation is now handled at the ActiveDefense level via block_specific_ip
-        // Removed global network isolation (dir=out action=block) to prevent self-bricking
+        // We restore global network isolation but explicitly ALLOW the EDR's own executable outbound access
+        // to prevent self-bricking the AI Telemetry connection.
+        
+        if let Ok(exe_path) = std::env::current_exe() {
+            let exe_path_str = exe_path.display().to_string();
+            
+            // 1. Whitelist the EDR itself
+            std::process::Command::new("netsh")
+                .args(&[
+                    "advfirewall", "firewall", "add", "rule",
+                    "name=ERDPS_AI_Telemetry",
+                    "dir=out",
+                    "action=allow",
+                    &format!("program=\"{}\"", exe_path_str),
+                    "enable=yes"
+                ])
+                .stdout(std::process::Stdio::null())
+                .stderr(std::process::Stdio::null())
+                .spawn()
+                .ok();
+
+            // 2. Block all other outbound traffic (Quarantine)
+            std::process::Command::new("netsh")
+                .args(&[
+                    "advfirewall", "firewall", "add", "rule",
+                    "name=ERDPS_ISOLATION",
+                    "dir=out",
+                    "action=block",
+                    "enable=yes"
+                ])
+                .stdout(std::process::Stdio::null())
+                .stderr(std::process::Stdio::null())
+                .spawn()
+                .ok();
+        }
 
         // Print a massive red warning to the console ONLY IF SENTINEL_UI_ACTIVE is true
         if std::env::var("SENTINEL_UI_ACTIVE").unwrap_or_else(|_| "false".to_string()) == "true" {

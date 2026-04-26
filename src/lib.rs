@@ -38,6 +38,7 @@ pub mod threat_intel;
 pub mod utils;
 pub mod validation;
 pub mod telemetry;
+pub mod siem;
 pub mod behavioral;
 pub mod security;
 pub mod deception;

@@ -16,10 +16,10 @@ impl AiCopilot {
         let api_key = env::var("OPENROUTER_API_KEY")
             .map_err(|_| "OPENROUTER_API_KEY environment variable not set".to_string())?;
 
-        let client = Client::builder()
-            .timeout(Duration::from_millis(30000))
+        let client = reqwest::blocking::Client::builder()
+            .timeout(std::time::Duration::from_secs(60))
             .build()
-            .map_err(|e| format!("Failed to build HTTP client: {}", e))?;
+            .unwrap_or_default();
 
         Ok(Self { api_key, client })
     }

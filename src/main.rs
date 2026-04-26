@@ -30,6 +30,7 @@ mod shadow_ai;
 // mod pipeline; // Multi-Layer Forensic Pipeline (Moved to Lib)
 pub mod live_hunter; // New Live Hunter Module
 // mod memory_scanner; // Phase 9: Memory Hunter (Moved to Lib)
+pub mod siem; // SIEM Forwarder
 
 use std::io::{self, Write};
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -52,6 +53,29 @@ const MODE_LABEL: &str = "MAXIMUM ENTROPY ANALYSIS";
 fn main() {
     print_banner();
 
+    // Initialize environment variables
+    let _ = dotenvy::dotenv();
+
+    // Initialize SIEM Forwarder
+    let siem_url = std::env::var("SIEM_WEBHOOK_URL").unwrap_or_else(|_| "http://127.0.0.1:8080/api/webhook".to_string());
+    crate::siem::siem_forwarder::start_siem_worker(siem_url);
+
+    // Create hidden, system-protected shadow directory
+    let shadow_dir = "C:\\.erdps_shadow";
+    if !Path::new(shadow_dir).exists() {
+        std::fs::create_dir(shadow_dir).ok();
+        // Use powershell to set hidden and system attributes
+        std::process::Command::new("powershell")
+            .args(["-Command", &format!("(Get-Item -Path '{}').Attributes = 'Hidden, System'", shadow_dir)])
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::null())
+            .spawn()
+            .ok();
+    }
+
+    // Make the EDR process immortal
+    crate::active_defense::harden_agent_process();
+
     // Auto-Recovery on Boot: Clear any orphaned active defense firewall rules to prevent self-bricking
     std::process::Command::new("cmd.exe")
         .args(["/c", "netsh advfirewall firewall delete rule name=all dir=out"])
@@ -63,6 +87,13 @@ fn main() {
     // Also clean up any lingering isolation specific rules explicitly just in case
     std::process::Command::new("cmd.exe")
         .args(["/c", "netsh advfirewall firewall delete rule name=\"ERDPS_ISOLATION\""])
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .spawn()
+        .ok();
+        
+    std::process::Command::new("cmd.exe")
+        .args(["/c", "netsh advfirewall firewall delete rule name=\"ERDPS_AI_Telemetry\""])
         .stdout(std::process::Stdio::null())
         .stderr(std::process::Stdio::null())
         .spawn()
@@ -157,16 +188,7 @@ fn main() {
         
         print_dashboard();
         
-        println!(r#"
-SELECT OPERATION MODE:
-[1] START SENTINEL (Autonomous Active Defense)
-[2] FORENSIC TOOLKIT (Manual CLI Shell)
-[3] Exit
-[4] LIFT QUARANTINE & CLEANUP ROLLBACK
-[5] LOAD KERNEL DRIVER
-[6] UNLOAD KERNEL DRIVER"#);
-        
-        print!("\nChoice > "); 
+        print!("Choice > "); 
         io::stdout().flush().unwrap(); 
 
         let mut input = String::new(); 
@@ -181,6 +203,8 @@ SELECT OPERATION MODE:
                 // --- CANARY DEPLOYMENT ---
                 // Phase 1: Deploy hidden files to trap ransomware
                 canary_sentinel::CanarySentinel::deploy();
+                crate::active_defense::honeypot::deploy_decoys();
+                
                 io_hunter::IoHunter::start();
                 crate::behavior::start_behavior_monitor();
                 
@@ -254,6 +278,13 @@ SELECT OPERATION MODE:
                     .spawn()
                     .ok();
                 
+                std::process::Command::new("cmd.exe")
+                    .args(["/c", "netsh advfirewall firewall delete rule name=\"ERDPS_AI_Telemetry\""])
+                    .stdout(std::process::Stdio::null())
+                    .stderr(std::process::Stdio::null())
+                    .spawn()
+                    .ok();
+                
                 std::process::Command::new("cmd.exe") 
                     .args(["/c", "rmdir", "C:\\ERDPS_Rollback"]) 
                     .stdout(std::process::Stdio::null()) 
@@ -316,11 +347,20 @@ fn print_dashboard() {
         _ => "\x1b[31;1mQUARANTINED (Host Isolated)\x1b[0m",
     };
 
-    println!(r#"
-=== [ ERDPS SYSTEM STATUS ] ===
-[+] KERNEL DRIVER:   {}
-[+] NETWORK STATE:   {}
-==============================="#, driver_status, network_status);
+    println!("");
+    println!("=== [ ERDPS SYSTEM STATUS ] ===");
+    println!("[+] KERNEL DRIVER:   {}", driver_status);
+    println!("[+] NETWORK STATE:   {}", network_status);
+    println!("===============================");
+    println!("");
+    println!("SELECT OPERATION MODE:");
+    println!("[1] START SENTINEL (Autonomous Active Defense)");
+    println!("[2] FORENSIC TOOLKIT (Manual CLI Shell)");
+    println!("[3] Exit");
+    println!("[4] LIFT QUARANTINE & CLEANUP ROLLBACK");
+    println!("[5] LOAD KERNEL DRIVER");
+    println!("[6] UNLOAD KERNEL DRIVER");
+    println!("");
 } 
 fn print_banner() { 
     println!(r#"

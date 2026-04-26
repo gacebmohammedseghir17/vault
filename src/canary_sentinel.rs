@@ -93,12 +93,22 @@ impl CanarySentinel {
 
         let mut watcher: RecommendedWatcher = Watcher::new(tx, config).expect("Failed to create watcher");
 
+        // Watch Phase 1 Canary Traps
         for trap in &traps {
-            // We watch the PARENT directory because watching a specific file that might be deleted/renamed is flaky
             if let Some(parent) = trap.parent() {
                 let _ = watcher.watch(parent, RecursiveMode::NonRecursive);
             }
         }
+
+        // Watch Phase 2 Zero-Footprint Honeypots
+        let deployed_honeypots = crate::active_defense::honeypot::DEPLOYED_HONEYPOTS.lock().unwrap();
+        for honeypot_str in deployed_honeypots.iter() {
+            let trap = PathBuf::from(honeypot_str);
+            if let Some(parent) = trap.parent() {
+                let _ = watcher.watch(parent, RecursiveMode::NonRecursive);
+            }
+        }
+        drop(deployed_honeypots); // unlock
 
         println!("[CANARY] 👁️ Watchtower running... (Arming in 2 seconds)");
         let arming_time = std::time::Instant::now();
@@ -113,18 +123,19 @@ impl CanarySentinel {
                     
                     // Filter: We only care if the event touches one of our TRAPS
                     for path in &event.paths {
-                        for trap in &traps {
-                            if path == trap {
-                                match event.kind {
-                                    EventKind::Modify(_) | EventKind::Remove(_) => {
-                                        // 🚨 TRAP TRIGGERED!
-                                        Self::trigger_failsafe(trap);
-                                    },
-                                    EventKind::Access(_) => {
-                                        // Ignore access to prevent false positives from indexers or accidental clicks
-                                    },
-                                    _ => {}
-                                }
+                        let is_canary = traps.iter().any(|t| t == path);
+                        let is_zero_footprint = crate::active_defense::honeypot::is_honeypot(&path.to_string_lossy());
+                        
+                        if is_canary || is_zero_footprint {
+                            match event.kind {
+                                EventKind::Modify(_) | EventKind::Remove(_) => {
+                                    // 🚨 TRAP TRIGGERED!
+                                    Self::trigger_failsafe(path);
+                                },
+                                EventKind::Access(_) => {
+                                    // Ignore access to prevent false positives from indexers or accidental clicks
+                                },
+                                _ => {}
                             }
                         }
                     }
@@ -146,6 +157,8 @@ impl CanarySentinel {
             return;
         }
 
+        let is_zero_footprint = crate::active_defense::honeypot::is_honeypot(&trap_path.to_string_lossy());
+
         for pid in pids {
             println!("[CANARY] 🎯 Hostile Process Identified: PID {}", pid);
             
@@ -153,26 +166,35 @@ impl CanarySentinel {
             let process_path = Self::get_process_path(pid).unwrap_or_else(|| "unknown_hostile.exe".to_string());
             println!("[CANARY] 📂 Process Path: {}", process_path);
             
-            // 2. AI COPILOT EVALUATION (The Sentinel Genius Mind)
-            let mut sys = sysinfo::System::new();
-            sys.refresh_processes();
-            let cmd_line = if let Some(process) = sys.process(sysinfo::Pid::from_u32(pid)) {
-                process.cmd().join(" ")
-            } else {
-                String::from("<unknown>")
-            };
-
-            println!("[AI COPILOT] Evaluating suspicious behavior...");
-            if erdps_agent::ai_copilot::sentinel_brain::evaluate_process_behavior(&process_path, &cmd_line) {
-                // 3. EXECUTE LETHAL RESPONSE
+            if is_zero_footprint {
+                // 2a. ZERO-FOOTPRINT HONEYPOT (Instant Kill, Bypass AI)
+                println!("\x1b[41;37m[CRITICAL] ☠️  ZERO-FOOTPRINT HONEYPOT TRIGGERED! BYPASSING AI EVALUATION FOR INSTANT KILL.\x1b[0m");
                 println!("[CANARY] ⚡ ENGAGING ACTIVE DEFENSE FOR PID {}...", pid);
-                println!("[AI COPILOT] Verdict: BLOCK. Engaging Kill Switch.");
-                
                 ActiveDefense::engage_suspend(pid); // Freeze it first
                 ActiveDefense::engage_network_isolation(pid, &process_path); // Cut comms
-                ActiveDefense::engage_kill_switch(pid, "Canary Trap (Honeypot) Modified/Removed"); // Terminate
+                ActiveDefense::engage_storyline_kill(pid, "Zero-Footprint Ransomware Honeypot Modified/Removed"); // Terminate
             } else {
-                println!("[AI COPILOT] Verdict: ALLOW (Legitimate activity). Bypassing kill switch.");
+                // 2b. AI COPILOT EVALUATION (The Sentinel Genius Mind) for Phase 1 Canary Traps
+                let mut sys = sysinfo::System::new();
+                sys.refresh_processes();
+                let cmd_line = if let Some(process) = sys.process(sysinfo::Pid::from_u32(pid)) {
+                    process.cmd().join(" ")
+                } else {
+                    String::from("<unknown>")
+                };
+
+                println!("[AI COPILOT] Evaluating suspicious behavior...");
+                if erdps_agent::ai_copilot::sentinel_brain::evaluate_process_behavior(&process_path, &cmd_line) {
+                    // 3. EXECUTE LETHAL RESPONSE
+                    println!("[CANARY] ⚡ ENGAGING ACTIVE DEFENSE FOR PID {}...", pid);
+                    println!("[AI COPILOT] Verdict: BLOCK. Engaging Kill Switch.");
+                    
+                    ActiveDefense::engage_suspend(pid); // Freeze it first
+                    ActiveDefense::engage_network_isolation(pid, &process_path); // Cut comms
+                    ActiveDefense::engage_storyline_kill(pid, "Canary Trap Modified/Removed"); // Terminate
+                } else {
+                    println!("[AI COPILOT] Verdict: ALLOW (Legitimate activity). Bypassing kill switch.");
+                }
             }
         }
         
