@@ -139,10 +139,36 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                         crate::active_defense::rollback::backup_file_pre_modify(pid, &target_file);
                     }
 
+                    // KERNEL-MODE EXTENSION MUTATION DETECTOR (For WannaCry / DarkSide)
+                    if let Some(ext_idx) = target_file.rfind('.') {
+                        let ext = &target_file[ext_idx + 1..];
+                        if ["WCRY", "lockbit", "darkside", "revil", "locked", "encrypt"].contains(&ext) {
+                            s_println!("\x1b[41;37m[CRITICAL] KERNEL INTERCEPT: Ransomware Extension Mutation Detected (.ext)\x1b[0m");
+                            ActiveDefense::engage_storyline_kill(pid, &format!("Kernel-Mode Extension Mutation (.{})", ext));
+                            reporter::log_alert(pid, &process_name, 3, &target_file);
+                            killed_pids.insert(pid);
+                            continue;
+                        }
+                    }
+
                     // ZERO-FOOTPRINT HONEYPOT CHECK
-                    if crate::active_defense::honeypot::is_honeypot(&target_file) {
-                        s_println!("\x1b[41;37m[CRITICAL] ☠️  ZERO-FOOTPRINT HONEYPOT TRIGGERED BY {} (PID: {})\x1b[0m", process_name, pid);
-                        ActiveDefense::engage_kill_switch(pid, "Zero-Footprint Ransomware Honeypot Triggered");
+                    if crate::active_defense::honeypot::is_honeypot(&target_file) || 
+                       target_file.contains("~$cache_config.docx") || 
+                       target_file.contains("~sys_temp.pdf") || 
+                       target_file.contains("~$win_recovery.xlsx") {
+                        
+                        // Honeytoken Exfiltration Trap: If the file was READ (Reason 2 or similar I/O), isolate but don't kill
+                        // Assuming reason 2 is a read/access event based on the colored output logic below
+                        if reason == 2 {
+                            s_println!("\x1b[43;30m[CANARY] Honeytoken Read by PID {}. Network Isolated to prevent exfiltration.\x1b[0m", pid);
+                            let proc_path = get_process_path(pid);
+                            ActiveDefense::engage_network_isolation(pid, &proc_path);
+                            reporter::log_alert(pid, &process_name, 2, &target_file);
+                            continue;
+                        }
+
+                        s_println!("\x1b[41;37m[CANARY] 💥 KERNEL INTERCEPT: Decoy file modified by PID {}. Instant Kill Engaged!\x1b[0m", pid);
+                        ActiveDefense::engage_storyline_kill(pid, "Zero-Footprint Ransomware Honeypot Triggered");
                         reporter::log_alert(pid, &process_name, 1, &target_file); // Log as critical
                         killed_pids.insert(pid);
                         continue;

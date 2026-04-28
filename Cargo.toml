@@ -240,6 +240,7 @@ ort = { version = "2.0.0-rc.9", default-features = false, features = ["load-dyna
 ndarray = "0.16"
 netstat2 = "0.11.2"
 pelite = "0.10.0"
+ctrlc = "3.5.2"
 # psutil = "3.3"  # Removed due to compilation errors, using sysinfo instead
 
 # Windows-specific dependencies

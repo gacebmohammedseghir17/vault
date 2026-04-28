@@ -50,7 +50,17 @@ static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
 const VERSION: &str = "6.5";
 const MODE_LABEL: &str = "MAXIMUM ENTROPY ANALYSIS";
 
+use std::process;
+
 fn main() {
+    // 1. Intercept Ctrl+C (Terminal Close) BEFORE anything else runs
+    ctrlc::set_handler(move || {
+        println!("\n\x1b[33m[!] Shutting down ERDPS EDR...\x1b[0m");
+        // Remove the BSOD trap before exiting
+        crate::active_defense::unharden_agent_process();
+        process::exit(0);
+    }).expect("Error setting Ctrl-C handler");
+
     print_banner();
 
     // Initialize environment variables

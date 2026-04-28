@@ -48,10 +48,10 @@ impl NetSentinel {
             let connection_tracker: Arc<Mutex<HashMap<String, u32>>> = Arc::new(Mutex::new(HashMap::new()));
             let tracker_clone = connection_tracker.clone();
 
-            // Background cleaner (Resets counts every 10s)
+            // Background cleaner (Resets counts every 5s for Double-Extortion sensitivity)
             thread::spawn(move || {
                 loop {
-                    thread::sleep(Duration::from_secs(10));
+                    thread::sleep(Duration::from_secs(5));
                     let mut tracker = tracker_clone.lock().unwrap();
                     tracker.clear();
                 }
@@ -100,10 +100,9 @@ impl NetSentinel {
                                     *count += 1;
 
                                     // FILTER 3: Higher Threshold & Spam Control
-                                    // Only alert if > 100 scans in 10s (Real worms are much faster)
-                                    // We check 'count % 50 == 0' to avoid printing EVERY packet after the threshold
-                                    if *count > 100 && *count % 50 == 0 {
-                                        println!("\x1b[31m[NETWORK] 🚨 SUSPICIOUS ACTIVITY! IP {} is scanning ports (Count: {}). Target Port: {}\x1b[0m", src, count, dest_port);
+                                    // Alert if > 20 connections in 5s (Detecting low-and-slow exfiltration / double extortion)
+                                    if *count > 20 && *count % 10 == 0 {
+                                        println!("\x1b[31;1m[CRITICAL] Possible Data Exfiltration Detected (Double Extortion)! IP {} has {} rapid connections. Target Port: {}\x1b[0m", src, count, dest_port);
                                     }
                                 }
                             }

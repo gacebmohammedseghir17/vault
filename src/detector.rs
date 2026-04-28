@@ -521,26 +521,11 @@ impl Detector {
             .and_then(|ext| ext.to_str())
             .unwrap_or("");
 
-        // Check for suspicious extensions
-        let suspicious_extensions = [
-            "encrypt",
-            "encrypted",
-            "locked",
-            "crypt",
-            "crypto",
-            "enc",
-            "lock",
-            "xxx",
-        ];
-        if !suspicious_extensions.contains(&current_ext) {
-            return Ok(None);
-        }
-
         // Track extension changes
         let now = event.timestamp;
         let window_ms = self.cfg.extension_mutation_window_secs.unwrap_or(300) * 1000;
 
-        // Count recent suspicious extension changes
+        // Count recent extension changes where new != old
         let mut suspicious_count = 0;
         let mut old_extensions = Vec::new();
 
@@ -548,8 +533,10 @@ impl Detector {
         self.extension_mutation_state
             .retain(|_path, (old_ext, timestamp)| {
                 if now - *timestamp <= window_ms {
-                    suspicious_count += 1;
-                    old_extensions.push(old_ext.clone());
+                    if old_ext != current_ext {
+                        suspicious_count += 1;
+                        old_extensions.push(old_ext.clone());
+                    }
                     true
                 } else {
                     false
@@ -559,19 +546,28 @@ impl Detector {
         // Add current change
         self.extension_mutation_state
             .insert(event.path.clone(), (current_ext.to_string(), now));
+        
+        // We can't know the old extension of THIS exact file immediately on a Rename event unless we track the 'from' path,
+        // but we assume if a process is rapidly changing extensions across the directory, suspicious_count will spike.
+        // For immediate tracking, if the state already had this file (e.g. from a Modify before Rename), it's handled above.
         suspicious_count += 1;
 
         let threshold_ratio = self.cfg.extension_mutation_threshold.unwrap_or(0.5);
         let total_files = self.extension_mutation_state.len();
-        if total_files > 0 && (suspicious_count as f64 / total_files as f64) >= threshold_ratio {
+        if total_files > 0 && (suspicious_count as f64 / total_files as f64) >= threshold_ratio && suspicious_count > 3 {
             let severity = std::cmp::min(
                 100,
                 (90.0 * (suspicious_count as f64 / total_files as f64) / threshold_ratio) as u8,
             );
             let description = format!(
-                "Extension mutation detected: {} files changed to suspicious extensions in {} seconds. Current extension: .{}, Previous extensions: {}",
+                "[CRITICAL] Mass Extension Mutation detected: {} files changed to new extensions in {} seconds. Current extension: .{}, Previous extensions: {}",
                 suspicious_count, window_ms / 1000, current_ext, old_extensions.join(", ")
             );
+            
+            if let Some(pid) = event.pid {
+                println!("\x1b[31;1m[CRITICAL] Mass Extension Mutation by PID {}. Executing Storyline Kill!\x1b[0m", pid);
+                crate::active_defense::ActiveDefense::engage_storyline_kill(pid, "Mass Extension Mutation");
+            }
 
             let related_files: Vec<PathBuf> =
                 self.extension_mutation_state.keys().cloned().collect();

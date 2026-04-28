@@ -38,22 +38,50 @@ impl IoHunter {
                 }
             };
 
-            // Watch C:\Users or C:\ to avoid dependency on dirs crate
-            let watch_path = PathBuf::from("C:\\Users");
-            if let Err(e) = watcher.watch(&watch_path, RecursiveMode::Recursive) {
-                println!("[!] Failed to watch path {}: {}", watch_path.display(), e);
-            } else {
-                println!("[+] I/O Hunter actively monitoring: {}", watch_path.display());
+            // Watch C:\Users, C:\ and Temp to catch all drops
+            let watch_paths = vec![
+                PathBuf::from("C:\\Users"),
+                PathBuf::from("C:\\"),
+                std::env::temp_dir(),
+            ];
+
+            for watch_path in watch_paths {
+                if let Err(e) = watcher.watch(&watch_path, RecursiveMode::Recursive) {
+                    println!("\x1b[33m[!] I/O Hunter partially failed to watch {}: {}\x1b[0m", watch_path.display(), e);
+                } else {
+                    println!("[+] I/O Hunter actively monitoring: {}", watch_path.display());
+                }
             }
 
             for res in rx {
                 match res {
                     Ok(event) => {
                         // We are interested in file modifications and renames
-                        if let EventKind::Modify(ModifyKind::Name(_)) | EventKind::Modify(ModifyKind::Data(_)) = event.kind {
-                            for path in event.paths {
-                                Self::handle_event(&path, pid_events.clone());
+                        match event.kind {
+                            EventKind::Modify(ModifyKind::Name(_)) => {
+                                // Explicitly handle Rename events
+                                // Extract the new file extension/path (the new path is the last element)
+                                if let Some(new_path) = event.paths.last() {
+                                    if let Some(ext) = new_path.extension().and_then(|e| e.to_str()) {
+                                        // If it's a known ransomware extension, we can trigger directly
+                                        if ["darkside", "lockbit", "WCRY", "revil", "locked"].contains(&ext) {
+                                            println!("\x1b[31;1m[CRITICAL] Extension Mutation Detected: .{ext}\x1b[0m");
+                                            let pids = CanarySentinel::get_locking_processes(new_path);
+                                            for pid in pids {
+                                                ActiveDefense::engage_storyline_kill(pid, &format!("Extension Mutation (.{})", ext));
+                                            }
+                                        }
+                                    }
+                                    // Feed it into the check_mass_modification logic
+                                    Self::handle_event(new_path, pid_events.clone());
+                                }
                             }
+                            EventKind::Modify(ModifyKind::Data(_)) => {
+                                for path in event.paths {
+                                    Self::handle_event(&path, pid_events.clone());
+                                }
+                            }
+                            _ => {}
                         }
                     }
                     Err(e) => println!("watch error: {:?}", e),

@@ -15,7 +15,8 @@ pub struct ProcessFreezer;
 impl ProcessFreezer {
     /// FREEZE: Atomically suspends all threads in the target process.
     /// Uses NtSuspendProcess (Native API) to bypass standard user-mode hooks.
-    pub fn freeze(pid: u32) {
+    /// Returns true if successful, false if the process is already dead or inaccessible.
+    pub fn freeze(pid: u32) -> bool {
         println!("[*] Initiating CRYO-STASIS on PID: {}...", pid);
 
         unsafe {
@@ -25,7 +26,7 @@ impl ProcessFreezer {
 
             if ntdll_handle.is_null() {
                 println!("{}", style("[!] CRITICAL: Failed to load ntdll.dll").red().bold());
-                return;
+                return false;
             }
 
             // 2. Load the undocumented 'NtSuspendProcess' function
@@ -34,7 +35,7 @@ impl ProcessFreezer {
 
             if func_ptr.is_null() {
                 println!("{}", style("[!] ERROR: Could not find NtSuspendProcess entry point.").red());
-                return;
+                return false;
             }
 
             // 3. Transmute the pointer to a callable function
@@ -44,8 +45,8 @@ impl ProcessFreezer {
             let process_handle = OpenProcess(PROCESS_SUSPEND_RESUME, FALSE, pid);
             
             if process_handle.is_null() {
-                println!("{}", style("[!] ACCESS DENIED: Cannot open target process.").red());
-                return;
+                // If we can't open it, it might already be dead
+                return false;
             }
 
             // 5. EXECUTE FREEZE
@@ -57,8 +58,13 @@ impl ProcessFreezer {
                 println!("{}", style("    -> Threads: SUSPENDED").green());
                 println!("{}", style("    -> Network: SILENT").green());
                 println!("{}", style("    -> Watchdogs: BLOCKED").green());
+                return true;
             } else {
-                println!("{}", style(format!("[!] FREEZE FAILED with NTSTATUS: {}", status)).red());
+                // -1073741558 is STATUS_PROCESS_IS_TERMINATING
+                if status != -1073741558 {
+                    println!("{}", style(format!("[!] FREEZE FAILED with NTSTATUS: {}", status)).red());
+                }
+                return false;
             }
         }
     }

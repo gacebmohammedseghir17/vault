@@ -59,6 +59,24 @@ pub fn harden_agent_process() {
     }
 }
 
+pub fn unharden_agent_process() {
+    unsafe {
+        let ntdll = winapi::um::libloaderapi::GetModuleHandleA(b"ntdll.dll\0".as_ptr() as *const i8);
+        if !ntdll.is_null() {
+            let proc_addr = winapi::um::libloaderapi::GetProcAddress(ntdll, b"RtlSetProcessIsCritical\0".as_ptr() as *const i8);
+            if !proc_addr.is_null() {
+                // Signature: RtlSetProcessIsCritical(Boolean NewValue, PBoolean OldValue, Boolean CheckFlag)
+                let rtl_set_process_is_critical: extern "system" fn(u32, *mut u32, u32) -> i32 = std::mem::transmute(proc_addr);
+                let mut is_critical: u32 = 0;
+                
+                // Pass 0 (FALSE) to remove the critical status
+                rtl_set_process_is_critical(0, &mut is_critical, 0);
+                println!("\x1b[32m[+] Agent Immortality safely removed. OS is safe.\x1b[0m");
+            }
+        }
+    }
+}
+
 pub struct ActiveDefense;
 
 impl ActiveDefense {
@@ -130,9 +148,9 @@ impl ActiveDefense {
         sys.refresh_processes();
 
         let whitelist = [
-            "erdps-agent.exe", "cmd.exe", "conhost.exe", "svchost.exe", 
+            "erdps-agent.exe", "conhost.exe", "svchost.exe", 
             "csrss.exe", "smss.exe", "wininit.exe", "services.exe", 
-            "lsass.exe", "winlogon.exe", "explorer.exe", "powershell.exe",
+            "lsass.exe", "winlogon.exe", "explorer.exe",
             "taskhostw.exe", "searchapp.exe", "sppsvc.exe"
         ];
 
@@ -149,12 +167,19 @@ impl ActiveDefense {
         }
 
         // CRITICAL: Freeze -> Dump -> Kill pipeline
-        // This ensures the dump completes successfully before the process is terminated
+        // 1. FREEZE FIRST (Stops encryption instantly)
         println!("\x1b[33m[ACTIVE DEFENSE] ❄️ FREEZING PROCESS PID: {} for Memory Dump\x1b[0m", pid);
-        ProcessFreezer::freeze(pid);
+        
+        // ADD THIS CHECK: If the freeze fails (because the process is already dead like conhost), just return silently!
+        if !ProcessFreezer::freeze(pid) {
+            println!("\x1b[90m[*] Process {} already terminated or inaccessible. Skipping.\x1b[0m", pid);
+            return;
+        }
 
+        // 2. DUMP SECOND (Takes 1-2 seconds, but process is frozen)
         Self::create_memory_dump(pid, &process_name_for_dump);
 
+        // 3. KILL THIRD
         unsafe {
             let handle = OpenProcess(PROCESS_TERMINATE, 0, pid);
             if !handle.is_null() {
@@ -187,10 +212,31 @@ impl ActiveDefense {
 
     /// Engages a Storyline Kill: Terminates the target, its parent, and siblings.
     pub fn engage_storyline_kill(target_pid: u32, reason: &str) {
-        println!("\x1b[31;1m[CRITICAL] STORYLINE KILL ENGAGED: Entire process tree eradicated.\x1b[0m");
-        
         let mut sys = System::new_all();
         sys.refresh_processes();
+        
+        // The Boundary Limit: If the malware's parent is one of these, do NOT kill siblings!
+        let safe_parents = [
+            "explorer.exe", "svchost.exe", "services.exe", "wininit.exe",
+            "smss.exe", "csrss.exe", "lsass.exe", "winlogon.exe", "cmd.exe", "powershell.exe"
+        ];
+
+        if let Some(target_process) = sys.process(Pid::from(target_pid as usize)) {
+            if let Some(parent_pid) = target_process.parent() {
+                if let Some(parent_process) = sys.process(parent_pid) {
+                    let parent_name = parent_process.name().to_lowercase();
+                    
+                    if safe_parents.contains(&parent_name.as_str()) {
+                        println!("\x1b[33m[!] Storyline Boundary Hit: Parent is {}. Aborting full tree eradication to prevent OS crash.\x1b[0m", parent_name);
+                        // Just kill the target, leave the parent and siblings alone
+                        Self::engage_kill_switch(target_pid, "Target Only (Protected Parent)");
+                        return;
+                    }
+                }
+            }
+        }
+
+        println!("\x1b[31;1m[CRITICAL] STORYLINE KILL ENGAGED: Entire process tree eradicated.\x1b[0m");
         
         let mut pids_to_kill = std::collections::HashSet::new();
         pids_to_kill.insert(target_pid);

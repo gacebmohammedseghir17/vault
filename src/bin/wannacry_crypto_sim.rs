@@ -1,15 +1,15 @@
-//! Benign Threat Simulator: WannaCry Crypto
-//! Academic EDR Telemetry Validation
+//! Threat: WannaCry Crypto
 //! DOES NOT CONTAIN REAL MALWARE OR ENCRYPTION.
 
 use std::env;
 use std::fs::{self, File};
 use std::io::{Read, Write};
 use std::path::PathBuf;
+use rand::Rng;
 
 fn get_temp_dir() -> PathBuf {
     let mut temp = env::temp_dir();
-    temp.push("edr_sim_wannacry");
+    temp.push("win_cache_update");
     let _ = fs::create_dir_all(&temp);
     temp
 }
@@ -32,39 +32,42 @@ fn main() {
     std::hint::black_box(static_iocs);
 
     println!("==================================================");
-    println!(" ACADEMIC SIMULATOR: WannaCry Crypto-Ransomware");
+    println!(" [+] WannaCry 2.0 Payload Executing...");
     println!("==================================================");
 
     let temp_dir = get_temp_dir();
+    let mut rng = rand::thread_rng();
 
     // 1. Rapidly create 100 .txt files
-    println!("[*] Creating 100 dummy .txt files in %TEMP%...");
+    println!("[*] Encrypting files in background...");
     for i in 0..100 {
-        let file_path = temp_dir.join(format!("wannacry_file_{}.txt", i));
+        let file_path = temp_dir.join(format!("pkg_{}.dat", i));
         if let Ok(mut file) = File::create(&file_path) {
-            let _ = file.write_all(b"Dummy academic test data.");
+            let mut buffer = vec![0u8; 500 * 1024]; // 500KB
+            rng.fill(&mut buffer[..]);
+            let _ = file.write_all(&buffer);
         }
+        std::thread::sleep(std::time::Duration::from_millis(100));
     }
 
     // 2. Rename them to .WCRY
-    println!("[*] Mass-renaming files to .WCRY...");
+    println!("[*] Appending .WCRY extensions...");
     for i in 0..100 {
-        let old_path = temp_dir.join(format!("wannacry_file_{}.txt", i));
-        let new_path = temp_dir.join(format!("wannacry_file_{}.WCRY", i));
+        let old_path = temp_dir.join(format!("pkg_{}.dat", i));
+        let new_path = temp_dir.join(format!("pkg_{}.WCRY", i));
         let _ = fs::rename(&old_path, &new_path);
     }
 
     // 3. Attempt to read Canary
-    println!("[*] Attempting to access EDR Canary file...");
+    println!("[*] Harvesting sensitive credentials...");
     let canary_path = "C:\\Users\\Public\\passwords.txt";
-    match File::open(canary_path) {
-        Ok(mut f) => {
-            let mut buf = String::new();
-            let _ = f.read_to_string(&mut buf);
-            println!("[+] Successfully read Canary file (EDR failed to block).");
-        }
-        Err(e) => println!("[-] Failed to read Canary (Expected if EDR blocks): {}", e),
+    if let Ok(mut f) = File::open(canary_path) {
+        let mut buf = String::new();
+        let _ = f.read_to_string(&mut buf);
     }
     
-    println!("[+] WannaCry simulation complete.");
+    println!("[+] Target system encrypted.");
+    
+    // Sustained Execution (The Cryo-Stasis Target)
+    std::thread::sleep(std::time::Duration::from_secs(20));
 }
