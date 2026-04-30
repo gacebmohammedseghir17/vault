@@ -111,35 +111,57 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
     thread::spawn(move || {
         let _strike_map: Arc<Mutex<HashMap<u32, u32>>> = Arc::new(Mutex::new(HashMap::new()));
         let mut killed_pids: HashSet<u32> = HashSet::new();
+        let mut sanity_log_count = 0;
 
-        unsafe {
-            let port_name: Vec<u16> = "\\ERDPSPort".encode_utf16().chain(Some(0)).collect();
-            let result = FilterConnectCommunicationPort(windows::core::PCWSTR(port_name.as_ptr()), 0, None, 0, None);
+        loop {
+            unsafe {
+                let port_name: Vec<u16> = "\\ERDPSPort".encode_utf16().chain(Some(0)).collect();
+                let result = FilterConnectCommunicationPort(windows::core::PCWSTR(port_name.as_ptr()), 0, None, 0, None);
 
-            if result.is_err() {
-                s_println!("[ERROR] Driver not found. Is 'ERDPS_Sentinel.sys' loaded?");
-                return;
-            }
-            let port_handle = result.unwrap();
-            s_println!("[LINK] Connected to Kernel Driver. Listening for threats...");
+                if result.is_err() {
+                    println!("\x1b[33m[KERNEL] Driver not found. Retrying connection in 2 seconds...\x1b[0m");
+                    crate::KERNEL_CONNECTED.store(false, Ordering::SeqCst);
+                    thread::sleep(Duration::from_secs(2));
+                    continue;
+                }
+                let port_handle = result.unwrap();
+                println!("\x1b[32;1m[LINK] Connected to Kernel Driver. Listening for threats...\x1b[0m");
+                crate::KERNEL_CONNECTED.store(true, Ordering::SeqCst);
 
-            loop {
-                let mut message: MessageWrapper = std::mem::zeroed();
-                let result = FilterGetMessage(port_handle, &mut message.header, size_of::<MessageWrapper>() as u32, None);
+                loop {
+                    let mut message: MessageWrapper = std::mem::zeroed();
+                    let result = FilterGetMessage(port_handle, &mut message.header, size_of::<MessageWrapper>() as u32, None);
 
-                if result.is_ok() {
-                    let pid = message.alert.pid;
-                    if killed_pids.contains(&pid) { continue; }
-                    let reason = message.alert.reason;
-                    let target_file = String::from_utf16_lossy(&message.alert.file_path).trim_matches(char::from(0)).to_string();
-                    let process_name = get_process_name(pid);
+                    if result.is_ok() {
+                        let pid = message.alert.pid;
+                        let reason = message.alert.reason;
+                        let target_file = String::from_utf16_lossy(&message.alert.file_path).trim_matches(char::from(0)).to_string();
 
-                    // ROLLBACK: Backup file before modification
-                    if reason == 3 || reason == 10 || reason == 4 {
-                        crate::active_defense::rollback::backup_file_pre_modify(pid, &target_file);
-                    }
+                        // 1-TIME KERNEL SANITY LOG (Print unconditionally for the first 5 events)
+                        if sanity_log_count < 5 {
+                            println!("\x1b[36m[KERNEL SANITY] Received event: PID={} Reason={} File={}\x1b[0m", pid, reason, target_file);
+                            sanity_log_count += 1;
+                        }
 
-                    // KERNEL-MODE EXTENSION MUTATION DETECTOR (For WannaCry / DarkSide)
+                        if killed_pids.contains(&pid) { continue; }
+                        let process_name = get_process_name(pid);
+
+                        // ROLLBACK: Backup file before modification
+                        if reason == 3 || reason == 10 || reason == 4 {
+                            crate::active_defense::rollback::backup_file_pre_modify(pid, &target_file);
+                        }
+
+                        // ENFORCE KILL ON KERNEL RENAME REASONS REGARDLESS OF USER-MODE PID GUESSING
+                        if reason == 3 {
+                            println!("\x1b[41;37m[CRITICAL] ☠️  BLOCKED RANSOMWARE ATTEMPT (RENAME/DELETE) -> PID: {}\x1b[0m", pid);
+                            ActiveDefense::engage_storyline_kill(pid, "Ransomware Extension Rename/Delete Blocked by Kernel (Alert 3)");
+                            ActiveDefense::create_snapshot();
+                            reporter::log_alert(pid, &process_name, reason, &target_file);
+                            killed_pids.insert(pid);
+                            continue;
+                        }
+
+                        // KERNEL-MODE EXTENSION MUTATION DETECTOR (For WannaCry / DarkSide)
                     if let Some(ext_idx) = target_file.rfind('.') {
                         let ext = &target_file[ext_idx + 1..];
                         if ["WCRY", "lockbit", "darkside", "revil", "locked", "encrypt"].contains(&ext) {
@@ -197,12 +219,6 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                         }
                         2 => {
                             s_println!("\x1b[33m[WARNING] ⚠️  SUSPICIOUS FILE ACCESS: {} (PID: {})\x1b[0m", process_name, pid);
-                        }
-                        3 => {
-                            s_println!("\x1b[41;37m[CRITICAL] ☠️  BLOCKED RANSOMWARE ATTEMPT (RENAME/DELETE) -> PID: {}\x1b[0m", pid);
-                            ActiveDefense::engage_storyline_kill(pid, "Ransomware Extension Rename/Delete Blocked by Kernel (Alert 3)");
-                            ActiveDefense::create_snapshot();
-                            reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         4 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  DELTA ENTROPY TRIGGERED (ENCRYPTION LOOP) -> PID: {}\x1b[0m", pid);
@@ -309,17 +325,6 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                             kill_it = true;
                             threat_label = "HONEYPOT";
                         }
-                        else if reason == 3 {
-                            // Rename detected. AI didn't flag it, but Kernel did.
-                            // If AI score was low (safe), we trust AI and ignore.
-                            // If AI score was medium (0.5), we trust Kernel and block.
-                             s_println!("[!] SUSPICIOUS RENAME by {}", process_name);
-                             // For now, only kill if not explorer
-                             if process_name.to_lowercase() != "explorer.exe" {
-                                 kill_it = true;
-                                 threat_label = "TAMPERING";
-                             }
-                        }
                     }
 
                     if kill_it {
@@ -330,10 +335,12 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                     }
                 } else {
                     // THIS PREVENTS THE CRASH
-                    s_println!("\x1b[31m[!] KERNEL PORT DISCONNECTED. Exiting listener thread gracefully.\x1b[0m");
+                    println!("\x1b[31m[!] KERNEL PORT DISCONNECTED. Retrying...\x1b[0m");
+                    crate::KERNEL_CONNECTED.store(false, Ordering::SeqCst);
                     break; 
                 }
-            }
-        }
-    });
-}
+            } // End inner loop
+        } // End unsafe block
+        } // End outer loop
+    }); // End thread::spawn
+} // End fn

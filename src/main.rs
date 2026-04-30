@@ -38,6 +38,7 @@ use std::sync::Arc;
 use std::path::Path;
 
 pub static SENTINEL_UI_ACTIVE: AtomicBool = AtomicBool::new(false);
+pub static KERNEL_CONNECTED: AtomicBool = AtomicBool::new(false);
 
 use std::time::Duration;
 use erdps_agent::network::etw_hunter::EtwNetworkHunter;
@@ -47,7 +48,7 @@ use erdps_agent::ghost_hunter;
 #[global_allocator]
 static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
 
-const VERSION: &str = "6.5";
+const VERSION: &str = "6.6 (Build ID: DIAMOND-CORE-001)";
 const MODE_LABEL: &str = "MAXIMUM ENTROPY ANALYSIS";
 
 use std::process;
@@ -335,15 +336,10 @@ fn main() {
 } 
 
 fn print_dashboard() {
-    let driver_check = std::process::Command::new("cmd.exe")
-        .args(["/c", "fltmc | findstr ERDPS_Sentinel"])
-        .stdout(std::process::Stdio::null())
-        .stderr(std::process::Stdio::null())
-        .status();
-
-    let driver_status = match driver_check {
-        Ok(status) if status.success() => "\x1b[32;1mLOADED (Active Defense ON)\x1b[0m",
-        _ => "\x1b[31;1mOFFLINE\x1b[0m",
+    let driver_status = if crate::KERNEL_CONNECTED.load(Ordering::SeqCst) {
+        "\x1b[32;1mLOADED (Active Defense ON)\x1b[0m"
+    } else {
+        "\x1b[31;1mOFFLINE (Connecting...)\x1b[0m"
     };
 
     let network_check = std::process::Command::new("cmd.exe")
