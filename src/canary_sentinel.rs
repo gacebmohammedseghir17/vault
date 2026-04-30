@@ -15,7 +15,9 @@ use windows::Win32::System::Threading::{OpenProcess, QueryFullProcessImageNameW,
 use windows::Win32::Foundation::{CloseHandle, MAX_PATH};
 use windows::core::{PCWSTR, PWSTR};
 use crate::active_defense::ActiveDefense;
+use crate::active_defense::policy::{Signal, ActionPlan, PolicyGate, MitigationExecutor};
 use erdps_agent::ai_copilot::sentinel_brain::evaluate_process_behavior;
+use std::sync::atomic::Ordering;
 
 pub struct CanarySentinel;
 
@@ -170,9 +172,9 @@ impl CanarySentinel {
                 // 2a. ZERO-FOOTPRINT HONEYPOT (Instant Kill, Bypass AI)
                 println!("\x1b[41;37m[CRITICAL] ☠️  ZERO-FOOTPRINT HONEYPOT TRIGGERED! BYPASSING AI EVALUATION FOR INSTANT KILL.\x1b[0m");
                 println!("[CANARY] ⚡ ENGAGING ACTIVE DEFENSE FOR PID {}...", pid);
-                ActiveDefense::engage_suspend(pid); // Freeze it first
-                ActiveDefense::engage_network_isolation(pid, &process_path); // Cut comms
-                ActiveDefense::engage_storyline_kill(pid, "Zero-Footprint Ransomware Honeypot Modified/Removed"); // Terminate
+                let sig = Signal { source: "CanarySentinel", pid, reason: 1, file_path: trap_path.to_string_lossy().into_owned(), metadata: Some("Zero-Footprint Ransomware Honeypot Modified/Removed".to_string()) };
+                MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::Contain), &sig);
+                MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
             } else {
                 // 2b. AI COPILOT EVALUATION (The Sentinel Genius Mind) for Phase 1 Canary Traps
                 let mut sys = sysinfo::System::new();
@@ -189,9 +191,9 @@ impl CanarySentinel {
                     println!("[CANARY] ⚡ ENGAGING ACTIVE DEFENSE FOR PID {}...", pid);
                     println!("[AI COPILOT] Verdict: BLOCK. Engaging Kill Switch.");
                     
-                    ActiveDefense::engage_suspend(pid); // Freeze it first
-                    ActiveDefense::engage_network_isolation(pid, &process_path); // Cut comms
-                    ActiveDefense::engage_storyline_kill(pid, "Canary Trap Modified/Removed"); // Terminate
+                    let sig = Signal { source: "CanarySentinel", pid, reason: 1, file_path: trap_path.to_string_lossy().into_owned(), metadata: Some("Canary Trap Modified/Removed".to_string()) };
+                    MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::Contain), &sig);
+                    MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
                 } else {
                     println!("[AI COPILOT] Verdict: ALLOW (Legitimate activity). Bypassing kill switch.");
                 }
@@ -199,7 +201,9 @@ impl CanarySentinel {
         }
         
         // 3. Snapshot for recovery
-        ActiveDefense::create_snapshot();
+        if crate::SENTINEL_UI_ACTIVE.load(Ordering::SeqCst) {
+            ActiveDefense::create_snapshot();
+        }
     }
 
     /// Uses Windows Restart Manager to find ALL processes holding a file.

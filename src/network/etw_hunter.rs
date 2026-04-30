@@ -9,6 +9,7 @@ use windows::Win32::System::Diagnostics::Etw::{
     CONTROLTRACE_HANDLE, PROCESSTRACE_HANDLE, ENABLE_TRACE_PARAMETERS
 };
 use windows::Win32::Foundation::{HANDLE, INVALID_HANDLE_VALUE};
+use crate::active_defense::policy::{Signal, ActionPlan, PolicyGate, MitigationExecutor};
 use crate::active_defense::ActiveDefense;
 use entropy::shannon_entropy;
 
@@ -164,7 +165,8 @@ impl EtwNetworkHunter {
                 if entropy > 4.2 {
                     println!("\x1b[41;37m[NETWORK] 🚨 DGA C2 ATTEMPT DETECTED: {} (Entropy: {:.2})\x1b[0m", domain, entropy);
                     println!("\x1b[31m   |-> PID: {}\x1b[0m", record.EventHeader.ProcessId);
-                    ActiveDefense::engage_network_isolation(record.EventHeader.ProcessId, "Suspicious_DGA_Process");
+                    let sig = Signal { source: "EtwNetwork", pid: record.EventHeader.ProcessId, reason: 6, file_path: domain.clone(), metadata: Some("Suspicious_DGA_Process".to_string()) };
+                    MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::Contain), &sig);
                 } else if domain.contains("onion") || domain.contains("tor") {
                     println!("\x1b[33m[NETWORK] ⚠️ TOR/Darknet Activity: {}\x1b[0m", domain);
                 }

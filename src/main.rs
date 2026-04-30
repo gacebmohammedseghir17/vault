@@ -40,6 +40,25 @@ use std::path::Path;
 pub static SENTINEL_UI_ACTIVE: AtomicBool = AtomicBool::new(false);
 pub static KERNEL_CONNECTED: AtomicBool = AtomicBool::new(false);
 
+#[derive(Debug, PartialEq, Clone)]
+pub enum Profile {
+    Production,
+    Lab,
+    Adaptive,
+}
+
+use once_cell::sync::Lazy;
+use std::sync::Mutex;
+
+pub static CURRENT_PROFILE: Lazy<Mutex<Profile>> = Lazy::new(|| {
+    let profile_str = std::env::var("ERDPS_PROFILE").unwrap_or_else(|_| "production".to_string());
+    match profile_str.to_lowercase().as_str() {
+        "lab" => Mutex::new(Profile::Lab),
+        "adaptive" => Mutex::new(Profile::Adaptive),
+        _ => Mutex::new(Profile::Production),
+    }
+});
+
 use std::time::Duration;
 use erdps_agent::network::etw_hunter::EtwNetworkHunter;
 use erdps_agent::ghost_hunter;
@@ -203,7 +222,10 @@ fn main() {
         io::stdout().flush().unwrap(); 
 
         let mut input = String::new(); 
-        io::stdin().read_line(&mut input).unwrap(); 
+        if io::stdin().read_line(&mut input).is_err() {
+            println!("\x1b[31m[!] Input error detected. Exiting safely.\x1b[0m");
+            break;
+        }
 
         match input.trim() { 
             "1" => { 
@@ -221,22 +243,30 @@ fn main() {
                 
                 // --- GHOST HUNTING ---
                 // Scan for hardware breakpoints (VEH evasion)
-                std::thread::spawn(|| {
-                    loop {
-                        // Scan for hardware breakpoints
-                        let _ = ghost_hunter::GhostHunter::scan_system();
-                        std::thread::sleep(std::time::Duration::from_secs(5));
-                    }
-                });
+                if *CURRENT_PROFILE.lock().unwrap() != Profile::Production {
+                    std::thread::spawn(|| {
+                        loop {
+                            // Scan for hardware breakpoints
+                            let _ = ghost_hunter::GhostHunter::scan_system();
+                            std::thread::sleep(std::time::Duration::from_secs(5));
+                        }
+                    });
+                } else {
+                    println!("[+] Ghost Hunter disabled (Production Profile)");
+                }
 
                 // --- STARGATE (API HOOK HUNTING) ---
                 // Scan for Inline Hooks in ntdll.dll
-                std::thread::spawn(|| {
-                    loop {
-                        hook_hunter::HookHunter::scan_system();
-                        std::thread::sleep(std::time::Duration::from_secs(15));
-                    }
-                });
+                if *CURRENT_PROFILE.lock().unwrap() != Profile::Production {
+                    std::thread::spawn(|| {
+                        loop {
+                            hook_hunter::HookHunter::scan_system();
+                            std::thread::sleep(std::time::Duration::from_secs(15));
+                        }
+                    });
+                } else {
+                    println!("[+] Hook Hunter disabled (Production Profile)");
+                }
 
                 // --- SURICATA (ETW NETWORK HUNTER) ---
                 // Native Windows Network Tracing (No Npcap)
@@ -257,7 +287,10 @@ fn main() {
                 println!("[!] Network Sentinel disabled (feature: network-monitoring).");
                 
                 println!("\n\x1b[32;1m[ Press ENTER to safely stop Sentinel and return to Main Menu ]\x1b[0m");
-                std::io::stdin().read_line(&mut String::new()).unwrap();
+                let mut exit_input = String::new();
+                if std::io::stdin().read_line(&mut exit_input).is_err() {
+                    println!("\x1b[31m[!] Input error detected.\x1b[0m");
+                }
                 println!("[*] Stopping Sentinel and returning to menu...");
                 
                 SENTINEL_UI_ACTIVE.store(false, Ordering::SeqCst);

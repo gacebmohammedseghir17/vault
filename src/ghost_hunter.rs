@@ -10,6 +10,7 @@ use winapi::um::winnt::{
 use winapi::um::handleapi::CloseHandle;
 use std::mem;
 use std::collections::HashSet;
+use crate::active_defense::policy::{Signal, ActionPlan, PolicyGate, MitigationExecutor};
 use crate::active_defense::ActiveDefense;
 use crate::reporter;
 
@@ -63,7 +64,8 @@ impl GhostHunter {
                         println!("\x1b[31m[GHOST] ⚡ EVASION ATTEMPT DETECTED. ENGAGING KILL SWITCH.\x1b[0m");
                         
                         // Kill the Ghost
-                        ActiveDefense::engage_kill_switch(pid, "Hardware Breakpoint Detected (Evasion)");
+                        let sig = Signal { source: "GhostHunter", pid, reason: 6, file_path: "".to_string(), metadata: Some("Hardware Breakpoint Detected (Evasion)".to_string()) };
+                        MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::Kill), &sig);
                         reporter::log_alert(pid, "Unknown", 0, "Hardware_Breakpoint");
                         killed_pids.push(pid);
                     }

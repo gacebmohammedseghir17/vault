@@ -1,6 +1,7 @@
 use sysinfo::{System, ProcessRefreshKind, UpdateKind};
-use erdps_agent::utils::process_killer;
 use std::{thread, time};
+use crate::active_defense::policy::{Signal, ActionPlan, PolicyGate, MitigationExecutor};
+use crate::{CURRENT_PROFILE, Profile};
 
 pub fn start_behavior_monitor() {
     thread::spawn(|| {
@@ -23,19 +24,23 @@ pub fn start_behavior_monitor() {
                         // CHECK: Is it running with arguments like "delete shadows"?
                         if cmd.contains("delete") || cmd.contains("shadows") || cmd.is_empty() {
                             println!("\n\x1b[31m[!] SUSPICIOUS ADMIN TOOL DETECTED: {} (CMD: {})\x1b[0m", name, cmd);
-                            process_killer::kill_pid(pid.as_u32());
+                            let sig1 = Signal { source: "Behavior", pid: pid.as_u32(), reason: 6, file_path: cmd.clone(), metadata: Some("Suspicious Admin Tool".to_string()) };
+                            MitigationExecutor::execute(PolicyGate::decide(&sig1, ActionPlan::Kill), &sig1);
                             
                             // Task 1: Fix the Admin Tool Whac-A-Mole
                             if let Some(ppid) = process.parent() {
                                 println!("\x1b[31;1m[CRITICAL] Admin Tool launched by PID {}. Executing Storyline Kill on Parent Process!\x1b[0m", ppid.as_u32());
-                                crate::active_defense::ActiveDefense::engage_storyline_kill(ppid.as_u32(), "Admin Tool Launched");
+                                let sig2 = Signal { source: "Behavior", pid: ppid.as_u32(), reason: 6, file_path: cmd.clone(), metadata: Some("Admin Tool Launched".to_string()) };
+                                MitigationExecutor::execute(PolicyGate::decide(&sig2, ActionPlan::StorylineKill), &sig2);
                             }
                         }
                     }
                 }
             }
-            // Poll very fast to catch short-lived processes (10ms instead of 100ms)
-            thread::sleep(time::Duration::from_millis(10)); 
+            // Poll interval depends on profile
+            let profile = CURRENT_PROFILE.lock().unwrap().clone();
+            let sleep_ms = if profile == Profile::Lab { 10 } else { 100 };
+            thread::sleep(time::Duration::from_millis(sleep_ms)); 
         }
     });
 }

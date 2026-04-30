@@ -4,6 +4,7 @@ use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::{Duration, Instant};
 use notify::{Watcher, RecursiveMode, EventKind, event::ModifyKind};
+use crate::active_defense::policy::{Signal, ActionPlan, PolicyGate, MitigationExecutor};
 use crate::active_defense::ActiveDefense;
 use crate::active_defense::process_freeze::ProcessFreezer;
 use crate::canary_sentinel::CanarySentinel;
@@ -68,7 +69,8 @@ impl IoHunter {
                                             println!("\x1b[31;1m[CRITICAL] Extension Mutation Detected: .{ext}\x1b[0m");
                                             let pids = CanarySentinel::get_locking_processes(new_path);
                                             for pid in pids {
-                                                ActiveDefense::engage_storyline_kill(pid, &format!("Extension Mutation (.{})", ext));
+                                                let sig = Signal { source: "IoHunter", pid, reason: 3, file_path: new_path.to_string_lossy().into_owned(), metadata: Some(format!("Extension Mutation (.{})", ext)) };
+                                                MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
                                             }
                                         }
                                     }
@@ -119,14 +121,8 @@ impl IoHunter {
                 println!("[!!!] MILITARY-GRADE ALERT: I/O Rate Limit Exceeded by PID {}!", pid);
                 println!("      Detected >{} modifications in <{} seconds.", RENAME_LIMIT, TIME_WINDOW.as_secs());
                 
-                // 3. Instantly call NtSuspendProcess
-                ProcessFreezer::freeze(pid);
-                println!("[+] Process {} suspended instantly via NtSuspendProcess.", pid);
-                
-                // Optional: Get process path and engage network isolation
-                if let Some(proc_path) = CanarySentinel::get_process_path(pid) {
-                    ActiveDefense::engage_network_isolation(pid, &proc_path);
-                }
+                let sig = Signal { source: "IoHunter", pid, reason: 4, file_path: path.to_string_lossy().into_owned(), metadata: Some("I/O Rate Limit Exceeded".to_string()) };
+                MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::Contain), &sig);
                 
                 // Clear the events for this PID so we don't spam
                 events.clear();

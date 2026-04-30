@@ -12,6 +12,7 @@ use winapi::um::tlhelp32::{CreateToolhelp32Snapshot, Process32First, Process32Ne
 use winapi::shared::minwindef::{HMODULE, DWORD};
 use std::ptr::null_mut;
 use std::ffi::CStr;
+use crate::active_defense::policy::{Signal, ActionPlan, PolicyGate, MitigationExecutor};
 use crate::active_defense::ActiveDefense;
 use crate::reporter;
 
@@ -113,7 +114,8 @@ impl HookHunter {
                         println!("\x1b[31m   |-> Mem : {:02X} {:02X} {:02X}... (JMP Detected)\x1b[0m", dirty_bytes[0], dirty_bytes[1], dirty_bytes[2]);
                         
                         println!("\x1b[31m[STARGATE] ⚡ EVASION DETECTED. NEUTRALIZING THREAT.\x1b[0m");
-                        ActiveDefense::engage_kill_switch(pid, "API Hooking Detected (Evasion)");
+                        let sig = Signal { source: "HookHunter", pid, reason: 6, file_path: api_name.to_string(), metadata: Some("API Hooking Detected (Evasion)".to_string()) };
+                        MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::Kill), &sig);
                         reporter::log_alert(pid, "Unknown", 0, "ntdll.dll");
                         break; 
                     }

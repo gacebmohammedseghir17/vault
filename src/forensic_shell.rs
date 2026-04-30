@@ -136,17 +136,25 @@ pub fn run(engine: Arc<NeuralEngine>) {
     println!("(+) Live Intelligence Layer: \x1b[32mACTIVE\x1b[0m");
     println!("Status: Ready. Type 'scan <file>' or 'help'.");
 
+    let mut rl = match Editor::<()>::new() {
+        Ok(editor) => editor,
+        Err(e) => {
+            println!("[!] Failed to initialize shell: {}", e);
+            return;
+        }
+    };
     loop {
-        print!("ERDPS > ");
-        std::io::stdout().flush().unwrap();
-        
-        let mut line = String::new();
-        match std::io::stdin().read_line(&mut line) {
-            Ok(0) => {
+        match rl.readline("ERDPS > ") {
+            Err(rustyline::error::ReadlineError::Eof) => {
                 println!("CTRL-D");
                 break;
             },
-            Ok(_) => {
+            Err(rustyline::error::ReadlineError::Interrupted) => {
+                println!("CTRL-C");
+                continue;
+            },
+            Ok(line) => {
+                let _ = rl.add_history_entry(line.as_str());
                 let sanitized_input = line.replace('\t', "");
                 let input = sanitized_input.trim();
                 if input.is_empty() { continue; }

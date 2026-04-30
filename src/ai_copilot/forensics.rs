@@ -1,6 +1,7 @@
 use std::fs;
 use std::path::Path;
 use crate::ai_copilot::client::AiCopilot;
+use crate::active_defense::policy::{Signal, ActionPlan, PolicyGate, MitigationExecutor};
 use goblin::pe::PE;
 use iced_x86::{Decoder, DecoderOptions, Formatter, IntelFormatter, Instruction};
 
@@ -157,7 +158,8 @@ pub fn perform_ai_forensics(file_path: &str) {
                                 let exe_path_str = process.exe().map(|p| p.to_string_lossy().to_string()).unwrap_or_default();
                                 if process.name().to_lowercase() == file_name.to_lowercase() || 
                                    exe_path_str.to_lowercase() == file_path.to_lowercase() {
-                                    crate::active_defense::ActiveDefense::engage_storyline_kill(pid.as_u32(), "Agentic AI Autonomous Kill Command");
+                                    let sig = Signal { source: "AiForensics", pid: pid.as_u32(), reason: 6, file_path: exe_path_str.clone(), metadata: Some("Agentic AI Autonomous Kill Command".to_string()) };
+                                    MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
                                     
                                     // SIEM Forwarder
                                     crate::siem::siem_forwarder::push_alert(

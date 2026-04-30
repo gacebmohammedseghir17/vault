@@ -10,6 +10,7 @@ use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use tokio::sync::mpsc::{Receiver, Sender};
 use crate::ai::{ollama_client::OllamaClient, AIConfig, AnalysisRequest, AnalysisType, AnalysisInput, Severity};
 use tokio::task::JoinHandle;
+use crate::active_defense::policy::{Signal, ActionPlan, PolicyGate, MitigationExecutor};
 
 /// File system event types
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -566,7 +567,8 @@ impl Detector {
             
             if let Some(pid) = event.pid {
                 println!("\x1b[31;1m[CRITICAL] Mass Extension Mutation by PID {}. Executing Storyline Kill!\x1b[0m", pid);
-                crate::active_defense::ActiveDefense::engage_storyline_kill(pid, "Mass Extension Mutation");
+                let sig = Signal { source: "Detector", pid, reason: 3, file_path: "".to_string(), metadata: Some("Mass Extension Mutation".to_string()) };
+                MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
             }
 
             let related_files: Vec<PathBuf> =

@@ -2,6 +2,7 @@ pub mod process_freeze;
 pub mod honeypots;
 pub mod honeypot;
 pub mod rollback;
+pub mod policy;
 
 use std::process::Command;
 use crate::active_defense::process_freeze::ProcessFreezer;
@@ -18,6 +19,10 @@ use windows::Win32::Security::{AdjustTokenPrivileges, LookupPrivilegeValueW, TOK
 use windows::core::PCWSTR;
 
 pub fn harden_agent_process() {
+    if std::env::var("ERDPS_IMMORTALITY").unwrap_or_else(|_| "0".to_string()) != "1" {
+        return;
+    }
+    
     println!("\x1b[35m[IMMORTALITY] 🛡️ HARDENING EDR PROCESS (Setting Critical Status)...\x1b[0m");
 
     unsafe {

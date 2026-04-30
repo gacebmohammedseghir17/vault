@@ -224,7 +224,8 @@ unsafe extern "system" fn event_callback(event: *mut EVENT_RECORD) {
                 if crate::ai_copilot::sentinel_brain::evaluate_process_behavior(&process_name, &cmd_line) {
                     println!("[AI COPILOT] Verdict: BLOCK. Engaging Kill Switch.");
                     // Terminate the process
-                    crate::active_defense::ActiveDefense::engage_storyline_kill(pid, "VSS COM Bypass Detected (ETW)");
+                    let sig = crate::active_defense::policy::Signal { source: "EtwTi", pid, reason: 6, file_path: "".to_string(), metadata: Some("VSS COM Bypass Detected (ETW)".to_string()) };
+                    crate::active_defense::policy::MitigationExecutor::execute(crate::active_defense::policy::PolicyGate::decide(&sig, crate::active_defense::policy::ActionPlan::StorylineKill), &sig);
                 } else {
                     println!("[AI COPILOT] Verdict: ALLOW (Legitimate activity). Bypassing kill switch.");
                 }
@@ -246,6 +247,7 @@ pub fn analyze_syscall_origin(pid: u32, call_stack_addresses: Vec<u64>) {
 
     if is_evasion {
         println!("\x1b[31;1m[CRITICAL] DIRECT SYSCALL EVASION DETECTED: Unbacked memory allocation originating outside NTDLL.\x1b[0m");
-        crate::active_defense::ActiveDefense::engage_storyline_kill(pid, "Direct Syscall Evasion (Hell's Gate/Halo's Gate)");
+        let sig = crate::active_defense::policy::Signal { source: "EtwTi", pid, reason: 6, file_path: "".to_string(), metadata: Some("Direct Syscall Evasion (Hell's Gate/Halo's Gate)".to_string()) };
+        crate::active_defense::policy::MitigationExecutor::execute(crate::active_defense::policy::PolicyGate::decide(&sig, crate::active_defense::policy::ActionPlan::StorylineKill), &sig);
     }
 }

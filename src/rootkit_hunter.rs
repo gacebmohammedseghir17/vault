@@ -5,6 +5,7 @@ use std::mem::size_of;
 use winapi::shared::minwindef::ULONG;
 use winapi::shared::ntdef::PVOID;
 use winapi::shared::ntstatus::STATUS_INFO_LENGTH_MISMATCH;
+use crate::active_defense::policy::{Signal, ActionPlan, PolicyGate, MitigationExecutor};
 
 pub struct RootkitHunter;
 
@@ -37,7 +38,8 @@ impl RootkitHunter {
             for pid in hidden_pids {
                 println!("\x1b[31m   |-> 💀 HIDDEN PID: {} (Unlinked from ActiveProcessLinks)\x1b[0m", pid);
                 // AUTO-KILL (Active Defense)
-                crate::active_defense::ActiveDefense::engage_kill_switch(pid, "Hidden Rootkit Process Detected (Evasion)");
+                let sig = Signal { source: "RootkitHunter", pid, reason: 6, file_path: "".to_string(), metadata: Some("Hidden Rootkit Process Detected (Evasion)".to_string()) };
+                MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::Kill), &sig);
             }
         }
     }
