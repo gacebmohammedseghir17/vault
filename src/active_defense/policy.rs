@@ -1,8 +1,36 @@
 use std::sync::atomic::Ordering;
-use crate::SENTINEL_UI_ACTIVE;
-use crate::CURRENT_PROFILE;
-use crate::Profile;
 use crate::active_defense::ActiveDefense;
+
+// Helper to get process name without depending on binary crate
+fn get_process_name(pid: u32) -> String {
+    let mut sys = sysinfo::System::new();
+    sys.refresh_processes();
+    if let Some(process) = sys.process(sysinfo::Pid::from_u32(pid)) {
+        process.name().to_string()
+    } else {
+        String::from("Unknown")
+    }
+}
+
+fn get_process_path(pid: u32) -> String {
+    let mut sys = sysinfo::System::new();
+    sys.refresh_processes();
+    if let Some(process) = sys.process(sysinfo::Pid::from_u32(pid)) {
+        process.exe().map(|p| p.to_string_lossy().to_string()).unwrap_or_default()
+    } else {
+        String::from("Unknown")
+    }
+}
+
+fn get_parent_pid(pid: u32) -> Option<u32> {
+    let mut sys = sysinfo::System::new();
+    sys.refresh_processes();
+    if let Some(process) = sys.process(sysinfo::Pid::from_u32(pid)) {
+        process.parent().map(|p| p.as_u32())
+    } else {
+        None
+    }
+}
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum ActionPlan {
@@ -26,26 +54,29 @@ pub struct PolicyGate;
 impl PolicyGate {
     pub fn decide(signal: &Signal, requested_action: ActionPlan) -> ActionPlan {
         // 1. Mode Restrictions
-        if !SENTINEL_UI_ACTIVE.load(Ordering::SeqCst) {
+        let sentinel_active = std::env::var("SENTINEL_UI_ACTIVE").unwrap_or_else(|_| "false".to_string()) == "true";
+        if !sentinel_active {
             return ActionPlan::LogOnly;
         }
 
         // 2. Profile Restrictions
-        let profile = crate::CURRENT_PROFILE.lock().unwrap().clone();
-        if profile == Profile::Production {
+        let profile = std::env::var("ERDPS_PROFILE").unwrap_or_else(|_| "Production".to_string());
+        if profile == "Production" {
             if signal.source == "IoHunter" || signal.source == "HookHunter" || signal.source == "GhostHunter" {
                 return ActionPlan::LogOnly;
             }
         }
 
         // 3. Protected Process List
-        let process_name = crate::kernel_bridge::get_process_name(signal.pid).to_lowercase();
-        let protected = [
-            "explorer.exe", "svchost.exe", "services.exe", "wininit.exe", 
-            "smss.exe", "csrss.exe", "lsass.exe", "winlogon.exe", "cmd.exe", "powershell.exe", "system"
+        let process_name = get_process_name(signal.pid).to_lowercase();
+        let never_kill = [
+            "system", "csrss.exe", "smss.exe", "wininit.exe", "lsass.exe", "winlogon.exe"
+        ];
+        let boundary_only = [
+            "explorer.exe", "services.exe", "svchost.exe", "cmd.exe", "powershell.exe"
         ];
         
-        if protected.contains(&process_name.as_str()) {
+        if never_kill.contains(&process_name.as_str()) {
             return ActionPlan::LogOnly;
         }
 
@@ -56,9 +87,9 @@ impl PolicyGate {
 
         // 4. Parent Boundary List (Stop storyline escalation)
         if requested_action == ActionPlan::StorylineKill {
-            if let Some(ppid) = crate::kernel_bridge::get_parent_pid(signal.pid) {
-                let parent_name = crate::kernel_bridge::get_process_name(ppid).to_lowercase();
-                if protected.contains(&parent_name.as_str()) {
+            if let Some(ppid) = get_parent_pid(signal.pid) {
+                let parent_name = get_process_name(ppid).to_lowercase();
+                if never_kill.contains(&parent_name.as_str()) || boundary_only.contains(&parent_name.as_str()) {
                     return ActionPlan::Kill; // Downgrade to single kill
                 }
             }
@@ -86,7 +117,7 @@ impl MitigationExecutor {
             }
             ActionPlan::Contain => {
                 ActiveDefense::engage_suspend(signal.pid);
-                let process_path = crate::kernel_bridge::get_process_path(signal.pid);
+                let process_path = get_process_path(signal.pid);
                 ActiveDefense::engage_network_isolation(signal.pid, &process_path);
             }
         }

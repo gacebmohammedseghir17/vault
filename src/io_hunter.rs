@@ -39,12 +39,16 @@ impl IoHunter {
                 }
             };
 
-            // Watch C:\Users, C:\ and Temp to catch all drops
-            let watch_paths = vec![
+            // Watch C:\Users, Temp, and optionally C:\ to catch all drops
+            let profile = crate::CURRENT_PROFILE.lock().unwrap().clone();
+            let mut watch_paths = vec![
                 PathBuf::from("C:\\Users"),
-                PathBuf::from("C:\\"),
                 std::env::temp_dir(),
             ];
+            
+            if profile != crate::Profile::Production {
+                watch_paths.push(PathBuf::from("C:\\"));
+            }
 
             for watch_path in watch_paths {
                 if let Err(e) = watcher.watch(&watch_path, RecursiveMode::Recursive) {

@@ -144,6 +144,11 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                             sanity_log_count += 1;
                         }
 
+                        let sentinel_active = crate::SENTINEL_UI_ACTIVE.load(Ordering::SeqCst);
+                        if !sentinel_active {
+                            continue;
+                        }
+
                         if killed_pids.contains(&pid) { continue; }
                         let process_name = get_process_name(pid);
 
@@ -158,12 +163,15 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                         if reason == 3 {
                             println!("\x1b[41;37m[CRITICAL] ☠️  BLOCKED RANSOMWARE ATTEMPT (RENAME/DELETE) -> PID: {}\x1b[0m", pid);
                             let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("Ransomware Extension Rename/Delete Blocked by Kernel (Alert 3)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                            MitigationExecutor::execute(decided.clone(), &sig);
                             if crate::SENTINEL_UI_ACTIVE.load(Ordering::SeqCst) {
                                 ActiveDefense::create_snapshot();
                             }
                             reporter::log_alert(pid, &process_name, reason, &target_file);
-                            killed_pids.insert(pid);
+                            if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                                killed_pids.insert(pid);
+                            }
                             continue;
                         }
 
@@ -173,9 +181,12 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                         if ["WCRY", "lockbit", "darkside", "revil", "locked", "encrypt"].contains(&ext) {
                             s_println!("\x1b[41;37m[CRITICAL] KERNEL INTERCEPT: Ransomware Extension Mutation Detected (.ext)\x1b[0m");
                             let sig = Signal { source: "KernelBridge", pid, reason: 3, file_path: target_file.clone(), metadata: Some(format!("Kernel-Mode Extension Mutation (.{})", ext)) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                            MitigationExecutor::execute(decided.clone(), &sig);
                             reporter::log_alert(pid, &process_name, 3, &target_file);
-                            killed_pids.insert(pid);
+                            if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                                killed_pids.insert(pid);
+                            }
                             continue;
                         }
                     }
@@ -199,9 +210,12 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
 
                         s_println!("\x1b[41;37m[CANARY] 💥 KERNEL INTERCEPT: Decoy file modified by PID {}. Instant Kill Engaged!\x1b[0m", pid);
                         let sig = Signal { source: "KernelBridge", pid, reason: 1, file_path: target_file.clone(), metadata: Some("Zero-Footprint Ransomware Honeypot Triggered".to_string()) };
-                        MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                        let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                        MitigationExecutor::execute(decided.clone(), &sig);
                         reporter::log_alert(pid, &process_name, 1, &target_file); // Log as critical
-                        killed_pids.insert(pid);
+                        if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                            killed_pids.insert(pid);
+                        }
                         continue;
                     }
 
@@ -348,10 +362,13 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                     }
 
                     if kill_it {
-                        killed_pids.insert(pid);
                         s_println!("\x1b[31m[KILL] Neutralized Threat: {} (Label: {})\x1b[0m", process_name, threat_label);
                         let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some(threat_label.to_string()) };
-                        MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                        let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                        MitigationExecutor::execute(decided.clone(), &sig);
+                        if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                            killed_pids.insert(pid);
+                        }
                         reporter::log_alert(pid, &process_name, reason, &target_file);
                     }
                 } else {

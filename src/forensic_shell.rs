@@ -136,7 +136,7 @@ pub fn run(engine: Arc<NeuralEngine>) {
     println!("(+) Live Intelligence Layer: \x1b[32mACTIVE\x1b[0m");
     println!("Status: Ready. Type 'scan <file>' or 'help'.");
 
-    let mut rl = match Editor::<()>::new() {
+    let mut rl = match Editor::<(), rustyline::history::DefaultHistory>::new() {
         Ok(editor) => editor,
         Err(e) => {
             println!("[!] Failed to initialize shell: {}", e);

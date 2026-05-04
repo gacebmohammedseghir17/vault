@@ -107,13 +107,6 @@ fn main() {
     crate::active_defense::harden_agent_process();
 
     // Auto-Recovery on Boot: Clear any orphaned active defense firewall rules to prevent self-bricking
-    std::process::Command::new("cmd.exe")
-        .args(["/c", "netsh advfirewall firewall delete rule name=all dir=out"])
-        .stdout(std::process::Stdio::null())
-        .stderr(std::process::Stdio::null())
-        .spawn()
-        .ok();
-    
     // Also clean up any lingering isolation specific rules explicitly just in case
     std::process::Command::new("cmd.exe")
         .args(["/c", "netsh advfirewall firewall delete rule name=\"ERDPS_ISOLATION\""])
