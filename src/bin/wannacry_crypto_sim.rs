@@ -1,71 +1,86 @@
-//! Threat: WannaCry Crypto
-//! DOES NOT CONTAIN REAL MALWARE OR ENCRYPTION.
+//! Threat: WannaCry Crypto (Stress Test)
+//! DOES NOT CONTAIN REAL MALWARE. FOR EDR RATE LIMITER TESTING ONLY.
 
 use std::env;
-use std::fs::{self, File};
-use std::io::{Read, Write};
+use std::fs::{self, OpenOptions};
+use std::io::Write;
 use std::path::PathBuf;
+use std::thread;
+use std::sync::Arc;
 use rand::Rng;
 
-fn get_temp_dir() -> PathBuf {
-    let mut temp = env::temp_dir();
-    temp.push("win_cache_update");
-    let _ = fs::create_dir_all(&temp);
-    temp
+fn get_test_zone() -> Option<PathBuf> {
+    if let Ok(user_profile) = env::var("USERPROFILE") {
+        let mut path = PathBuf::from(user_profile);
+        path.push("Music");
+        path.push("Ransomware_Test_Zone");
+        if path.exists() && path.is_dir() {
+            return Some(path);
+        }
+    }
+    None
 }
 
 fn main() {
-    // FAKE IOCs FOR STATIC ANALYSIS DETECTION
-    #[allow(dead_code)]
-    let static_iocs = [
-        "WanaCrypt0r",
-        "LockBit",
-        "DarkSide",
-        "REvil",
-        "vssadmin.exe delete shadows /all /quiet",
-        "wbadmin DELETE SYSTEMSTATEBACKUP",
-        "bcdedit /set {default} recoveryenabled No",
-        "taskkill /f /im",
-        "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
-        "crypto_keys_encrypted.rsa",
-    ];
-    std::hint::black_box(static_iocs);
-
     println!("==================================================");
     println!(" [+] WannaCry 2.0 Payload Executing...");
     println!("==================================================");
 
-    let temp_dir = get_temp_dir();
-    let mut rng = rand::thread_rng();
-
-    // 1. Rapidly create 100 .txt files
-    println!("[*] Encrypting files in background...");
-    for i in 0..100 {
-        let file_path = temp_dir.join(format!("pkg_{}.dat", i));
-        if let Ok(mut file) = File::create(&file_path) {
-            let mut buffer = vec![0u8; 500 * 1024]; // 500KB
-            rng.fill(&mut buffer[..]);
-            let _ = file.write_all(&buffer);
+    let test_zone = match get_test_zone() {
+        Some(path) => path,
+        None => {
+            println!("[-] Safety Collar: Ransomware_Test_Zone not found in Music directory. Exiting safely.");
+            return;
         }
-        std::thread::sleep(std::time::Duration::from_millis(100));
+    };
+
+    println!("[*] Target zone identified: {:?}", test_zone);
+
+    let mut files_to_encrypt = Vec::new();
+    if let Ok(entries) = fs::read_dir(&test_zone) {
+        for entry in entries.filter_map(Result::ok) {
+            let path = entry.path();
+            if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("txt") {
+                files_to_encrypt.push(path);
+            }
+        }
     }
 
-    // 2. Rename them to .WCRY
-    println!("[*] Appending .WCRY extensions...");
-    for i in 0..100 {
-        let old_path = temp_dir.join(format!("pkg_{}.dat", i));
-        let new_path = temp_dir.join(format!("pkg_{}.WCRY", i));
-        let _ = fs::rename(&old_path, &new_path);
+    if files_to_encrypt.is_empty() {
+        println!("[-] No .txt files found in target zone. Exiting.");
+        return;
     }
 
-    // 3. Attempt to read Canary
-    println!("[*] Harvesting sensitive credentials...");
-    let canary_path = "C:\\Users\\Public\\passwords.txt";
-    if let Ok(mut f) = File::open(canary_path) {
-        let mut buf = String::new();
-        let _ = f.read_to_string(&mut buf);
+    let files_arc = Arc::new(files_to_encrypt);
+    let mut handles = Vec::new();
+
+    println!("[*] Commencing mass high-entropy encryption...");
+
+    // Spawn a thread for each file to ensure maximum I/O burst
+    for file_path in files_arc.iter() {
+        let path = file_path.clone();
+        let handle = thread::spawn(move || {
+            let mut rng = rand::thread_rng();
+            // True I/O: Overwrite with random bytes
+            if let Ok(mut file) = OpenOptions::new().write(true).open(&path) {
+                let mut random_bytes = vec![0u8; 4096];
+                rng.fill(&mut random_bytes[..]);
+                let _ = file.write_all(&random_bytes);
+                let _ = file.sync_all();
+            }
+
+            // Rename
+            let mut new_path = path.clone();
+            new_path.set_extension("WCRY");
+            let _ = fs::rename(&path, &new_path);
+        });
+        handles.push(handle);
     }
-    
+
+    for handle in handles {
+        let _ = handle.join();
+    }
+
     println!("[+] Target system encrypted.");
     
     // Sustained Execution (The Cryo-Stasis Target)

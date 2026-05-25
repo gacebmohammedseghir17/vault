@@ -25,6 +25,9 @@ mod forensic_shell; // Import the new shell module
 mod ml_ngram; // ML N-Gram Engine
 mod model_hashes;
 mod supply_chain;
+mod threat_graph;
+mod micro_rollback;
+mod deception_manager;
 mod graph_engine;
 mod shadow_ai;
 // mod pipeline; // Multi-Layer Forensic Pipeline (Moved to Lib)
@@ -62,6 +65,92 @@ pub static CURRENT_PROFILE: Lazy<Mutex<Profile>> = Lazy::new(|| {
 use std::time::Duration;
 use erdps_agent::network::etw_hunter::EtwNetworkHunter;
 use erdps_agent::ghost_hunter;
+use windows::Win32::System::Threading::{GetCurrentProcess, PROCESS_TERMINATE};
+use windows::Win32::Security::{
+    DACL_SECURITY_INFORMATION, PSECURITY_DESCRIPTOR,
+};
+use windows::Win32::Security::Authorization::{
+    GetSecurityInfo, SetSecurityInfo, SE_KERNEL_OBJECT, EXPLICIT_ACCESS_W,
+    DENY_ACCESS, TRUSTEE_IS_SID, TRUSTEE_IS_WELL_KNOWN_GROUP,
+    ConvertStringSidToSidW, SetEntriesInAclW, TRUSTEE_W, SE_OBJECT_TYPE
+ };
+use windows::Win32::Foundation::{PSID, LocalFree, HLOCAL};
+use windows::core::{PCWSTR, PWSTR};
+
+fn apply_user_mode_shield() {
+    unsafe {
+        let process_handle = GetCurrentProcess();
+
+        let mut p_old_dacl = std::ptr::null_mut();
+        let mut p_sec_desc = PSECURITY_DESCRIPTOR(std::ptr::null_mut());
+
+        // 1. Get the current DACL
+        let status = GetSecurityInfo(
+            process_handle,
+            SE_KERNEL_OBJECT,
+            DACL_SECURITY_INFORMATION,
+            Some(std::ptr::null_mut()),
+            Some(std::ptr::null_mut()),
+            Some(&mut p_old_dacl),
+            Some(std::ptr::null_mut()),
+            Some(&mut p_sec_desc),
+        );
+
+        if status.is_err() {
+            println!("\x1b[31m[!] Shield Error: Failed to GetSecurityInfo.\x1b[0m");
+            return;
+        }
+
+        // 2. Convert "Everyone" SID string (S-1-1-0) to PSID
+        let mut p_everyone_sid: PSID = PSID(std::ptr::null_mut());
+        let sid_string: Vec<u16> = "S-1-1-0\0".encode_utf16().collect();
+        if ConvertStringSidToSidW(PCWSTR(sid_string.as_ptr()), &mut p_everyone_sid).is_err() {
+            println!("\x1b[31m[!] Shield Error: Failed to ConvertStringSidToSidW.\x1b[0m");
+            return;
+        }
+
+        // 3. Create the EXPLICIT_ACCESS_W struct for DENY_ACCESS
+        let mut ea = std::mem::zeroed::<EXPLICIT_ACCESS_W>();
+        ea.grfAccessPermissions = PROCESS_TERMINATE.0;
+        ea.grfAccessMode = DENY_ACCESS;
+        // Set to 0 to mimic NO_INHERITANCE (0x0)
+        ea.grfInheritance = windows::Win32::Security::ACE_FLAGS(0);
+        ea.Trustee.TrusteeForm = TRUSTEE_IS_SID;
+        ea.Trustee.TrusteeType = TRUSTEE_IS_WELL_KNOWN_GROUP;
+        ea.Trustee.ptstrName = PWSTR(p_everyone_sid.0 as *mut u16); // In windows 0.52 ptstrName is PWSTR
+
+        // 4. Merge into a new ACL
+        let mut p_new_dacl = std::ptr::null_mut();
+        if SetEntriesInAclW(Some(&[ea]), Some(p_old_dacl), &mut p_new_dacl).is_err() {
+            println!("\x1b[31m[!] Shield Error: Failed to SetEntriesInAclW.\x1b[0m");
+            let _ = LocalFree(HLOCAL(p_everyone_sid.0));
+            let _ = LocalFree(HLOCAL(p_sec_desc.0));
+            return;
+        }
+
+        // 5. Apply the new DACL
+        let set_status = SetSecurityInfo(
+            process_handle,
+            SE_KERNEL_OBJECT,
+            DACL_SECURITY_INFORMATION,
+            None,
+            None,
+            Some(p_new_dacl),
+            None,
+        );
+
+        if set_status.is_err() {
+            println!("\x1b[31m[!] Shield Error: Failed to SetSecurityInfo.\x1b[0m");
+        } else {
+            println!("\x1b[32;1m[+] SENTINEL SHIELD: User-Mode Self-Defense Applied (PROCESS_TERMINATE Denied for Everyone).\x1b[0m");
+        }
+
+        // Cleanup
+        let _ = LocalFree(HLOCAL(p_everyone_sid.0));
+        let _ = LocalFree(HLOCAL(p_new_dacl as _));
+        let _ = LocalFree(HLOCAL(p_sec_desc.0));
+    }
+}
 
 // --- OPTIMIZATION: High-Performance Allocator ---
 #[global_allocator]
@@ -73,6 +162,9 @@ const MODE_LABEL: &str = "MAXIMUM ENTROPY ANALYSIS";
 use std::process;
 
 fn main() {
+    // Apply User-Mode Self-Defense Shield immediately
+    apply_user_mode_shield();
+
     // 1. Intercept Ctrl+C (Terminal Close) BEFORE anything else runs
     ctrlc::set_handler(move || {
         println!("\n\x1b[33m[!] Shutting down ERDPS EDR...\x1b[0m");
@@ -102,6 +194,10 @@ fn main() {
             .spawn()
             .ok();
     }
+
+    // PHASE 4: Deception Manager (Active Canaries)
+    crate::deception_manager::inject_fake_credentials();
+    crate::deception_manager::start_network_canary();
 
     // Make the EDR process immortal
     crate::active_defense::harden_agent_process();

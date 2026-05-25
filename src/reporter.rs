@@ -58,62 +58,6 @@ pub fn log_alert(pid: u32, process_name: &str, reason_code: u32, target_file: &s
     // Write the log entry in microseconds
     let _ = file.write_all(log_entry.as_bytes());
 
-    // Host Isolation logic
-    if log_obj["level"] == "CRITICAL" {
-        // Micro-Segmentation is now handled at the ActiveDefense level via block_specific_ip
-        // We restore global network isolation but explicitly ALLOW the EDR's own executable outbound access
-        // to prevent self-bricking the AI Telemetry connection.
-        
-        if let Ok(exe_path) = std::env::current_exe() {
-            let exe_path_str = exe_path.display().to_string();
-            
-            // 1. Whitelist the EDR itself
-            std::process::Command::new("netsh")
-                .args(&[
-                    "advfirewall", "firewall", "add", "rule",
-                    "name=ERDPS_AI_Telemetry",
-                    "dir=out",
-                    "action=allow",
-                    &format!("program=\"{}\"", exe_path_str),
-                    "enable=yes"
-                ])
-                .stdout(std::process::Stdio::null())
-                .stderr(std::process::Stdio::null())
-                .spawn()
-                .ok();
-
-            // 2. Block all other outbound traffic (Quarantine)
-            std::process::Command::new("netsh")
-                .args(&[
-                    "advfirewall", "firewall", "add", "rule",
-                    "name=ERDPS_ISOLATION",
-                    "dir=out",
-                    "action=block",
-                    "enable=yes"
-                ])
-                .stdout(std::process::Stdio::null())
-                .stderr(std::process::Stdio::null())
-                .spawn()
-                .ok();
-        }
-
-        // Print a massive red warning to the console ONLY IF SENTINEL_UI_ACTIVE is true
-        if std::env::var("SENTINEL_UI_ACTIVE").unwrap_or_else(|_| "false".to_string()) == "true" {
-            println!("\x1b[31;1m[!!!] THREAT NEUTRALIZED: MICRO-SEGMENTATION APPLIED TO PREVENT LATERAL MOVEMENT [!!!]\x1b[0m");
-            println!("\x1b[32m[ACTIVE DEFENSE] [+] INITIATING AUTOMATED VSS ROLLBACK...\x1b[0m"); 
-            println!("\x1b[32m[ACTIVE DEFENSE] [+] Pristine File System Mounted at: C:\\ERDPS_Rollback\\\x1b[0m"); 
-        }
-
-        std::process::Command::new("powershell.exe") 
-            .args([ 
-                "-ExecutionPolicy", "Bypass", 
-                "-WindowStyle", "Hidden", 
-                "-Command", 
-                "$latest = (Get-WmiObject Win32_ShadowCopy | Sort-Object InstallDate -Descending | Select-Object -First 1).DeviceObject; if ($latest) { cmd.exe /c mklink /d C:\\ERDPS_Rollback \"$latest\\\" }" 
-            ]) 
-            .stdout(std::process::Stdio::null()) 
-            .stderr(std::process::Stdio::null()) 
-            .spawn() 
-            .ok(); 
-    }
+    // Host Isolation logic is MOVED to MitigationExecutor (ActionPlan::Contain)
+    // We no longer trigger firewall rules or VSS rollback directly from the reporter.
 }

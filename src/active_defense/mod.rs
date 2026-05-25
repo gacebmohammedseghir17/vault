@@ -7,13 +7,10 @@ pub mod policy;
 use std::process::Command;
 use crate::active_defense::process_freeze::ProcessFreezer;
 use sysinfo::{System, Pid};
-use winapi::um::processthreadsapi::{OpenProcess, TerminateProcess};
-use winapi::um::handleapi::CloseHandle;
-use winapi::um::winnt::{PROCESS_TERMINATE, PROCESS_QUERY_INFORMATION, PROCESS_VM_READ, GENERIC_WRITE, GENERIC_READ, FILE_SHARE_READ, FILE_ATTRIBUTE_NORMAL};
 use std::fs;
-use windows::Win32::System::Diagnostics::Debug::{MiniDumpWriteDump, MiniDumpWithFullMemory, MiniDumpWithFullMemoryInfo, MINIDUMP_TYPE};
-use windows::Win32::Foundation::HANDLE;
-use winapi::um::fileapi::{CreateFileW, CREATE_ALWAYS};
+use windows::Win32::System::Threading::{OpenProcess, TerminateProcess, PROCESS_TERMINATE, PROCESS_QUERY_INFORMATION, PROCESS_VM_READ};
+use windows::Win32::Foundation::{CloseHandle, GENERIC_READ, GENERIC_WRITE, HANDLE};
+use windows::Win32::Storage::FileSystem::{CreateFileW, FILE_SHARE_READ, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL};
 use windows::Win32::System::Threading::{GetCurrentProcess, OpenProcessToken};
 use windows::Win32::Security::{AdjustTokenPrivileges, LookupPrivilegeValueW, TOKEN_PRIVILEGES, LUID_AND_ATTRIBUTES, SE_PRIVILEGE_ENABLED, TOKEN_ADJUST_PRIVILEGES, TOKEN_QUERY};
 use windows::core::PCWSTR;
@@ -85,66 +82,6 @@ pub fn unharden_agent_process() {
 pub struct ActiveDefense;
 
 impl ActiveDefense {
-    /// Creates a full memory dump of the process
-    pub fn create_memory_dump(pid: u32, process_name: &str) -> bool {
-        let dump_dir = "C:\\ERDPS_Vault\\Dumps";
-        if let Err(_) = fs::create_dir_all(dump_dir) {
-            return false;
-        }
-
-        let dump_path = format!("{}\\{}_{}.dmp", dump_dir, process_name, pid);
-        let wide_path: Vec<u16> = dump_path.encode_utf16().chain(std::iter::once(0)).collect();
-
-        unsafe {
-            let process_handle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, 0, pid);
-            if process_handle.is_null() {
-                return false;
-            }
-
-            let file_handle = CreateFileW(
-                wide_path.as_ptr(),
-                GENERIC_READ | GENERIC_WRITE,
-                FILE_SHARE_READ,
-                std::ptr::null_mut(),
-                CREATE_ALWAYS,
-                FILE_ATTRIBUTE_NORMAL,
-                std::ptr::null_mut()
-            );
-
-            if file_handle == winapi::um::handleapi::INVALID_HANDLE_VALUE {
-                CloseHandle(process_handle);
-                return false;
-            }
-
-            // Convert raw handles to windows crate HANDLEs
-            let win_process_handle = HANDLE(process_handle as isize);
-            let win_file_handle = HANDLE(file_handle as isize);
-
-            let dump_flags = MINIDUMP_TYPE(MiniDumpWithFullMemory.0 | MiniDumpWithFullMemoryInfo.0);
-
-            let result = MiniDumpWriteDump(
-                win_process_handle,
-                pid,
-                win_file_handle,
-                dump_flags,
-                None,
-                None,
-                None,
-            );
-
-            CloseHandle(process_handle);
-            CloseHandle(file_handle);
-
-            if result.is_ok() {
-                if std::env::var("SENTINEL_UI_ACTIVE").unwrap_or_else(|_| "false".to_string()) == "true" {
-                    println!("\x1b[32m[+] Memory Dump Preserved: {}\x1b[0m", dump_path);
-                }
-                return true;
-            }
-        }
-        false
-    }
-
     /// Kills the malicious process immediately
     pub fn engage_kill_switch(pid: u32, reason: &str) {
         println!("\x1b[31m[ACTIVE DEFENSE] ⚡ ENGAGING KILL SWITCH for PID: {}\x1b[0m", pid);
@@ -171,41 +108,30 @@ impl ActiveDefense {
             }
         }
 
-        // CRITICAL: Freeze -> Dump -> Kill pipeline
-        // 1. FREEZE FIRST (Stops encryption instantly)
-        println!("\x1b[33m[ACTIVE DEFENSE] ❄️ FREEZING PROCESS PID: {} for Memory Dump\x1b[0m", pid);
-        
-        // ADD THIS CHECK: If the freeze fails (because the process is already dead like conhost), just return silently!
-        if !ProcessFreezer::freeze(pid) {
-            println!("\x1b[90m[*] Process {} already terminated or inaccessible. Skipping.\x1b[0m", pid);
-            return;
-        }
-
-        // 2. DUMP SECOND (Takes 1-2 seconds, but process is frozen)
-        Self::create_memory_dump(pid, &process_name_for_dump);
-
-        // 3. KILL THIRD
         unsafe {
-            let handle = OpenProcess(PROCESS_TERMINATE, 0, pid);
-            if !handle.is_null() {
-                let result = TerminateProcess(handle, 1);
-                CloseHandle(handle);
-                if result != 0 {
-                    println!("\x1b[32m[+] THREAT NEUTRALIZED (PID: {}). Process Terminated.\x1b[0m", pid);
-                    
-                    // Generate the standalone HTML incident report
-                    let dump_path = format!("C:\\ERDPS_Vault\\Dumps\\{}_{}.dmp", process_name_for_dump, pid);
-                    crate::forensic::incident_report::IncidentReport::generate(
-                        pid,
-                        &process_name_for_dump,
-                        reason,
-                        &dump_path
-                    );
-                    
-                    return;
+            match OpenProcess(PROCESS_TERMINATE, false, pid) {
+                Ok(handle) => {
+                    let result = TerminateProcess(handle, 1);
+                    let _ = CloseHandle(handle);
+                    if result.is_ok() {
+                        println!("\x1b[32m[+] THREAT NEUTRALIZED (PID: {}). Process Terminated.\x1b[0m", pid);
+                        
+                        // Generate the standalone HTML incident report (without dump)
+                        crate::forensic::incident_report::IncidentReport::generate(
+                            pid,
+                            &process_name_for_dump,
+                            reason,
+                            "N/A"
+                        );
+                        
+                        return;
+                    }
+                    println!("\x1b[31m[!] FAILED to kill process: {} via TerminateProcess.\x1b[0m", pid);
+                }
+                Err(_) => {
+                    println!("\x1b[31m[!] FAILED to OpenProcess: {}.\x1b[0m", pid);
                 }
             }
-            println!("\x1b[31m[!] FAILED to kill process: {} via TerminateProcess.\x1b[0m", pid);
         }
     }
 

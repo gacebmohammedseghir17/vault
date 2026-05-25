@@ -116,11 +116,11 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
 
         loop {
             unsafe {
-                let port_name: Vec<u16> = "\\ERDPSPort".encode_utf16().chain(Some(0)).collect();
+                let port_name: Vec<u16> = "\\ERDPS_SentinelPort".encode_utf16().chain(Some(0)).collect();
                 let result = FilterConnectCommunicationPort(windows::core::PCWSTR(port_name.as_ptr()), 0, None, 0, None);
 
                 if result.is_err() {
-                    println!("\x1b[33m[KERNEL] Driver not found. Retrying connection in 2 seconds...\x1b[0m");
+                    // println!("\x1b[33m[KERNEL] Driver not found. Retrying connection in 2 seconds...\x1b[0m");
                     crate::KERNEL_CONNECTED.store(false, Ordering::SeqCst);
                     thread::sleep(Duration::from_secs(2));
                     continue;
@@ -138,6 +138,20 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                         let reason = message.alert.reason;
                         let target_file = String::from_utf16_lossy(&message.alert.file_path).trim_matches(char::from(0)).to_string();
 
+                        // KERNEL GUILLOTINE EXECUTION
+                        if reason == 1 || reason == 2 || reason == 3 {
+                            if reason == 3 {
+                                println!("\x1b[41;37m[CRITICAL] KERNEL RATE LIMITER TRIGGERED -> MASS ENCRYPTION HALTED ON PID {}\x1b[0m", pid);
+                            } else if reason == 2 {
+                                println!("\x1b[41;37m[CRITICAL] KERNEL GUILLOTINE: BLOCKED EXTENSION RENAME -> TERMINATED PID {}\x1b[0m", pid);
+                            } else {
+                                println!("\x1b[41;37m[CRITICAL] KERNEL GUILLOTINE: BLOCKED EXTENSION WRITE -> TERMINATED PID {}\x1b[0m", pid);
+                            }
+                            crate::micro_rollback::trigger_micro_rollback(pid);
+                            killed_pids.insert(pid);
+                            continue; // Skip the rest of the loop since it's already killed by Kernel
+                        }
+
                         // 1-TIME KERNEL SANITY LOG (Print unconditionally for the first 5 events)
                         if sanity_log_count < 5 {
                             println!("\x1b[36m[KERNEL SANITY] Received event: PID={} Reason={} File={}\x1b[0m", pid, reason, target_file);
@@ -153,26 +167,10 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                         let process_name = get_process_name(pid);
 
                         // ROLLBACK: Backup file before modification
-                        if reason == 3 || reason == 10 || reason == 4 {
+                        if reason == 10 || reason == 4 {
                             if crate::SENTINEL_UI_ACTIVE.load(Ordering::SeqCst) {
                                 crate::active_defense::rollback::backup_file_pre_modify(pid, &target_file);
                             }
-                        }
-
-                        // ENFORCE KILL ON KERNEL RENAME REASONS REGARDLESS OF USER-MODE PID GUESSING
-                        if reason == 3 {
-                            println!("\x1b[41;37m[CRITICAL] ☠️  BLOCKED RANSOMWARE ATTEMPT (RENAME/DELETE) -> PID: {}\x1b[0m", pid);
-                            let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("Ransomware Extension Rename/Delete Blocked by Kernel (Alert 3)".to_string()) };
-                            let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
-                            MitigationExecutor::execute(decided.clone(), &sig);
-                            if crate::SENTINEL_UI_ACTIVE.load(Ordering::SeqCst) {
-                                ActiveDefense::create_snapshot();
-                            }
-                            reporter::log_alert(pid, &process_name, reason, &target_file);
-                            if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
-                                killed_pids.insert(pid);
-                            }
-                            continue;
                         }
 
                         // KERNEL-MODE EXTENSION MUTATION DETECTOR (For WannaCry / DarkSide)
@@ -245,51 +243,71 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                             s_println!("\x1b[33m[WARNING] ⚠️  SUSPICIOUS FILE ACCESS: {} (PID: {})\x1b[0m", process_name, pid);
                         }
                         4 => {
-                            s_println!("\x1b[41;37m[CRITICAL] ☠️  DELTA ENTROPY TRIGGERED (ENCRYPTION LOOP) -> PID: {}\x1b[0m", pid);
-                            let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("Delta Entropy Triggered (Encryption Loop) by Kernel (Alert 4)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            s_println!("\x1b[41;37m[CRITICAL] ⚠️  DELTA ENTROPY TRIGGERED (ENCRYPTION LOOP) -> PID: {} ({})\x1b[0m", pid, process_name);
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         5 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  DETECTED RAW DISK / MBR WRITE (PID: {})\x1b[0m", pid);
                             let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("Raw Disk/MBR Write Detected by Kernel (Alert 5)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                            MitigationExecutor::execute(decided.clone(), &sig);
+                            if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                                killed_pids.insert(pid);
+                            }
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         6 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  ZERO-TRUST EXECUTION BLOCKED (PID: {})\x1b[0m", pid);
                             let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("Zero-Trust Execution Blocked by Kernel (Alert 6)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                            MitigationExecutor::execute(decided.clone(), &sig);
+                            if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                                killed_pids.insert(pid);
+                            }
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         7 => {
                             s_println!("\x1b[41;37m[CRITICAL] ☠️  VULNERABLE BYOVD DRIVER LOAD BLOCKED (PID: {})\x1b[0m", pid);
                             let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("Vulnerable BYOVD Driver Load Blocked by Kernel (Alert 7)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                            MitigationExecutor::execute(decided.clone(), &sig);
+                            if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                                killed_pids.insert(pid);
+                            }
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         8 => {
                             s_println!("\x1b[41;37m[CRITICAL] KERNEL BLOCKED CANARY TAMPERING -> PID: {}\x1b[0m", pid);
                             let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("Canary Tampering Blocked by Kernel (Alert 8)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                            MitigationExecutor::execute(decided.clone(), &sig);
+                            if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                                killed_pids.insert(pid);
+                            }
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         10 => {
-                            s_println!("\x1b[41;37m[CRITICAL] ☠️  KERNEL BLOCKED HIGH-ENTROPY WRITE (ENCRYPTED PAYLOAD) -> PID: {}\x1b[0m", pid);
-                            let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("High Entropy Write Blocked by Kernel (Alert 10)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            s_println!("\x1b[41;37m[CRITICAL] ⚠️  KERNEL BLOCKED HIGH-ENTROPY WRITE (ENCRYPTED PAYLOAD) -> PID: {}\x1b[0m", pid);
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         11 => {
                             s_println!("\x1b[41;37m[KERNEL] 🛑 CRITICAL: SAFE MODE REGISTRY TAMPERING DETECTED! (Conti/Snatch Behavior). Engage Kill Switch. -> PID: {}\x1b[0m", pid);
                             let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("Safe Mode Registry Tampering Blocked by Kernel (Alert 11)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                            MitigationExecutor::execute(decided.clone(), &sig);
+                            if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                                killed_pids.insert(pid);
+                            }
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         12 => {
                             s_println!("\x1b[41;37m[KERNEL] 🛑 CRITICAL: VULNERABLE DRIVER LOAD BLOCKED! (BYOVD / BlackCat Behavior). Engage Kill Switch. -> PID: {}\x1b[0m", pid);
                             let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("BYOVD Vulnerable Driver Load Blocked by Kernel (Alert 12)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            let decided = PolicyGate::decide(&sig, ActionPlan::StorylineKill);
+                            MitigationExecutor::execute(decided.clone(), &sig);
+                            if matches!(decided, ActionPlan::Kill | ActionPlan::StorylineKill) {
+                                killed_pids.insert(pid);
+                            }
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         13 => {
@@ -297,9 +315,7 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         14 => {
-                            s_println!("\x1b[41;37m[KERNEL] 🛑 CRITICAL: INTERMITTENT ENCRYPTION PATTERN BLOCKED! (LockBit 3.0 Behavior). Engage Kill Switch. -> PID: {}\x1b[0m", pid);
-                            let sig = Signal { source: "KernelBridge", pid, reason, file_path: target_file.clone(), metadata: Some("Intermittent Encryption Pattern Blocked by Kernel (Alert 14)".to_string()) };
-                            MitigationExecutor::execute(PolicyGate::decide(&sig, ActionPlan::StorylineKill), &sig);
+                            s_println!("\x1b[41;37m[KERNEL] ⚠️  INTERMITTENT ENCRYPTION PATTERN BLOCKED! (LockBit 3.0 Behavior). Delegating to AI... -> PID: {}\x1b[0m", pid);
                             reporter::log_alert(pid, &process_name, reason, &target_file);
                         }
                         _ => {
@@ -371,10 +387,12 @@ pub fn start_kernel_listener(ai_engine: Arc<NeuralEngine>) {
                         }
                         reporter::log_alert(pid, &process_name, reason, &target_file);
                     }
-                } else {
-                    // THIS PREVENTS THE CRASH
-                    println!("\x1b[31m[!] KERNEL PORT DISCONNECTED. Retrying...\x1b[0m");
+                } else if let Err(e) = result {
+                    let err_code = e.code().0 & 0xFFFF;
+                    println!("\x1b[31m[!] KERNEL PORT ERROR (Code: {:X}). Disconnected. Initiating Auto-Reconnect...\x1b[0m", err_code);
                     crate::KERNEL_CONNECTED.store(false, Ordering::SeqCst);
+                    let _ = windows::Win32::Foundation::CloseHandle(port_handle);
+                    thread::sleep(Duration::from_secs(2));
                     break; 
                 }
             } // End inner loop

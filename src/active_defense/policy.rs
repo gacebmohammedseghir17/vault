@@ -70,10 +70,11 @@ impl PolicyGate {
         // 3. Protected Process List
         let process_name = get_process_name(signal.pid).to_lowercase();
         let never_kill = [
-            "system", "csrss.exe", "smss.exe", "wininit.exe", "lsass.exe", "winlogon.exe"
+            "system", "csrss.exe", "smss.exe", "wininit.exe", "lsass.exe", "winlogon.exe",
+            "svchost.exe", "services.exe", "explorer.exe", "erdps-agent.exe", "erdps_agent.exe", "spoolsv.exe"
         ];
         let boundary_only = [
-            "explorer.exe", "services.exe", "svchost.exe", "cmd.exe", "powershell.exe"
+            "cmd.exe", "powershell.exe", "wscript.exe", "cscript.exe"
         ];
         
         if never_kill.contains(&process_name.as_str()) {
